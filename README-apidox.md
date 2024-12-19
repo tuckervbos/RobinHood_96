@@ -47,9 +47,9 @@ Gets current users information
 
 - Error Response
   - Headers:
-    * Content-Type: application/json
-    *status code: 500
-    \*body: {msg: user not found}
+    - Content-Type: application/json
+      \*status code: 500
+      \*body: {msg: user not found}
 
 ### Login a user
 
