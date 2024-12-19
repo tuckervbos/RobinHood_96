@@ -4,16 +4,30 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+    users_data = [
+        {'username': 'Demo', 'firstname': 'Demo', 'lastname': 'Demo', 'email': 'demo@aa.io', 'password': 'password', 'account_balance': 1500.50},
+        {'username': 'marnie', 'firstname': 'mar', 'lastname': 'nie', 'email': 'marnie@aa.io', 'password': 'password', 'account_balance': 1500.50},
+        {'username': 'bobbie', 'firstname': 'bob', 'lastname': 'bie', 'email': 'bobbie@aa.io', 'password': 'password', 'account_balance': 1500.50},
+        {'username': 'xiaoxue', 'firstname': 'rich1', 'lastname': 'man', 'email': 'demo1@aa.io', 'password': 'password', 'account_balance': 50000.00},
+        {'username': 'jack', 'firstname': 'rich2', 'lastname': 'man', 'email': 'demo2@aa.io', 'password': 'password', 'account_balance': 50000.00},
+        {'username': 'tucker', 'firstname': 'rich3', 'lastname': 'man', 'email': 'demo3@aa.io', 'password': 'password', 'account_balance': 50000.00},
+        {'username': 'bee', 'firstname': 'rich4', 'lastname': 'man', 'email': 'demo4@aa.io', 'password': 'password', 'account_balance': 50000.00},
+        {'username': 'grayson', 'firstname': 'rich5', 'lastname': 'man', 'email': 'demo5@aa.io', 'password': 'password', 'account_balance': 50000.00},
+    ]
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    users = []
+    for user_data in users_data:
+        user = User(
+            username=user_data['username'],
+            firstname=user_data['firstname'],
+            lastname=user_data['lastname'],
+            email=user_data['email'],
+            password=user_data['password'], 
+            account_balance=user_data['account_balance']
+        )
+        users.append(user)
+
+    db.session.add_all(users)
     db.session.commit()
 
 
