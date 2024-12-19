@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 
 from flask_login import login_required, current_user
 
-from app.models import Watchlist, db
+from app.models import Watchlist, Stock, db
 
 watchlist_routes = Blueprint('watchlist', __name__)
 
@@ -14,11 +14,9 @@ def create_watchlist():
     """
     data = request.get_json()
     try:
-        watchlist = Watchlist( #! Watchlist does not include number of stocks???
+        watchlist = Watchlist( 
             user_id=current_user.id,
-            stock_id=data["stock_id"],
-            created_at=data['createdAt'],
-            updated_at=data['updatedAt']
+            stock_id=data["stock_id"]
         )
         db.session.add(watchlist)
         db.session.commit()
@@ -51,25 +49,6 @@ def get_all_watchlists():
     return jsonify([watchlist.to_dict() for watchlist in watchlists]), 200
 
 
-@watchlist_routes.route('/<int:watchlist_id>', methods=['PATCH'])
-@login_required
-def update_watchlist(watchlist_id):
-    """
-    Update an existing watchlist for the current user.
-    """
-    data = request.get_json()
-    watchlist = Watchlist.query.filter_by(id=watchlist_id, user_id=current_user.id).first()
-    if not watchlist:
-        return jsonify({"error": "watchlist not found"}), 404
-    try:
-        watchlist.price = data.get('price', watchlist.price) 
-        watchlist.updated_at = data.get('updatedAt', watchlist.updated_at)
-        db.session.commit()
-        return jsonify(watchlist.to_dict()), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-
 @watchlist_routes.route('/<int:watchlist_id>', methods=['DELETE'])
 @login_required
 def delete_watchlist(watchlist_id):
@@ -78,7 +57,7 @@ def delete_watchlist(watchlist_id):
     """
     watchlist = Watchlist.query.filter_by(id=watchlist_id, user_id=current_user.id).first()
     if not watchlist:
-        return jsonify({"error": "Portfolio not found"}), 404
+        return jsonify({"error": "watchlist not found"}), 404
     db.session.delete(watchlist)
     db.session.commit()
     return jsonify({"message": "watchlist deleted successfully"}), 200
