@@ -12,11 +12,6 @@ bp = Blueprint("watchList", __name__)
 @bp.route('/watchlist', methods=["GET"])
 def get_all_watchList():
     watchlist_items = Watchlist.query.filter_by(user.id = userId).all() #! what will the user be called???
-    result = []
-    for item in watchlist_items: #! Is it a good idea to create a dictionary?
-        result.append({
-            'stockid': item.stockid,
-            'userid': item.userid,
-            'price': item.price
-        })
-    return jsonify(result)
+    if watchlist_items:
+        return jsonify(watchlist_items)
+    return jsonify({"msg":"no stocks on watchlist"})
