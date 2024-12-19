@@ -1,27 +1,22 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from models import db, environment, SCHEMA
 
-class Watchlist(db.Model):
-    __tablename__ = "watchlists"
+from datetime import date
 
-    if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
-    
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete="CASCADE"), nullable=False)
-    stock_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('stocks.id'), ondelete="CASCADE"), nullable=False)
-    
-    # we dont need price here ,this price is stock.price
-    # price = db.Column(db.Numeric(precision=10, scale=2))
+class WatchList(db.Model):
+    __tablename__ = "watch_list"
 
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "stock_id": self.stock_id
-        }
-
-
+    if environment = "production":
+        __table_args__ = {"schema": SCHEMA}
         
-    
+
+    id = db.Column(db.Integer, primary_key=True)
+    stockId = db.Column(db.Integer, nullable=False)
+    userId = db.Column(db.Integer, nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    shares = db.Column(db.Integer, nullable=False)
+    createdAt = db.Column(db.Date, default=date.today)
+    updatedAt = db.Column(db.Date, default=date.today)
+
+
         
     
