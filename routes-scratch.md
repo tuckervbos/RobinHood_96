@@ -16,7 +16,6 @@ user routes:
 portfolio routes:
 
 - create new portfolio for current user
-  the 2 routes below might be the same or need to be combined? unsure:
 - get current users portfolio //(by id?)
 - get all portfolios for current user
   these are fine:

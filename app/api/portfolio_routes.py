@@ -14,10 +14,8 @@ def create_portfolio():
     try:
         portfolio = Portfolio(
             user_id=current_user.id,
-            company_name=data['companyName'],
-            company_description=data['companyDescription'],
-            ticker=data['ticker'],
-            price=data['price'],
+            stock_id=data["stock_id"],
+            quantity=data["quantity"],
             created_at=data['createdAt'],
             updated_at=data['updatedAt']
         )
