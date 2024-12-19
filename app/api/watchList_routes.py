@@ -1,7 +1,7 @@
 #gives access to certain flask methods
 from flask import Blueprint, jsonify, request
 #import current user to access users ID
-from flask_login import login_required, current_user
+from flask_login import login_required, current_user #! flask and flassk_login could nto be resolved???
 #gives access to stock and watchlist tables
 from app.models import Watchlist, Stock
 #allows interaction with db
