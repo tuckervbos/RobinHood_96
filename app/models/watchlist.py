@@ -18,7 +18,7 @@ class Watchlist(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "stock_id": self.stock_id
-        })
+        }
 
 
         
