@@ -17,9 +17,9 @@ class Watchlist(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+
+
+            "stock": self.stock.to_dict() if self.stock else None
+
             "stock_id": self.stock_id
-        }
 
-
-        
-    
