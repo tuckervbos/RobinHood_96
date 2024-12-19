@@ -1,5 +1,7 @@
 from flask import Blueprint, jsonify
 #import current user to access users ID
+from flask_login import login_required, current_user
+
 from app.models import User
 #import db
 from ...instance import db
@@ -10,6 +12,7 @@ bp = Blueprint("watchList", __name__)
 
 #get all stocks on watchlist
 @bp.route('/watchlist', methods=["GET"])
+@login_required
 def get_all_watchList():
     watchlist_items = Watchlist.query.filter_by(user.id = userId).all() #! what will the user be called???
     if watchlist_items:
