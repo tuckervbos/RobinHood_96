@@ -18,5 +18,6 @@ class Portfolio(db.Model):
             "user_id": self.user_id,
             "stock_id": self.stock_id,
             "quantity": self.quantity,
-            "price": str(self.price) if self.price is not None else None 
+            "price": str(self.price) if self.price is not None else None ,
+            "stock": self.stock.to_dict() if self.stock else None
         }
