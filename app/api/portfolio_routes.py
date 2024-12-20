@@ -16,8 +16,10 @@ def create_portfolio():
             user_id=current_user.id,
             stock_id=data["stock_id"],
             quantity=data["quantity"],
-            created_at=data['createdAt'],
-            updated_at=data['updatedAt']
+            price=data["price"],
+            portfolio_name=data["portfolio_name"]
+            # created_at=data['createdAt'],
+            # updated_at=data['updatedAt']
         )
         db.session.add(portfolio)
         db.session.commit()
@@ -93,7 +95,7 @@ def delete_stock_from_portfolio(stock_id):
         return jsonify({"message": "Stock not found in portfolio"}), 404
 
     user = current_user
-    user.account_balance += portfolio_entry.shares * portfolio_entry.price
+    # user.account_balance += portfolio_entry.shares * portfolio_entry.price
 
     db.session.delete(portfolio_entry)
     db.session.commit()

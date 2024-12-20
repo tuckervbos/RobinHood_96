@@ -29,5 +29,5 @@ class SignUpForm(FlaskForm):
     # optional
     firstname = StringField('firstname',validators=[DataRequired()])
     lastname = StringField('lastname',validators=[DataRequired()])
-    account_balance = DecimalField('account_balance',validators=[DataRequired()])
+    # account_balance = DecimalField('account_balance',validators=[DataRequired()])
     
