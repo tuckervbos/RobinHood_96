@@ -18,8 +18,8 @@ class User(db.Model, UserMixin):
     account_balance = db.Column(db.Numeric(precision=10, scale=2), default=0.00)
     
 
-    user_portfolio = db.relationship("Portfolio", backref="user", cascade="all, delete-orphan")
-    user_watchlist = db.relationship("Watchlist", backref="user", cascade="all, delete-orphan")
+    portfolio = db.relationship("Portfolio", backref="user", cascade="all, delete-orphan")
+    watchlist = db.relationship("Watchlist", backref="user", cascade="all, delete-orphan")
 
     @property
     def password(self):
@@ -40,6 +40,6 @@ class User(db.Model, UserMixin):
             'lastname': self.lastname,
             'email': self.email,
             'account_balance': float(self.account_balance) ,
-            'portfolios': [portfolio.to_dict() for portfolio in self.user_portfolio],
-            'watchlists': [watchlist.to_dict() for watchlist in self.user_watchlist]
+            'portfolios': [portfolio.to_dict() for portfolio in self.portfolio],
+            'watchlists': [watchlist.to_dict() for watchlist in self.watchlist]
         }

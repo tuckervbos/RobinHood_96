@@ -1,8 +1,8 @@
-"""Initial migration
+"""create db table
 
-Revision ID: 2d420564597b
+Revision ID: 883b6faa25b6
 Revises: 
-Create Date: 2024-12-18 17:46:41.662935
+Create Date: 2024-12-19 19:43:09.742659
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '2d420564597b'
+revision = '883b6faa25b6'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('company_name', sa.String(), nullable=False),
     sa.Column('company_description', sa.String(), nullable=True),
-    sa.Column('ticker', sa.String(length=4), nullable=False),
+    sa.Column('ticker', sa.String(length=20), nullable=False),
     sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
     sa.Column('graph_image', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
@@ -46,6 +46,7 @@ def upgrade():
     sa.Column('stock_id', sa.Integer(), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
     sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
+    sa.Column('portfolio_name', sa.String(length=100), nullable=False),
     sa.ForeignKeyConstraint(['stock_id'], ['stocks.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
@@ -54,6 +55,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('stock_id', sa.Integer(), nullable=False),
+    sa.Column('watchlist_name', sa.String(length=100), nullable=False),
     sa.ForeignKeyConstraint(['stock_id'], ['stocks.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
