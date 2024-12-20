@@ -29,12 +29,12 @@ def buy_stock(stock_id):
         return jsonify({"message": "Stock not found"}), 404
 
     data = request.get_json()
-    shares = data.get('shares', 0)
+    quantity = data.get('quantity', 0)
 
-    if shares <= 0:
-        return jsonify({"message": "Shares must be greater than zero"}), 400
+    if quantity <= 0:
+        return jsonify({"message": "Quantity must be greater than zero"}), 400
 
-    total_price = shares * stock.price
+    total_price = quantity * stock.price
     user = current_user
 
     if user.account_balance < total_price:
@@ -45,8 +45,9 @@ def buy_stock(stock_id):
     portfolio_entry = Portfolio(
         user_id=user.id,
         stock_id=stock.id,
-        quantity=stock.quantity,
-        price=stock.price
+        quantity=data["quantity"],
+        price=stock.price,
+        portfolio_name=data["portfolio_name"]
     )
     db.session.add(portfolio_entry)
     db.session.commit()
@@ -61,18 +62,20 @@ def buy_stock(stock_id):
 # add stock to watchlist
 @stock_routes.route('/<int:stock_id>/add', methods=['POST'])
 @login_required
-def add_stock(stock_id, watchlist_name):
+def add_stock(stock_id):
+    data = request.get_json()
     stock = Stock.query.get(stock_id)
-    watchlist = Watchlist.query.get(watchlist_name)
+    watchlist = Watchlist.query.filter_by(watchlist_name=data["watchlist_name"]).first()
+    print("TEST PRINT",watchlist)
     if not stock:
         return jsonify({"message": "Stock not found"}), 404
     if not watchlist:
-        return jsonify({"message": "Watchlist not found"}), 404
+        return jsonify({"message": "Watchlist not found",}), 404
 
     watchlist_entry = Watchlist(
         user_id=current_user.id,
         stock_id=stock.id,
-        watchlist_name=watchlist.name
+        watchlist_name=data["watchlist_name"]
     )
     db.session.add(watchlist_entry)
     db.session.commit()
