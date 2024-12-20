@@ -20,7 +20,6 @@ class Watchlist(db.Model):
             "user_id": self.user_id,
             "stock_id": self.stock_id,
             "watchlist_name": self.watchlist_name,
-            "user": self.user.to_dict() if self.user else None, 
-            "stock": self.stock.to_dict() if self.stock else None
+    
         }
 
