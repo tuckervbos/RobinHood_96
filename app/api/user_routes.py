@@ -32,15 +32,18 @@ def get_user(user_id):
         return jsonify({'message': 'User not found'}), 404 
     return jsonify(user.to_dict())
 
-@user_routes.route('/user/<int:user_id>', methods=['PUT'])
+@user_routes.route('/<int:user_id>', methods=['PUT'])
 @login_required 
 def update_user(user_id): 
-    user = users.get(user_id) 
+    user = User.query.filter_by(id= user_id ).first()
+    
     if not user: 
         return jsonify({'message': 'User not found'}), 404 
     data = request.get_json() 
     user.username = data.get('username', user.username) 
-    user.email = data.get('email', user.email) 
+    user.email = data.get('email', user.email)
+    user.lastname= data.get('lastname', user.lastname)
+    user.firstname= data.get('firstname', user.firstname) 
     return jsonify({ 
         'message': 'User updated successfully', 
         'user': user.to_dict() 
