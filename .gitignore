@@ -1,6 +1,11 @@
 .env
-__pycache__/
+pycache/
 *.py[cod]
 .venv
 .DS_Store
 .vscode/
+.Pipfile
+.Pipfile.lock
+.dev.db
+.migrations
+
