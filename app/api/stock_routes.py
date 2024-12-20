@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Stock, Portfolio, db
+from app.models import Stock, Portfolio, Watchlist, db
 
 stock_routes = Blueprint('stocks', __name__)
 
@@ -57,23 +57,26 @@ def buy_stock(stock_id):
         "remaining_balance": user.account_balance
     }), 200
 
-# Delete stock from user's portfolio
-# Removes a stock from the current user's portfolio.
-# Refunds stock price to user's account balance.
-@stock_routes.route('/<int:stock_id>/delete', methods=['DELETE'])
+
+# add stock to watchlist
+@stock_routes.route('/<int:stock_id>/add', methods=['POST'])
 @login_required
-def delete_stock_from_portfolio(stock_id):
-    portfolio_entry = Portfolio.query.filter_by(user_id=current_user.id, stock_id=stock_id).first()
-    if not portfolio_entry:
-        return jsonify({"message": "Stock not found in portfolio"}), 404
+def add_stock(stock_id, watchlist_name):
+    stock = Stock.query.get(stock_id)
+    watchlist = Watchlist.query.get(watchlist_name)
+    if not stock:
+        return jsonify({"message": "Stock not found"}), 404
+    if not watchlist:
+        return jsonify({"message": "Watchlist not found"}), 404
 
-    user = current_user
-    user.account_balance += portfolio_entry.shares * portfolio_entry.price
-
-    db.session.delete(portfolio_entry)
+    watchlist_entry = Watchlist(
+        user_id=current_user.id,
+        stock_id=stock.id,
+        watchlist_name=watchlist.name
+    )
+    db.session.add(watchlist_entry)
     db.session.commit()
 
     return jsonify({
-        "message": "Stock removed from portfolio successfully",
-        "updated_balance": user.account_balance
+        "message": "Stock added to watchlist successfully",
     }), 200

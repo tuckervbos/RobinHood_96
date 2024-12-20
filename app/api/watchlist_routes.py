@@ -61,3 +61,20 @@ def delete_watchlist(watchlist_id):
     db.session.delete(watchlist)
     db.session.commit()
     return jsonify({"message": "watchlist deleted successfully"}), 200
+
+
+@watchlist_routes.route('/<int:stock_id>/delete', methods=['DELETE'])
+@login_required
+def delete_stock_from_watchlist(stock_id):
+    watchlist = Watchlist.query.filter_by(user_id=current_user.id, stock_id=stock_id).first()
+    if not watchlist:
+        return jsonify({"message": "Stock not found in watchlist"}), 404
+
+    db.session.delete(watchlist)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Stock removed from watchlist successfully",
+    }), 200
+
+
