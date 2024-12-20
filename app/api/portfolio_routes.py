@@ -81,3 +81,24 @@ def delete_portfolio(portfolio_id):
     db.session.delete(portfolio)
     db.session.commit()
     return jsonify({"message": "Portfolio deleted successfully"}), 200
+
+# Delete stock from user's portfolio
+# Removes a stock from the current user's portfolio.
+# Refunds stock price to user's account balance.
+@portfolio_routes.route('/<int:stock_id>/delete', methods=['DELETE'])
+@login_required
+def delete_stock_from_portfolio(stock_id):
+    portfolio_entry = Portfolio.query.filter_by(user_id=current_user.id, stock_id=stock_id).first()
+    if not portfolio_entry:
+        return jsonify({"message": "Stock not found in portfolio"}), 404
+
+    user = current_user
+    user.account_balance += portfolio_entry.shares * portfolio_entry.price
+
+    db.session.delete(portfolio_entry)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Stock removed from portfolio successfully",
+        "updated_balance": user.account_balance
+    }), 200
