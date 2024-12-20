@@ -24,7 +24,9 @@ class Stock(db.Model):
             "company_description": self.company_description,
             "ticker": self.ticker,
             "price": self.price,
-            "graph_image": self.graph_image
+            "graph_image": self.graph_image,
+            "portfolios": [portfolio.to_dict() for portfolio in self.stock_portfolio], 
+            "watchlists": [watchlist.to_dict() for watchlist in self.stock_watchlist] 
         }
 
 

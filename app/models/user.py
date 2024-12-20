@@ -39,5 +39,7 @@ class User(db.Model, UserMixin):
             'firstname': self.firstname,
             'lastname': self.lastname,
             'email': self.email,
-            'account_balance': float(self.account_balance) 
+            'account_balance': float(self.account_balance) ,
+            'portfolios': [portfolio.to_dict() for portfolio in self.user_portfolio],
+            'watchlists': [watchlist.to_dict() for watchlist in self.user_watchlist]
         }
