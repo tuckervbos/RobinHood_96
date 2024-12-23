@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 
 from flask_login import login_required, current_user
 
-from app.models import Watchlist, Stock, db
+from app.models import Watchlist, Stock, db,WatchlistStock
 
 watchlist_routes = Blueprint('watchlist', __name__)
 
@@ -46,8 +46,33 @@ def get_all_watchlists():
     """
     Get all watchlists for the current user.
     """
-    watchlists = Watchlist.query.filter_by(user_id=current_user.id).all()
-    return jsonify([watchlist.to_dict() for watchlist in watchlists]), 200
+    # watchlists = Watchlist.query.filter_by(user_id=current_user.id).all()
+    # return jsonify([watchlist.to_dict() for watchlist in watchlists]), 200
+    watchlists = db.session.query(Watchlist, Stock).\
+    join(WatchlistStock, WatchlistStock.watchlist_id == Watchlist.id).\
+    join(Stock, Stock.id == WatchlistStock.stock_id).\
+    filter(Watchlist.user_id == current_user.id).all()
+    result = {}
+    for watchlist, stock in watchlists:
+        if watchlist.id not in result:
+            result[watchlist.id] = {
+                "watchlist_id": watchlist.id,
+                "watchlist_name": watchlist.watchlist_name,
+                "stocks": []
+            }
+        result[watchlist.id]["stocks"].append({
+            "id": stock.id,
+            "name": stock.company_name,
+            "ticker": stock.ticker,
+            "price": stock.price
+        })
+    response = list(result.values())
+    return jsonify(response), 200
+
+
+
+
+
 
 
 @watchlist_routes.route('/<int:watchlist_id>', methods=['DELETE'])
