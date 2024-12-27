@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { showWatchlistsThunk, createWatchlistThunk, removeWatchlistThunk } from './store/watchlistActions'; // 根据路径调整导入
+import { showWatchlistsThunk, createWatchlistThunk, removeWatchlistThunk,removeFromWatchlistThunk } from '../../redux/watchlist'; 
 
 const WatchlistComponent = () => {
   const dispatch = useDispatch();
   const watchlists = useSelector(state => state.watchlist.watchlists); 
+
   const [newWatchlistName, setNewWatchlistName] = useState(''); 
 
+  //load all the watchlists
   useEffect(() => {
     dispatch(showWatchlistsThunk());
   }, [dispatch]);
 
-  const handleCreateWatchlist = () => {
+  //create new watchlist
+  const handleCreateWatchlist = (e) => {
+    e.preventDefault()
+
     if (newWatchlistName.trim()) {
       const watchlistData = { watchlist_name: newWatchlistName };
       dispatch(createWatchlistThunk(watchlistData));
@@ -21,44 +26,63 @@ const WatchlistComponent = () => {
     }
   };
 
-  const handleDeleteWatchlist = (watchlistName) => {
-    dispatch(removeWatchlistThunk(watchlistName));
+  // delete watchlist
+  const handleDeleteWatchlist = (watchlistId) => {
+    dispatch(removeWatchlistThunk(watchlistId));
   };
+
+  // delete stock from watchlist
+  const handleRemoveStock = (stockId, watchlistId) => {
+    dispatch(removeFromWatchlistThunk(stockId,watchlistId));
+  };
+
 
   return (
     <div>
-      <h2>Your Watchlists</h2>
-      <div>
+      <h2>Watchlists</h2>
+
+      {/* create watchlist */}
+      <form onSubmit={handleCreateWatchlist}>
         <input
           type="text"
+          placeholder="Enter watchlist name"
           value={newWatchlistName}
           onChange={(e) => setNewWatchlistName(e.target.value)}
-          placeholder="Enter watchlist name"
         />
-        <button onClick={handleCreateWatchlist}>Create Watchlist</button>
-      </div>
+        <button type="submit">Create Watchlist</button>
+      </form>
 
-      <ul>
-        {Object.keys(watchlists).length === 0 ? (
-          <li>No watchlists available</li>
-        ) : (
-          Object.keys(watchlists).map((watchlistName) => (
-            <li key={watchlistName}>
-              <div>
-                <strong>{watchlistName}</strong>
-                <button onClick={() => handleDeleteWatchlist(watchlistName)}>Delete</button>
-              </div>
-              <ul>
-                {watchlists[watchlistName].map((stockId) => (
-                  <li key={stockId}>{stockId}</li>
-                ))}
-              </ul>
-            </li>
+      {/* show all watchlist */}
+      <div>
+        {watchlists && watchlists.length > 0 ? (
+          watchlists.map((watchlist) => (
+            <div key={watchlist.watchlist_id} >
+              <h3>{watchlist.watchlist_name}</h3>
+              {watchlist.stocks.length > 0 ? (
+                <ul>
+                  {watchlist.stocks.map((stock) => (
+                    <li key={stock.id} >
+                      <span>
+                        {stock.name} ({stock.ticker}) - ${stock.price}
+                      </span>
+                      {/* we can change this button to a "x" */}
+                      <button onClick={() => handleRemoveStock(stock.id, watchlist.watchlist_id)}>Remove</button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No stocks in this watchlist.</p>
+              )}
+              <button onClick={() => handleDeleteWatchlist(watchlist.watchlist_id)}>Delete Watchlist</button>
+            </div>
           ))
+        ) : (
+          <p>No watchlists available. Create your first watchlist!</p>
         )}
-      </ul>
+      </div>
     </div>
   );
 };
+
 
 export default WatchlistComponent;

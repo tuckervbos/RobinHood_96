@@ -23,47 +23,41 @@ const createWatchlist = (watchlistData) => {
     };
 };
 
-const removeWatchlist = (watchlistName) => {
+const removeWatchlist = (watchlistId) => {
     return {
         type: REMOVE_WATCHLIST,
-        payload: watchlistName, 
+        payload: watchlistId, 
     };
 };
 
-const addToWatchlist = (stockId, watchlistName) => {
+const addToWatchlist = (stockId,watchlistId) => {
     return {
         type: ADD_TO_WATCHLIST,
         payload: {
-            stockId,
-            watchlistName
-        },
+          stockId,
+          watchlistId,
+        }
     };
 };
 
-const removeFromWatchlist = (stockId, watchlistName) => {
+const removeFromWatchlist = (stockId,watchlistId) => {
     return {
         type: REMOVE_FORM_WATCHLIST,
         payload: {
-            stockId,
-            watchlistName,
-        },
+          stockId,
+          watchlistId,
+        }
     };
 };
 
-// thunk here
+// thunk here 
+// all the url need another check
 
 export const showWatchlistsThunk = () => async (dispatch) => {
-    const res = await fetch('/api/watchlist/');
+    const res = await fetch('/api/watchlists/');
     if (res.ok) {
       const watchlists = await res.json();
-
-      const grouped = watchlists.reduce((acc, item) => {
-        if (!acc[item.watchlist_name]) acc[item.watchlist_name] = [];
-        acc[item.watchlist_name].push(item.stock_id);
-        return acc;
-      }, {});
-
-      dispatch(showWatchlists(grouped));
+      dispatch(showWatchlists(watchlists));
     } else {
       const error = await res.json();
       throw error;
@@ -71,7 +65,7 @@ export const showWatchlistsThunk = () => async (dispatch) => {
   };
 
 export const createWatchlistThunk = (watchlistData) => async (dispatch) => {
-    const res = await fetch('/api/watchlist/', {
+    const res = await fetch('/api/watchlists/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -88,59 +82,59 @@ export const createWatchlistThunk = (watchlistData) => async (dispatch) => {
     }
   };
 
-export const removeWatchlistThunk = (watchlistName) => async (dispatch) => {
-    const res = await fetch(`/api/watchlist/`, {
+export const removeWatchlistThunk = (watchlistId) => async (dispatch) => {
+    const res = await fetch(`/api/watchlist/${watchlistId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ watchlist_name: watchlistName }), 
+      }
     });
   
     if (res.ok) {
-      dispatch(removeWatchlist(watchlistName)); 
+      dispatch(removeWatchlist(watchlistId)); 
     } else {
       const error = await res.json();
       throw error;
     }
   };
 
-export const addToWatchlistThunk = (stockId, watchlistName) => async (dispatch) => {
+export const addToWatchlistThunk = (stockId,watchlistId) => async (dispatch) => {
     const res = await fetch(`/api/stocks/${stockId}/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ watchlist_name: watchlistName }), 
+      body: JSON.stringify({ id: watchlistId }), 
     });
   
     if (res.ok) {
-      dispatch(addToWatchlist(stockId, watchlistName)); 
+      dispatch(addToWatchlist(stockId, watchlistId)); 
     } else {
       const error = await res.json();
       throw error;
     }
   };
 
-export const removeFromWatchlistThunk = (stockId, watchlistName) => async (dispatch) => {
+export const removeFromWatchlistThunk = (stockId, watchlistId) => async (dispatch) => {
     const res = await fetch(`/api/watchlist/${stockId}/delete`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ watchlist_name: watchlistName }),
+        body: JSON.stringify({ id: watchlistId }),
       });
 
     if (res.ok) {
-        dispatch(removeFromWatchlist(stockId, watchlistName));
+        dispatch(removeFromWatchlist(stockId, watchlistId));
       } else {
         const error = await res.json();
         throw error;
       }
 };
 
+// 以上已经检查过，reducer还没检查
 
-const initialState = {watchlists: {}}
+const initialState = {watchlists: []}
 
 const watchlistReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -148,26 +142,43 @@ const watchlistReducer = (state = initialState, action) => {
       return { ...state, watchlists: action.payload };
 
     case CREATE_WATCHLIST: {
-      const { watchlist_name, stock_id } = action.payload;
-      const updatedList = [...(state.watchlists[watchlist_name] || []), stock_id];
-      return { ...state, watchlists: { ...state.watchlists, [watchlist_name]: updatedList } };
+      const { id, watchlist_name, stock_id } = action.payload;
+      const newWatchlist = {
+        id,
+        watchlist_name,
+        stocks: stock_id ? [stock_id] : [], 
+      };
+      return { ...state, watchlists: [...state.watchlists, newWatchlist] };
     }
 
     case REMOVE_WATCHLIST: {
-      const { [action.payload]: _, ...remainingWatchlists } = state.watchlists;
-      return { ...state, watchlists: remainingWatchlists };
+      const updatedWatchlists = state.watchlists.filter(
+        (watchlist) => watchlist.id !== action.payload
+      );
+      return { ...state, watchlists: updatedWatchlists };
     }
 
     case ADD_TO_WATCHLIST: {
-      const { stockId, watchlistName } = action.payload;
-      const updatedWatchlist = [...(state.watchlists[watchlistName] || []), stockId];
-      return { ...state, watchlists: { ...state.watchlists, [watchlistName]: updatedWatchlist } };
+      const { stockId, watchlistId } = action.payload;
+      const updatedWatchlists = state.watchlists.map((watchlist) =>
+        watchlist.id === watchlistId
+          ? { ...watchlist, stocks: [...watchlist.stocks, stockId] }
+          : watchlist
+      );
+      return { ...state, watchlists: updatedWatchlists };
     }
 
     case REMOVE_FORM_WATCHLIST: {
-      const { stockId, watchlistName } = action.payload;
-      const updatedWatchlist = (state.watchlists[watchlistName] || []).filter((id) => id !== stockId);
-      return { ...state, watchlists: { ...state.watchlists, [watchlistName]: updatedWatchlist } };
+      const { stockId, watchlistId } = action.payload;
+      const updatedWatchlists = state.watchlists.map((watchlist) =>
+        watchlist.id === watchlistId
+          ? {
+              ...watchlist,
+              stocks: watchlist.stocks.filter((id) => id !== stockId),
+            }
+          : watchlist
+      );
+      return { ...state, watchlists: updatedWatchlists };
     }
 
     default:

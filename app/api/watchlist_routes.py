@@ -4,7 +4,8 @@ from flask_login import login_required, current_user
 
 from app.models import Watchlist, Stock, db,WatchlistStock
 
-watchlist_routes = Blueprint('watchlist', __name__)
+watchlist_routes = Blueprint('watchlists', __name__) 
+# change watchlist to watchlists???
 
 @watchlist_routes.route('/', methods=['POST'])
 @login_required
@@ -16,7 +17,8 @@ def create_watchlist():
     try:
         watchlist = Watchlist( 
             user_id=current_user.id,
-            stock_id=data["stock_id"],
+            # stock_id=data["stock_id"],
+            # When we create a watchlist, is it mandatory to have a stock?
             watchlist_name=data["watchlist_name"]
         )
         db.session.add(watchlist)
@@ -53,6 +55,7 @@ def get_all_watchlists():
     join(Stock, Stock.id == WatchlistStock.stock_id).\
     filter(Watchlist.user_id == current_user.id).all()
     result = {}
+    
     for watchlist, stock in watchlists:
         if watchlist.id not in result:
             result[watchlist.id] = {
