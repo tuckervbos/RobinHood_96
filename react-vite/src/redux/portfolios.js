@@ -8,12 +8,20 @@ import { csrfFetch } from './csrf';
 //*                             ACTION OBJECTS
 /***********************************************************************************************************************************************/
 
-const GET_ALL_PORTFOLIOS = "portfolios/getAllPortfolios"
-
+const GET_ALL_PORTFOLIOS = "portfolios/getAllPortfolios";
 const getAllPortfoliosAO = (portfolios) => {
     return {
         type: GET_ALL_PORTFOLIOS,
         payload: portfolios
+    }
+};
+
+
+const GET_ONE_PORTFOLIO = "portfolios/getOnePortfolio";
+const getOnePortfolioAO = (portfolio) => {
+    return {
+        type: GET_ONE_PORTFOLIO,
+        payload: portfolio
     }
 };
 
@@ -22,12 +30,23 @@ const getAllPortfoliosAO = (portfolios) => {
 /***********************************************************************************************************************************************/
 
 //Get all portfolios
-export getAllPortfolios = (userId) => async (dispatch) => {
-    const request = await csrfFetch((`/api/portfolios/${userId}`),{ //! Backend route changed to include userId in url!!!
+export const getAllPortfolios = (userId) => async (dispatch) => {
+    const request = await csrfFetch((`/api/portfolios/all/${userId}`),{ //! Backend route changed to include userId in url!!!
         method: "GET"
     });
     const response = await request.json();
     dispatch(getAllPortfoliosAO(response));
+    return response;
+};
+
+
+//get one portfolio
+export const getOnePortfolio = (portfolioId) => async (dispatch) => {
+    const request = await csrfFetch((`/api/portfolios/${portfolioId}`),{
+        method: "GET"
+    });
+    const response = await request.json();
+    dispatch(getOnePortfolioAO(response));
     return response;
 }
 
@@ -41,6 +60,8 @@ const portfoliosReducer = (state = initialState, action) => {
     switch(action.type) {
         case GET_ALL_PORTFOLIOS:
             return {...state, allPortfolios: action.payload}
+        case GET_ONE_PORTFOLIO:
+            return {...state, singlePortfolio: action.payload}
         default: 
             return state;
     }

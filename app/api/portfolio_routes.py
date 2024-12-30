@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Portfolio, User, db
+from app.models import Portfolio, db #!removed user as it was unused
 
 portfolio_routes = Blueprint('portfolios', __name__)
 
@@ -42,7 +42,7 @@ def get_portfolio(portfolio_id):
     return jsonify({"error": "Portfolio not found"}), 404
 
 
-@portfolio_routes.route('/', methods=['GET'])
+@portfolio_routes.route('/all/<int:userId>', methods=['GET']) #!user id needs to be passed into url, and needs to be seperate from get one portfolio????
 @login_required
 def get_all_portfolios():
     """
