@@ -42,9 +42,9 @@ def get_portfolio(portfolio_id):
     return jsonify({"error": "Portfolio not found"}), 404
 
 
-@portfolio_routes.route('/all/<int:userId>', methods=['GET']) #!user id needs to be passed into url, and needs to be seperate from get one portfolio????
+@portfolio_routes.route('/all/<int:user_id>', methods=['GET']) #!user id needs to be passed into url, and needs to be seperate from get one portfolio????
 @login_required
-def get_all_portfolios():
+def get_all_portfolios(user_id):
     """
     Get all portfolios for the current user.
     """
