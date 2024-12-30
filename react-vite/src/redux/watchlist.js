@@ -156,7 +156,7 @@ const watchlistReducer = (state = initialState, action) => {
       );
       return { ...state, watchlists: updatedWatchlists };
     }
-
+    // didnot check this
     case ADD_TO_WATCHLIST: {
       const { stockId, watchlistId } = action.payload;
       const updatedWatchlists = state.watchlists.map((watchlist) =>
