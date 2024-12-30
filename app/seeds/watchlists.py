@@ -4,28 +4,32 @@ from sqlalchemy.sql import text
 
 def seed_watchlists():
     watchlists_data = [
-        {"user_id": 1, "stock_id": 1, "watchlist_name": "Watchlist A"},
-        {"user_id": 1, "stock_id": 5, "watchlist_name": "Watchlist A"},
-        {"user_id": 2, "stock_id": 2, "watchlist_name": "Watchlist B"},
-        {"user_id": 2, "stock_id": 3, "watchlist_name": "Watchlist B"},
-        {"user_id": 3, "stock_id": 4, "watchlist_name": "Watchlist C"},
-        {"user_id": 3, "stock_id": 6, "watchlist_name": "Watchlist C"},
-        {"user_id": 4, "stock_id": 7, "watchlist_name": "Watchlist D"},
-        {"user_id": 4, "stock_id": 10, "watchlist_name": "Watchlist D"},
-        {"user_id": 5, "stock_id": 9, "watchlist_name": "Watchlist E"},
-        {"user_id": 5, "stock_id": 12, "watchlist_name": "Watchlist E"},
-        {"user_id": 6, "stock_id": 13, "watchlist_name": "Watchlist F"},
-        {"user_id": 6, "stock_id": 16, "watchlist_name": "Watchlist F"},
-        {"user_id": 7, "stock_id": 17, "watchlist_name": "Watchlist G"},
-        {"user_id": 7, "stock_id": 20, "watchlist_name": "Watchlist G"},
-        {"user_id": 8, "stock_id": 23, "watchlist_name": "Watchlist H"}
+        {"user_id": 1, "watchlist_name": "Watchlist A"},
+        {"user_id": 1, "watchlist_name": "Watchlist B"},
+        {"user_id": 2, "watchlist_name": "Watchlist C"},
+        {"user_id": 2, "watchlist_name": "Watchlist D"},
+        {"user_id": 3, "watchlist_name": "Watchlist E"},
+        {"user_id": 3, "watchlist_name": "Watchlist F"},
+        {"user_id": 4, "watchlist_name": "Watchlist G"},
+        {"user_id": 4, "watchlist_name": "Watchlist H"},
+        {"user_id": 5, "watchlist_name": "Watchlist I"},
+        {"user_id": 5, "watchlist_name": "Watchlist J"},
+        {"user_id": 6, "watchlist_name": "Watchlist K"},
+        {"user_id": 6, "watchlist_name": "Watchlist L"},
+        {"user_id": 7, "watchlist_name": "Watchlist M"},
+        {"user_id": 7, "watchlist_name": "Watchlist N"},
+        {"user_id": 8, "watchlist_name": "Watchlist O"},
+        {"user_id": 8, "watchlist_name": "Watchlist P"},
+        {"user_id": 1, "watchlist_name": "Watchlist C"},
+        {"user_id": 1, "watchlist_name": "Watchlist D"},
+        {"user_id": 1, "watchlist_name": "Watchlist E"},
+        {"user_id": 1, "watchlist_name": "Watchlist F"},
     ]
 
     watchlist_obj = []
     for entry in watchlists_data:
         watchlist = Watchlist(
             user_id=entry["user_id"],
-            stock_id=entry["stock_id"],
             watchlist_name=entry["watchlist_name"]
         )
         watchlist_obj.append(watchlist)

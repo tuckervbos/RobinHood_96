@@ -18,8 +18,8 @@ class User(db.Model, UserMixin):
     account_balance = db.Column(db.Numeric(precision=10, scale=2), default=0.00)
     
 
-    portfolio = db.relationship("Portfolio", backref="user", cascade="all, delete-orphan")
-    watchlist = db.relationship("Watchlist", backref="user", cascade="all, delete-orphan")
+    portfolios = db.relationship("Portfolio", backref="user", cascade="all, delete-orphan")
+    watchlists = db.relationship("Watchlist", backref="user", cascade="all, delete-orphan")
 
     @property
     def password(self):

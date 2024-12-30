@@ -2,34 +2,28 @@ from app.models import db, Portfolio, environment, SCHEMA
 from sqlalchemy.sql import text
 from decimal import Decimal
 
-
 def seed_portfolios():
     portfolios_data = [
-        {"user_id": 1, "stock_id": 1, "quantity": 10, "price": Decimal('145.30'), "portfolio_name": "Portfolio A"},
-        {"user_id": 1, "stock_id": 5, "quantity": 15, "price": Decimal('2844.30'), "portfolio_name": "Portfolio A"},
-        {"user_id": 2, "stock_id": 2, "quantity": 20, "price": Decimal('299.35'), "portfolio_name": "Portfolio A"},
-        {"user_id": 2, "stock_id": 3, "quantity": 8, "price": Decimal('700.80'), "portfolio_name": "Portfolio B"},
-        {"user_id": 3, "stock_id": 4, "quantity": 5, "price": Decimal('3332.10'), "portfolio_name": "Portfolio A"},
-        {"user_id": 3, "stock_id": 6, "quantity": 12, "price": Decimal('332.10'), "portfolio_name": "Portfolio C"},
-        {"user_id": 4, "stock_id": 7, "quantity": 25, "price": Decimal('221.10'), "portfolio_name": "Portfolio D"},
-        {"user_id": 4, "stock_id": 10, "quantity": 30, "price": Decimal('145.40'), "portfolio_name": "Portfolio D"},
-        {"user_id": 5, "stock_id": 9, "quantity": 40, "price": Decimal('175.50'), "portfolio_name": "Portfolio E"},
-        {"user_id": 5, "stock_id": 12, "quantity": 50, "price": Decimal('153.00'), "portfolio_name": "Portfolio E"},
-        {"user_id": 6, "stock_id": 13, "quantity": 35, "price": Decimal('223.40'), "portfolio_name": "Portfolio F"},
-        {"user_id": 6, "stock_id": 16, "quantity": 22, "price": Decimal('61.90'), "portfolio_name": "Portfolio G"},
-        {"user_id": 7, "stock_id": 17, "quantity": 18, "price": Decimal('47.50'), "portfolio_name": "Portfolio H"},
-        {"user_id": 7, "stock_id": 20, "quantity": 8, "price": Decimal('160.90'), "portfolio_name": "Portfolio H"},
-        {"user_id": 8, "stock_id": 23, "quantity": 10, "price": Decimal('280.60'), "portfolio_name": "Portfolio I"}
+        {"user_id": 1, "portfolio_name": "Portfolio A", "quantity": 10, "price": Decimal('1000.00')},
+        {"user_id": 2, "portfolio_name": "Portfolio A", "quantity": 15, "price": Decimal('1200.00')},
+        {"user_id": 2, "portfolio_name": "Portfolio B", "quantity": 20, "price": Decimal('1500.00')},
+        {"user_id": 3, "portfolio_name": "Portfolio A", "quantity": 25, "price": Decimal('1300.00')},
+        {"user_id": 3, "portfolio_name": "Portfolio C", "quantity": 30, "price": Decimal('1100.00')},
+        {"user_id": 4, "portfolio_name": "Portfolio D", "quantity": 10, "price": Decimal('1000.00')},
+        {"user_id": 5, "portfolio_name": "Portfolio E", "quantity": 5, "price": Decimal('900.00')},
+        {"user_id": 6, "portfolio_name": "Portfolio F", "quantity": 12, "price": Decimal('1400.00')},
+        {"user_id": 6, "portfolio_name": "Portfolio G", "quantity": 18, "price": Decimal('1600.00')},
+        {"user_id": 7, "portfolio_name": "Portfolio H", "quantity": 25, "price": Decimal('1200.00')},
+        {"user_id": 8, "portfolio_name": "Portfolio I", "quantity": 30, "price": Decimal('1700.00')}
     ]
     
     portfolio_obj = []
     for entry in portfolios_data:
         portfolio = Portfolio(
             user_id=entry["user_id"],
-            stock_id=entry["stock_id"],
+            portfolio_name=entry["portfolio_name"],
             quantity=entry["quantity"],
-            price=entry["price"],
-            portfolio_name=entry["portfolio_name"] 
+            price=entry["price"]
         )
         portfolio_obj.append(portfolio)
 
