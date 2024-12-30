@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
       },
       // test component
       {
-        path:"watchlist",
+        path:"watchlists",
         element:<Watchlist />
       }
     ],

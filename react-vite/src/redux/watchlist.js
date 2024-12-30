@@ -83,7 +83,7 @@ export const createWatchlistThunk = (watchlistData) => async (dispatch) => {
   };
 
 export const removeWatchlistThunk = (watchlistId) => async (dispatch) => {
-    const res = await fetch(`/api/watchlist/${watchlistId}`, {
+    const res = await fetch(`/api/watchlists/${watchlistId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -116,23 +116,22 @@ export const addToWatchlistThunk = (stockId,watchlistId) => async (dispatch) => 
   };
 
 export const removeFromWatchlistThunk = (stockId, watchlistId) => async (dispatch) => {
-    const res = await fetch(`/api/watchlist/${stockId}/delete`, {
+    const res = await fetch(`/api/watchlists/${watchlistId}/${stockId}/delete`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id: watchlistId }),
+        }
       });
 
     if (res.ok) {
         dispatch(removeFromWatchlist(stockId, watchlistId));
+        dispatch(showWatchlistsThunk());
       } else {
         const error = await res.json();
         throw error;
       }
 };
 
-// 以上已经检查过，reducer还没检查
 
 const initialState = {watchlists: []}
 
@@ -153,7 +152,7 @@ const watchlistReducer = (state = initialState, action) => {
 
     case REMOVE_WATCHLIST: {
       const updatedWatchlists = state.watchlists.filter(
-        (watchlist) => watchlist.id !== action.payload
+        (watchlist) => watchlist.watchlist_id !== action.payload
       );
       return { ...state, watchlists: updatedWatchlists };
     }

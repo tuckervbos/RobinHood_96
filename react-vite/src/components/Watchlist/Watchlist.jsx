@@ -4,7 +4,8 @@ import { showWatchlistsThunk, createWatchlistThunk, removeWatchlistThunk,removeF
 
 const WatchlistComponent = () => {
   const dispatch = useDispatch();
-  const watchlists = useSelector(state => state.watchlist.watchlists); 
+  const watchlists = useSelector((state) => state.watchlist.watchlists); 
+  // console.log(watchlists)
 
   const [newWatchlistName, setNewWatchlistName] = useState(''); 
 
