@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
+import Watchlist from '../components/Watchlist'// for test
 import AllPortfolios from '../components/AllPortfolios/AllPortfolios';
 import Layout from './Layout';
 
@@ -20,6 +21,11 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      // test component
+      {
+        path:"watchlists",
+        element:<Watchlist />
+      }
       {
         path: "portfolios",
         element: <AllPortfolios />

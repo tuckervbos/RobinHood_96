@@ -8,8 +8,8 @@ function SignupFormModal() {
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
-	const [firstname, setFirstname] = useState("");
-	const [lastname, setLastname] = useState("");
+	const [firstname, setFirstname] = useState(""); // i added this
+	const [lastname, setLastname] = useState(""); // i added this too
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState({});
@@ -29,8 +29,8 @@ function SignupFormModal() {
 			thunkSignup({
 				email,
 				username,
-				firstname,
-				lastname,
+				firstname, // and this
+				lastname, // and this
 				password,
 			})
 		);
@@ -57,7 +57,6 @@ function SignupFormModal() {
 					/>
 				</label>
 				{errors.email && <p>{errors.email}</p>}
-
 				<label>
 					Username
 					<input
@@ -68,7 +67,6 @@ function SignupFormModal() {
 					/>
 				</label>
 				{errors.username && <p>{errors.username}</p>}
-
 				<label>
 					First Name
 					<input
@@ -78,8 +76,7 @@ function SignupFormModal() {
 						required
 					/>
 				</label>
-				{errors.firstname && <p>{errors.firstname}</p>}
-
+				{errors.firstname && <p>{errors.firstname}</p>} {/* and these */}
 				<label>
 					Last Name
 					<input
@@ -90,7 +87,6 @@ function SignupFormModal() {
 					/>
 				</label>
 				{errors.lastname && <p>{errors.lastname}</p>}
-
 				<label>
 					Password
 					<input
@@ -101,7 +97,6 @@ function SignupFormModal() {
 					/>
 				</label>
 				{errors.password && <p>{errors.password}</p>}
-
 				<label>
 					Confirm Password
 					<input
@@ -112,7 +107,6 @@ function SignupFormModal() {
 					/>
 				</label>
 				{errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-
 				<button type="submit">Sign Up</button>
 			</form>
 		</>
