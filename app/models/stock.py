@@ -14,8 +14,8 @@ class Stock(db.Model):
     graph_image = db.Column(db.String())
 
 
-    stock_portfolio = db.relationship("Portfolio",backref="stock", cascade="all, delete-orphan")
-    stock_watchlist = db.relationship("Watchlist",backref="stock", cascade="all, delete-orphan")
+    portfolio = db.relationship("Portfolio",backref="stock", cascade="all, delete-orphan")
+    watchlist = db.relationship("Watchlist",backref="stock", cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
@@ -25,8 +25,7 @@ class Stock(db.Model):
             "ticker": self.ticker,
             "price": self.price,
             "graph_image": self.graph_image,
-            "portfolios": [portfolio.to_dict() for portfolio in self.stock_portfolio], 
-            "watchlists": [watchlist.to_dict() for watchlist in self.stock_watchlist] 
+
         }
 
 

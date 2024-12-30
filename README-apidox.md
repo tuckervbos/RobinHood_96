@@ -76,7 +76,7 @@ Ends a users session
 - Require Authentication: true
 - Request
 
-  - Method: DELETE
+  - Method: GET
   - Route path: /api/logout
 
 - Successful Response
