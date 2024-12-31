@@ -13,9 +13,10 @@ def search_stocks():
         return jsonify({"message":"Which stock you want to search?????"}),400
     
     stock_result = Stock.query.filter(
-        Stock.ticker.ilike(f'%{wanted_stock}%') |
+        Stock.ticker.ilike(f'%{wanted_stock}%') | 
         Stock.company_name.ilike(f'%{wanted_stock}%')
     ).all()
+
 
     result_list = []
 

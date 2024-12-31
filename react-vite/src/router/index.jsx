@@ -2,6 +2,8 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Watchlist from '../components/Watchlist'// for test
+import SearchBar from '../components/SearchBar/SearchBar'// for test
+import SearchResults from '../components/SearchBar/SearchResultPage'; //for test
 import Layout from './Layout';
 
 export const router = createBrowserRouter([
@@ -24,6 +26,14 @@ export const router = createBrowserRouter([
       {
         path:"watchlists",
         element:<Watchlist />
+      },
+      {
+        path:"searchbar",
+        element:<SearchBar />
+      },
+      {
+        path:"searchres",
+        element:<SearchResults />
       }
     ],
   },

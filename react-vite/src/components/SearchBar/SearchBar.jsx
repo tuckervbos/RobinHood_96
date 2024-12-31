@@ -1,10 +1,34 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { showAllStocksSearchThunk } from '../../redux/stocks';
+import { useDispatch, useSelector} from 'react-redux';
+import { showAllStocksSearchThunk } from '../../redux/stock';
 
-//  We can have a search bar where users can input information
-//  and get one or more search results. 
-//  So, what's next? How should the search results be displayed? 
-//  Should there be a search results page? 
-//  Then, when users click on a specific stock in the search results page, 
-//  should they be redirected to the stock's detail page?
+
+const SearchBar = ()=>{
+    const [query,setQuery] = useState('')
+    const dispatch = useDispatch()
+
+    const handleSearch = (e) =>{
+        e.preventDefault()
+        if(query.trim()){
+            dispatch(showAllStocksSearchThunk(query))
+            setQuery('')
+        }
+    }
+
+    return (
+        <div>
+            <form onSubmit={handleSearch}>
+                <input
+                    type='text'
+                    placeholder='search stocks here'
+                    value={query}
+                    onChange={(e)=>setQuery(e.target.value)}
+                />
+                <button type='submit'>search</button>
+
+                {/* when we get the result ,we need redirect to search result page */}
+            </form>
+        </div>
+    )
+}
+export default SearchBar

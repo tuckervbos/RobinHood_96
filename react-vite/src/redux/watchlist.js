@@ -1,5 +1,6 @@
 // show watch lists; create watchlist; delete watchlist;
 // add to watchlist; remove from watchlist
+import {csrfFetch} from "./csrf"
 
 const SHOW_WATCHLISTS = 'watchlists/SHOW_WATCHLISTS';
 const CREATE_WATCHLIST = 'watchlist/CREATE_WATCHLIST';
@@ -65,7 +66,7 @@ export const showWatchlistsThunk = () => async (dispatch) => {
   };
 
 export const createWatchlistThunk = (watchlistData) => async (dispatch) => {
-    const res = await fetch('/api/watchlists/', {
+    const res = await csrfFetch('/api/watchlists/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ export const createWatchlistThunk = (watchlistData) => async (dispatch) => {
   };
 
 export const removeWatchlistThunk = (watchlistId) => async (dispatch) => {
-    const res = await fetch(`/api/watchlists/${watchlistId}`, {
+    const res = await csrfFetch(`/api/watchlists/${watchlistId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +100,7 @@ export const removeWatchlistThunk = (watchlistId) => async (dispatch) => {
   };
 
 export const addToWatchlistThunk = (stockId,watchlistId) => async (dispatch) => {
-    const res = await fetch(`/api/stocks/${stockId}/add`, {
+    const res = await csrfFetch(`/api/stocks/${stockId}/add`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -116,7 +117,7 @@ export const addToWatchlistThunk = (stockId,watchlistId) => async (dispatch) => 
   };
 
 export const removeFromWatchlistThunk = (stockId, watchlistId) => async (dispatch) => {
-    const res = await fetch(`/api/watchlists/${watchlistId}/${stockId}/delete`, {
+    const res = await csrfFetch(`/api/watchlists/${watchlistId}/${stockId}/delete`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
