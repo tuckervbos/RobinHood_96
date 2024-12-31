@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Portfolio, db #!removed user as it was unused
+from app.models import Portfolio, Stock, PortfolioStock, db 
 
 portfolio_routes = Blueprint('portfolios', __name__)
 
@@ -41,15 +41,37 @@ def get_portfolio(portfolio_id):
         return jsonify(portfolio.to_dict()), 200
     return jsonify({"error": "Portfolio not found"}), 404
 
+print("TEST TEST TEST",current_user)
 
-@portfolio_routes.route('/all/<int:user_id>', methods=['GET']) #!user id needs to be passed into url, and needs to be seperate from get one portfolio????
+@portfolio_routes.route('/', methods=['GET']) #!user id needs to be passed into url, and needs to be seperate from get one portfolio????
 @login_required
-def get_all_portfolios(user_id):
+def get_all_portfolios():
     """
     Get all portfolios for the current user.
     """
-    portfolios = Portfolio.query.filter_by(user_id=current_user.id).all()
-    return jsonify([portfolio.to_dict() for portfolio in portfolios]), 200
+    portfolios = db.session.query(Portfolio, Stock).\
+    join(PortfolioStock, PortfolioStock.portfolio_id == Portfolio.id).\
+    join(Stock, Stock.id == PortfolioStock.stock_id).\
+    filter(Portfolio.user_id == current_user.id).all()
+    result = {}
+    print("TEST TEST TEST",current_user)
+    
+    for portfolio, stock in portfolios:
+        if portfolio.id not in result:
+            result[portfolio.id] = {
+                "portfolio_id": portfolio.id,
+                "portfolio_name": portfolio.portfolio_name,
+                "stocks": []
+            }
+        result[portfolio.id]["stocks"].append({
+            "id": stock.id,
+            "name": stock.company_name,
+            "ticker": stock.ticker,
+            "price": stock.price
+        })
+    response = list(result.values())
+    return jsonify(response), 200
+
 
 
 @portfolio_routes.route('/<int:portfolio_id>', methods=['PATCH'])

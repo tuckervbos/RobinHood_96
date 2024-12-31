@@ -30,19 +30,24 @@ const getOnePortfolioAO = (portfolio) => {
 /***********************************************************************************************************************************************/
 
 //Get all portfolios
-export const getAllPortfolios = (userId) => async (dispatch) => {
-    const request = await csrfFetch((`/api/portfolios/all/${userId}`),{ //! Backend route changed to include userId in url!!!
-        method: "GET"
+export const getAllPortfolios = () => async (dispatch) => {
+    const request = await csrfFetch((`/api/portfolios`),{
+        headers: {
+            'Content-Type': 'application/json',
+          },
     });
     const response = await request.json();
-    dispatch(getAllPortfoliosAO(response));
-    return response;
+
+    console.log("ALL PORT= ",response)
+    
+    await dispatch(getAllPortfoliosAO(response));
+    // return response;
 };
 
 
 //get one portfolio
 export const getOnePortfolio = (portfolioId) => async (dispatch) => {
-    const request = await csrfFetch((`/api/portfolios/${portfolioId}`),{
+    const request = await fetch((`/api/portfolios/${portfolioId}`),{
         method: "GET"
     });
     const response = await request.json();

@@ -29,7 +29,7 @@ function AllPortfolios(){
     
     //getting latest state on page load
     useEffect(()=> {
-        dispatch(getAllPortfolios(user.id))
+        dispatch(getAllPortfolios())
     },[dispatch]); 
 
 /***********************************************************************************************************************************************/

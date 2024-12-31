@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
       {
         path:"watchlists",
         element:<Watchlist />
-      }
+      },
       {
         path: "portfolios",
         element: <AllPortfolios />
