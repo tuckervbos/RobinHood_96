@@ -10,8 +10,8 @@ class Portfolio(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete="CASCADE"), nullable=False)
     portfolio_name = db.Column(db.String(100), nullable=False)
-    quantity = db.Column(db.Integer, nullable=False)
-    price = db.Column(db.Numeric(precision=10, scale=2))
+    # quantity = db.Column(db.Integer, nullable=False)
+    # price = db.Column(db.Numeric(precision=10, scale=2))
 
     stocks_in_portfolio = db.relationship(
         "Stock",
@@ -24,6 +24,6 @@ class Portfolio(db.Model):
             "id": self.id,
             "user_id": self.user_id,
             "portfolio_name": self.portfolio_name,
-            "quantity": self.quantity,
-            "price": self.price
+            # "quantity": self.quantity,
+            # "price": self.price
         }

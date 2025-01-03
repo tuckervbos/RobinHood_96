@@ -2,6 +2,8 @@ import React from "react";
 import {useSelector} from 'react-redux'
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";//for test
+import AIAssistant from "../AiAssistant/AiAssistant";//for test
+import Footer from '../Footer/Footer'; //for test
 
 // change this to a page 
 const SearchResults = ()=>{
@@ -23,6 +25,8 @@ const SearchResults = ()=>{
                     </li>
                 ))}
             </ul>
+            <AIAssistant />
+            <Footer />
         </div>
     )
 

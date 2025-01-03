@@ -1,8 +1,8 @@
-"""test
+"""dbupdate
 
-Revision ID: 61d23df8e618
+Revision ID: 00a6dd838225
 Revises: 
-Create Date: 2024-12-30 08:37:06.289891
+Create Date: 2025-01-02 17:34:46.568153
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '61d23df8e618'
+revision = '00a6dd838225'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -44,8 +44,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('portfolio_name', sa.String(length=100), nullable=False),
-    sa.Column('quantity', sa.Integer(), nullable=False),
-    sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
@@ -59,6 +57,8 @@ def upgrade():
     op.create_table('portfolio_stocks',
     sa.Column('portfolio_id', sa.Integer(), nullable=False),
     sa.Column('stock_id', sa.Integer(), nullable=False),
+    sa.Column('quantity', sa.Integer(), nullable=False),
+    sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
     sa.ForeignKeyConstraint(['portfolio_id'], ['portfolios.id'], ),
     sa.ForeignKeyConstraint(['stock_id'], ['stocks.id'], ),
     sa.PrimaryKeyConstraint('portfolio_id', 'stock_id')
