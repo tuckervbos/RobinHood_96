@@ -56,8 +56,15 @@ export const getAllPortfolios = () => async (dispatch) => {
 
 //get one portfolio
 export const getOnePortfolio = (portfolioId) => async (dispatch) => {
-    const request = await fetch(`/api/portfolios/${portfolioId}`);
+    console.log("STOR ONE PRT= ",portfolioId)
+    const request = await fetch(`/api/portfolios/${portfolioId}`,{
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
     const response = await request.json();
+    console.log("STORE RES= ", response)
     dispatch(getOnePortfolioAO(response));
     return response;
 };

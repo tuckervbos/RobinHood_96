@@ -1,7 +1,7 @@
 /***********************************************************************************************************************************************/
 //*                             IMPORTS
 /***********************************************************************************************************************************************/
-
+//flask db init, flask db migrate -m "text", flask db upgrade, flask seed  all
 import { useDispatch, useSelector } from "react-redux";
 
 import { useEffect } from "react";
@@ -17,8 +17,8 @@ import "./OnePortfolio.css";
 /***********************************************************************************************************************************************/
 
 function OnePortfolio(){
-    const dispatch = useDispatch;
-    const {portfolioId} = useParams();
+    const dispatch = useDispatch();
+    const {portfolio_id} = useParams();
 
     //Getting state from store
     const {portfolio, user} = useSelector((state) => {
@@ -27,11 +27,20 @@ function OnePortfolio(){
             user: state.session.user
         }
     });
+    
 
     //getting latest state on page load
-        // useEffect(()=> {
-        //     dispatch(getOnePortfolio())
-        // },[dispatch]); 
+    useEffect(()=> {
+        dispatch(getOnePortfolio(portfolio_id))
+    },[dispatch]); 
+
+    //testing state
+    useEffect(() => {
+        if (portfolio && portfolio.length > 0) {
+          console.log("ONePORT TEST= ", portfolio[0], "USER: ", user, "PORTID: ", portfolio_id);
+          console.log("Stocks: ", portfolio[0].stocks);
+        }
+      }, [portfolio, user, portfolio_id]);
 
 /***********************************************************************************************************************************************/
 //*                             HTML
@@ -39,7 +48,16 @@ function OnePortfolio(){
     
     return (
         <>
-            <h1>one portfolio</h1>
+            <ul className="AllStocksInPortfolioGrid">
+                {portfolio[0].stocks.map((stock) => (
+                    <Link key={stock.id} to={`/stocks/${stock.id}`}>
+                        <li key={stock.id} className="StockLi">
+                            <p className="StockName">{stock.name} ({stock.ticker})</p>
+                            <p className="StockPrice">Price: {stock.price}</p>
+                        </li>
+                    </Link>
+                ))}
+            </ul>
         </>
     )
 }

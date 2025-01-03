@@ -140,11 +140,9 @@ function AllPortfolios(){
         e.stopPropagation();
         
         if (portfolio) {
-            // Opening the modal
             setPortfolioToEdit(portfolio);
             setEditName(portfolio.portfolio_name);
         } else {
-            // Closing the modal
             setPortfolioToEdit(null);
             setEditName('');
         }
@@ -179,8 +177,8 @@ function AllPortfolios(){
                     <div className='deleteTitle'>Confirm Delete???</div>
                     <div className="deleteMessage">Are you sure you want to delete this Portfolio?</div>
                     <div className='deleteButtons'>
-                    <button type="button" onClick={(e) => handleDelete(e, portfolioToDelete.portfolio_id)} style={{ backgroundColor: 'red', color: 'white' }}>Yes</button>
-                        <button type="button" onClick={(e) => deleteEvent(e)} style={{ backgroundColor: 'grey', color: 'white' }}>No</button>
+                    <button type="button" onClick={(e) => handleDelete(e, portfolioToDelete.portfolio_id)}>Yes</button>
+                        <button type="button" onClick={(e) => deleteEvent(e)}>No</button>
                     </div>
                 </CustomModal>}
             </>
@@ -199,8 +197,8 @@ function AllPortfolios(){
                         />
                         {errors.name && <span className="PortfolioError">{errors.name}</span>}
                     </label>   
-                    <button type="button" onClick={(e) => handleCreate(e)} style={{ backgroundColor: 'red', color: 'white' }}>Create</button>
-                    <button type="button" onClick={createEvent} style={{ backgroundColor: 'grey', color: 'white' }}>cancel</button>
+                    <button type="button" onClick={(e) => handleCreate(e)} >Create</button>
+                    <button type="button" onClick={createEvent} >cancel</button>
                     </div>
                 </CustomModal>}
             </>
@@ -218,8 +216,8 @@ function AllPortfolios(){
                         />
                         {editErrors.name && <span className="PortfolioError">{editErrors.name}</span>}
                     </label>   
-                    <button type="button" onClick={(e) => handleEdit(e,portfolioToEdit.portfolio_id)} style={{ backgroundColor: 'red', color: 'white' }}>Confirm Change</button>
-                    <button type="button" onClick={editEvent} style={{ backgroundColor: 'grey', color: 'white' }}>cancel</button>
+                    <button type="button" onClick={(e) => handleEdit(e,portfolioToEdit.portfolio_id)}>Confirm Change</button>
+                    <button type="button" onClick={editEvent}>cancel</button>
                     </div>
                 </CustomModal>}
             </>

@@ -35,10 +35,30 @@ def get_portfolio(portfolio_id):
     """
     Get a specific portfolio by ID for the current user.
     """
-    portfolio = Portfolio.query.filter_by(id=portfolio_id, user_id=current_user.id).first()
-    if portfolio:
-        return jsonify(portfolio.to_dict()), 200
-    return jsonify({"error": "Portfolio not found"}), 404
+    portfolios = db.session.query(Portfolio, Stock).\
+    outerjoin(PortfolioStock, PortfolioStock.portfolio_id == Portfolio.id).\
+    outerjoin(Stock, Stock.id == PortfolioStock.stock_id).\
+    filter(Portfolio.id == portfolio_id).all()
+    result = {}
+
+    for portfolio, stock in portfolios:
+        if portfolio.id not in result:
+            result[portfolio.id] = {
+                "portfolio_id": portfolio.id,
+                "portfolio_name": portfolio.portfolio_name,
+                "stocks": []
+            }
+        if stock:  
+            result[portfolio.id]["stocks"].append({
+                "id": stock.id,
+                "name": stock.company_name,
+                "ticker": stock.ticker,
+                "price": stock.price
+            })
+
+    response = list(result.values())
+    return jsonify(response), 200
+
 
 
 
