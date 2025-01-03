@@ -257,18 +257,19 @@ const LandingPage = () => {
 						<h4>All investing involves risk</h4>
 						<p>
 							Brokerage services are offered through Robinhood Financial LLC
-							("RHF"), a registered broker dealer (member SIPC), and clearing
-							services through Robinhood Securities, LLC ("RHS"), a registered
-							broker dealer (member SIPC).
+							(`&quot;`RHF`&quot;`), a registered broker dealer (member SIPC),
+							and clearing services through Robinhood Securities, LLC
+							(`&quot;`RHS`&quot;`), a registered broker dealer (member SIPC).
 						</p>
 						<p>
 							Cryptocurrency services are offered through Robinhood Crypto, LLC
-							("RHC") (NMLS ID: 1702840). Cryptocurrency held through Robinhood
-							Crypto is not FDIC insured or SIPC protected.
+							(`&quot;`RHC`&quot;`) (NMLS ID: 1702840). Cryptocurrency held
+							through Robinhood Crypto is not FDIC insured or SIPC protected.
 						</p>
 						<p>
 							The Robinhood spending account is offered through Robinhood Money,
-							LLC ("RHY") (NMLS ID: 1990968), a licensed money transmitter.
+							LLC (`&quot;`RHY`&quot;`) (NMLS ID: 1990968), a licensed money
+							transmitter.
 						</p>
 					</div>
 				</div>

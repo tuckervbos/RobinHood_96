@@ -1,0 +1,94 @@
+/* General Layout */
+.landing-page {
+	font-family: Arial, sans-serif;
+}
+
+/* Hero Section */
+.hero {
+	background-color: #000;
+	color: #fff;
+	padding: 40px;
+	text-align: center;
+}
+
+.hero-title {
+	font-size: 3rem;
+	margin-bottom: 20px;
+}
+
+.hero-subtitle {
+	font-size: 1.5rem;
+	margin-bottom: 20px;
+}
+
+.hero-explore-button {
+	background-color: #00c805;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+/* Investing Section */
+.investing {
+	padding: 40px;
+	text-align: center;
+	background-color: #f9f9f9;
+}
+
+.learn-more-button {
+	background-color: #00c805;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+/* Crypto Section */
+.crypto {
+	padding: 40px;
+	background-color: #000;
+	color: #fff;
+	text-align: center;
+}
+
+/* Mobile Promo Section */
+.mobile-promo {
+	padding: 40px;
+	text-align: center;
+}
+
+.mobile-promo-image {
+	max-width: 100%;
+	height: auto;
+	margin: 20px 0;
+}
+
+.download-button {
+	background-color: #00c805;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+/* Footer */
+.footer {
+	background-color: #000;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+
+.footer-links a {
+	color: #00c805;
+	text-decoration: none;
+	margin: 0 10px;
+}
+
+.footer-links a:hover {
+	text-decoration: underline;
+}
