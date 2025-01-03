@@ -1,9 +1,7 @@
-/* General Layout */
 .landing-page {
 	font-family: Arial, sans-serif;
 }
 
-/* Hero Section */
 .hero {
 	background-color: #000;
 	color: #fff;
@@ -30,7 +28,6 @@
 	cursor: pointer;
 }
 
-/* Investing Section */
 .investing {
 	padding: 40px;
 	text-align: center;
@@ -46,7 +43,6 @@
 	cursor: pointer;
 }
 
-/* Crypto Section */
 .crypto {
 	padding: 40px;
 	background-color: #000;
@@ -54,7 +50,6 @@
 	text-align: center;
 }
 
-/* Mobile Promo Section */
 .mobile-promo {
 	padding: 40px;
 	text-align: center;
@@ -73,22 +68,4 @@
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-}
-
-/* Footer */
-.footer {
-	background-color: #000;
-	color: #fff;
-	padding: 20px;
-	text-align: center;
-}
-
-.footer-links a {
-	color: #00c805;
-	text-decoration: none;
-	margin: 0 10px;
-}
-
-.footer-links a:hover {
-	text-decoration: underline;
 }
