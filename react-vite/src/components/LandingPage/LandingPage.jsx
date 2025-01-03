@@ -13,6 +13,7 @@ const LandingPage = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const stocks = useSelector((state) => state.stock.stocks);
+	const sessionUser = useSelector((state) => state.session.user);
 
 	useEffect(() => {
 		dispatch(showAllStocksThunk());
