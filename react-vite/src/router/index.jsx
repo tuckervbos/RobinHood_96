@@ -17,37 +17,7 @@ import LandingPage from "../components/LandingPage/LandingPage";
 import HomePage from "../components/HomePage/HomePage";
 
 export const router = createBrowserRouter([
-  {
-    element: <Layout />,
-    children: [
-      {
-        path: "/",
-        element: <h1>Welcome!</h1>,
-      },
-      {
-        path: "login",
-        element: <LoginFormPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupFormPage />,
-      },
-      // test component
-      {
-        path:"watchlists",
-        element:<Watchlist />
-      },
-      {
-        path: "portfolios",
-        element: <AllPortfolios />
-      },
-      {
-        path: "portfolios/:portfolio_id",
-        element: <OnePortfolio />
-      }
-    ],
-  },
-	{
+  	{
 		element: <Layout />,
 		children: [
 			{
@@ -80,9 +50,17 @@ export const router = createBrowserRouter([
 				element: <SearchResults />,
 			},
 			{
+			  path: "portfolios",
+			  element: <AllPortfolios />
+			},
+			{
+			  path: "portfolios/:portfolio_id",
+			  element: <OnePortfolio />
+			},
+			{
 				path: "*",
 				element: <NotFoundPage />,
-			},
+			}
 		],
 	},
 ]);
