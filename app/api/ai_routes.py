@@ -20,6 +20,8 @@ def get_stock_recommendations():
     data = request.json
     user_query = data.get('query', '')
 
+    user_query = "I would like to inquire about information in the stock consulting field. Please provide a concise and clear answer of around 100 words. Here is my question:" + user_query
+
     try:
         response = client.chat.completions.create(
             model="deepseek-chat",  

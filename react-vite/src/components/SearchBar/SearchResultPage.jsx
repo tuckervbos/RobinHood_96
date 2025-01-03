@@ -19,7 +19,7 @@ const SearchResults = ()=>{
                     <li key = {stock.id}>
                         <div>
                             <h3>{stock.company_name} ({stock.ticker}) Price: ${stock.price}</h3>
-                            {/* <img src = {stock.graph_image} alt ="stock graph"/> */}
+                            <img src = {stock.graph_image} alt ="stock graph"/>
                             <NavLink to={`/stocks/${stock.id}`}>View Details</NavLink>
                         </div>
                     </li>

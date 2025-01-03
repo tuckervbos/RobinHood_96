@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { FaMagic } from "react-icons/fa";
+import './AiAssistant.css'
 
 function AIAssistant() {
   const [query, setQuery] = useState("");
