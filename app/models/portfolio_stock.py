@@ -18,9 +18,5 @@ class PortfolioStock(db.Model):
             "stock_id": self.stock_id,
             "quantity":self.quantity,
             "price":self.price,
-<<<<<<< HEAD
         }
 
-=======
-        }
->>>>>>> 92be0e5ed394236ee9bc1ce47b8b490743fbb43d

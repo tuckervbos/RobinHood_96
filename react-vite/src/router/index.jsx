@@ -1,10 +1,6 @@
-import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
-import Watchlist from '../components/Watchlist'// for test
+
 import AllPortfolios from '../components/AllPortfolios/AllPortfolios';
 import OnePortfolio from '../components/OnePortfolio/OnePortfolio';
-import Layout from './Layout';
 import { createBrowserRouter } from "react-router-dom";
 import LoginFormPage from "../components/LoginFormPage";
 import SignupFormPage from "../components/SignupFormPage";

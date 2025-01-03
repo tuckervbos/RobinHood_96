@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";//for test
 import AIAssistant from "../AiAssistant/AiAssistant";//for test
-import Footer from '../Footer/Footer'; //for test
+// import Footer from '../Footer/Footer'; 
 
 // change this to a page 
 const SearchResults = ()=>{
@@ -26,7 +26,7 @@ const SearchResults = ()=>{
                 ))}
             </ul>
             <AIAssistant />
-            <Footer />
+            {/* <Footer /> */}
         </div>
     )
 
