@@ -52,6 +52,12 @@ const LandingPage = () => {
 				</button>
 			</section>
 
+			<img
+				src="/assets/hero-background.jpg"
+				alt="Hero Section Graphic"
+				className="below-hero-image"
+			/>
+
 			<section className="investing">
 				<h2>Investing</h2>
 				<p>Build your portfolio starting with just $1</p>
@@ -67,6 +73,12 @@ const LandingPage = () => {
 				</button>
 			</section>
 
+			<img
+				src="/assets/landing-page-investing-section.jpg"
+				alt="Investing Section Graphic"
+				className="below-investing-image"
+			/>
+
 			<section className="crypto-section">
 				<div className="crypto-div">
 					<h2>Robinhood Crypto</h2>
@@ -79,6 +91,12 @@ const LandingPage = () => {
 					</button>
 				</div>
 			</section>
+
+			<img
+				src="/assets/landing-page-investing-section.jpg"
+				alt="Investing Section Graphic"
+				className="below-investing-image"
+			/>
 
 			<section className="protection-guarantee-section">
 				<h2>Robinhood Protection Guarantee</h2>
