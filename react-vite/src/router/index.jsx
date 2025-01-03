@@ -5,6 +5,9 @@ import Watchlist from "../components/Watchlist"; // for test
 import SearchBar from "../components/SearchBar/SearchBar"; // for test
 import SearchResults from "../components/SearchBar/SearchResultPage"; //for test
 import Layout from "./Layout";
+import NotFoundPage from "../components/NotFoundPage/NotFoundPage";
+import LandingPage from "../components/LandingPage/LandingPage";
+import HomePage from "../components/HomePage/HomePage";
 
 export const router = createBrowserRouter([
 	{
@@ -12,7 +15,11 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: "/",
-				element: <h1>Welcome!</h1>,
+				element: <LandingPage />,
+			},
+			{
+				path: "home",
+				element: <HomePage />,
 			},
 			{
 				path: "login",

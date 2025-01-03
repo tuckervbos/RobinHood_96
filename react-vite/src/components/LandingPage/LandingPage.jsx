@@ -25,8 +25,6 @@ const LandingPage = () => {
 
 	return (
 		<div className="landing-page">
-			<Navigation />
-
 			<section className="search-bar-section">
 				<h2>Find Your Next Stock</h2>
 				<SearchBar />
@@ -85,7 +83,7 @@ const LandingPage = () => {
 				<p>We work hard to keep your data safe and secure.</p>
 				<p>We protect your account from unauthorized activity.</p>
 				<p>We provide multi-factor authentication on all accounts.</p>
-				<p>We've got your back. We're available to you 24/7.</p>
+				<p>We`&apos;`ve got your back. We`&apos;`re available to you 24/7.</p>
 			</section>
 
 			<section className="better-investor-section">
