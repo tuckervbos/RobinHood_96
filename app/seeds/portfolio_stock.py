@@ -3,20 +3,20 @@ from sqlalchemy.sql import text
 
 def seed_portfolio_stocks():
     portfolio_stock_data = [
-        {"portfolio_id": 1, "stock_id": 1},
-        {"portfolio_id": 1, "stock_id": 5},
-        {"portfolio_id": 2, "stock_id": 2},
-        {"portfolio_id": 3, "stock_id": 3},
-        {"portfolio_id": 3, "stock_id": 4},
-        {"portfolio_id": 4, "stock_id": 6},
-        {"portfolio_id": 4, "stock_id": 7},
-        {"portfolio_id": 5, "stock_id": 9},
-        {"portfolio_id": 5, "stock_id": 12},
-        {"portfolio_id": 6, "stock_id": 13},
-        {"portfolio_id": 6, "stock_id": 16},
-        {"portfolio_id": 7, "stock_id": 17},
-        {"portfolio_id": 7, "stock_id": 20},
-        {"portfolio_id": 8, "stock_id": 23}
+        {"portfolio_id": 1, "stock_id": 1, "quantity":1},
+        {"portfolio_id": 1, "stock_id": 5,"quantity":2},
+        {"portfolio_id": 2, "stock_id": 2,"quantity":1},
+        {"portfolio_id": 3, "stock_id": 3,"quantity":2},
+        {"portfolio_id": 3, "stock_id": 4,"quantity":1},
+        {"portfolio_id": 4, "stock_id": 6,"quantity":2},
+        {"portfolio_id": 4, "stock_id": 7,"quantity":1},
+        {"portfolio_id": 5, "stock_id": 9,"quantity":2},
+        {"portfolio_id": 5, "stock_id": 12,"quantity":1},
+        {"portfolio_id": 6, "stock_id": 13,"quantity":2},
+        {"portfolio_id": 6, "stock_id": 16,"quantity":1},
+        {"portfolio_id": 7, "stock_id": 17,"quantity":2},
+        {"portfolio_id": 7, "stock_id": 20,"quantity":1},
+        {"portfolio_id": 8, "stock_id": 23,"quantity":2}
     ]
     
     portfolio_stock_obj = []

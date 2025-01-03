@@ -41,9 +41,9 @@ def get_portfolio(portfolio_id):
         return jsonify(portfolio.to_dict()), 200
     return jsonify({"error": "Portfolio not found"}), 404
 
-print("TEST TEST TEST",current_user)
 
-@portfolio_routes.route('/', methods=['GET']) #!user id needs to be passed into url, and needs to be seperate from get one portfolio????
+
+@portfolio_routes.route('/', methods=['GET']) 
 @login_required
 def get_all_portfolios():
     """
@@ -54,7 +54,7 @@ def get_all_portfolios():
     join(Stock, Stock.id == PortfolioStock.stock_id).\
     filter(Portfolio.user_id == current_user.id).all()
     result = {}
-    print("TEST TEST TEST",current_user)
+    print("BACKEND PORT TEST = ",current_user)
     
     for portfolio, stock in portfolios:
         if portfolio.id not in result:
@@ -102,7 +102,14 @@ def delete_portfolio(portfolio_id):
     portfolio = Portfolio.query.filter_by(id=portfolio_id, user_id=current_user.id).first()
     if not portfolio:
         return jsonify({"error": "Portfolio not found"}), 404
-    db.session.delete(portfolio)
+    
+    #query all stocks in portfolio
+    # stocks = PortfolioStock.query.with_entities(PortfolioStock.stock_id).filter_by(portfolio_id=portfolio_id).all()
+    # print("BACK END TEST= ",stocks)
+
+    #add portfolio.price to users accountbalance
+
+    # db.session.delete(portfolio)
     db.session.commit()
     return jsonify({"message": "Portfolio deleted successfully"}), 200
 

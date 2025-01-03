@@ -31,29 +31,39 @@ const getOnePortfolioAO = (portfolio) => {
 
 //Get all portfolios
 export const getAllPortfolios = () => async (dispatch) => {
-    const request = await csrfFetch((`/api/portfolios`),{
-        headers: {
-            'Content-Type': 'application/json',
-          },
-    });
+    const request = await fetch(`/api/portfolios/`);
     const response = await request.json();
-
-    console.log("ALL PORT= ",response)
-    
     await dispatch(getAllPortfoliosAO(response));
-    // return response;
+    return response;
 };
 
 
 //get one portfolio
 export const getOnePortfolio = (portfolioId) => async (dispatch) => {
-    const request = await fetch((`/api/portfolios/${portfolioId}`),{
-        method: "GET"
-    });
+    const request = await fetch(`/api/portfolios/${portfolioId}`);
     const response = await request.json();
     dispatch(getOnePortfolioAO(response));
     return response;
-}
+};
+
+//Delete portfolio
+export const deletePortfolio = (portfolioId) => async (dispatch) => {
+    //calculating new account balance
+
+
+    //deleting the portfolio
+    const request = await fetch(`/api/portfolios/${portfolioId}`,{
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    const response = await request.json();
+    const newPortfolioList = await fetch(`/api/portfolios/`);
+    const newPortfolioListResponse = await newPortfolioList.json();
+    dispatch(getAllPortfolios(newPortfolioListResponse));
+    return response; 
+};
 
 /***********************************************************************************************************************************************/
 //*                             REDUCER
