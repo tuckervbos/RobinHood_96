@@ -35,13 +35,13 @@ def get_portfolio(portfolio_id):
     """
     Get a specific portfolio by ID for the current user.
     """
-    portfolios = db.session.query(Portfolio, Stock).\
+    
+    portfolios = db.session.query(Portfolio, Stock, PortfolioStock).\
     outerjoin(PortfolioStock, PortfolioStock.portfolio_id == Portfolio.id).\
     outerjoin(Stock, Stock.id == PortfolioStock.stock_id).\
     filter(Portfolio.id == portfolio_id).all()
     result = {}
-
-    for portfolio, stock in portfolios:
+    for portfolio, stock, portfolioStock in portfolios:
         if portfolio.id not in result:
             result[portfolio.id] = {
                 "portfolio_id": portfolio.id,
@@ -53,7 +53,8 @@ def get_portfolio(portfolio_id):
                 "id": stock.id,
                 "name": stock.company_name,
                 "ticker": stock.ticker,
-                "price": stock.price
+                "price": stock.price,
+                "quantity": portfolioStock.quantity
             })
 
     response = list(result.values())
@@ -141,6 +142,7 @@ def delete_portfolio(portfolio_id):
     db.session.commit()
     return jsonify({"message": "Portfolio deleted successfully"}), 200
 
+
 # Delete stock from user's portfolio
 # Removes a stock from the current user's portfolio.
 # Refunds stock price to user's account balance.
@@ -161,3 +163,59 @@ def delete_stock_from_portfolio(stock_id):
         "message": "Stock removed from portfolio successfully",
         "updated_balance": user.account_balance
     }), 200
+
+
+@portfolio_routes.route('/sell', methods=['PATCH'])
+@login_required
+def sell_portfolio():
+    """
+    Sell a stock in a particular portfolio
+    """
+    data = request.get_json()
+    stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
+    if not stock:
+        return jsonify({"error": "stock not found"}), 404
+
+    if stock.quantity <= 0:
+        return jsonify({"error": "Insufficient quantity"}), 400
+    current_user.account_balance += stock.price
+    stock.quantity -= 1
+
+    db.session.commit()
+    return jsonify(stock.to_dict()), 200
+
+
+@portfolio_routes.route('/buy', methods=['PATCH'])
+@login_required
+def buy_portfolio():
+    """
+    Buy a stock in a particular portfolio
+    """
+    data = request.get_json()
+    stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
+    if not stock:
+        return jsonify({"error": "stock not found"}), 404
+    if current_user.account_balance <= 0:
+        return jsonify({"error": "Insufficient funds"}), 400
+    current_user.account_balance -= stock.price
+    stock.quantity += 1
+    db.session.commit()
+    return jsonify(stock.to_dict()), 200
+
+
+@portfolio_routes.route('/deleteStock', methods=['DELETE'])
+@login_required
+def delete_stock_portfolio():
+    """
+    Delete a stock from a particular portfolio, sells all shares
+    """
+    data = request.get_json()
+    stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
+    if not stock:
+        return jsonify({"error": "stock not found"}), 404
+    sellPrice = stock.price * stock.quantity
+    print("BACKEND TEST1= ", sellPrice)
+    current_user.account_balance += sellPrice
+    db.session.delete(stock)
+    db.session.commit()
+    return jsonify(stock.to_dict()), 200

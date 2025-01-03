@@ -1,10 +1,4 @@
 /***********************************************************************************************************************************************/
-//*                             IMPORTS
-/***********************************************************************************************************************************************/
-
-import { csrfFetch } from './csrf'; 
-
-/***********************************************************************************************************************************************/
 //*                             ACTION OBJECTS
 /***********************************************************************************************************************************************/
 
@@ -33,14 +27,6 @@ const createPortfolioAO = (portfolio) => {
     }
 };
 
-// const EDIT_PORTFOLIO = "portfolios/editPortfolio";
-// const editPortfolioAO = (portfolio) => {
-//     return {
-//         type: EDIT_PORTFOLIO,
-//         payload: portfolio
-//     }
-// };
-
 /***********************************************************************************************************************************************/
 //*                            THUNKS
 /***********************************************************************************************************************************************/
@@ -56,7 +42,6 @@ export const getAllPortfolios = () => async (dispatch) => {
 
 //get one portfolio
 export const getOnePortfolio = (portfolioId) => async (dispatch) => {
-    console.log("STOR ONE PRT= ",portfolioId)
     const request = await fetch(`/api/portfolios/${portfolioId}`,{
         method: "GET",
         headers: {
@@ -64,7 +49,6 @@ export const getOnePortfolio = (portfolioId) => async (dispatch) => {
         }
     });
     const response = await request.json();
-    console.log("STORE RES= ", response)
     dispatch(getOnePortfolioAO(response));
     return response;
 };
@@ -113,6 +97,49 @@ export const editPortfolio = (info) => async (dispatch) => {
     dispatch(getAllPortfolios())
     return response;
 };
+
+//Sell stock (from portfolio page)
+export const sellStock = (info) => async (dispatch) => {
+    const request = await fetch(`/api/portfolios/sell`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({info})
+    })
+    const response = await request.json();
+    dispatch(getOnePortfolio(info.portfolioId));
+    return response;
+};
+
+//Buy stock (from portfolio page)
+export const buyStock = (info) => async (dispatch) => {
+    console.log("STORE= ", info)
+    const request = await fetch(`/api/portfolios/buy`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({info})
+    })
+    const response = await request.json();
+    dispatch(getOnePortfolio(info.portfolioId));
+    return response;
+};
+
+//Delete stock (from portfolio page)
+export const deleteStock = (info) => async (dispatch) => {
+    const request = await fetch(`/api/portfolios/deleteStock`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({info})
+    })
+    const response = await request.json();
+    dispatch(getOnePortfolio(info.portfolioId));
+    return response;
+}
 
 /***********************************************************************************************************************************************/
 //*                             REDUCER

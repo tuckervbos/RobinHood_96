@@ -121,7 +121,6 @@ function AllPortfolios(){
         }
         portfolios.forEach((portfolio) => {
             if(editName === portfolio.portfolio_name){
-                console.log("UNIQUE NAME ERROR ",editName === portfolio.portfolio_name)
                 validationErrors.editName = "Name must be unique";
             }
         })
@@ -174,11 +173,10 @@ function AllPortfolios(){
             {/* DELETE MODAL */}
             <>{showConfirmDelete && 
                 <CustomModal onClose={deleteEvent}>
-                    <div className='deleteTitle'>Confirm Delete???</div>
-                    <div className="deleteMessage">Are you sure you want to delete this Portfolio?</div>
+                    <div className="deleteMessage">This will sell all stocks in the portfolio and delete the portfolio, confirm delete?</div>
                     <div className='deleteButtons'>
-                    <button type="button" onClick={(e) => handleDelete(e, portfolioToDelete.portfolio_id)}>Yes</button>
-                        <button type="button" onClick={(e) => deleteEvent(e)}>No</button>
+                    <button type="button" onClick={(e) => handleDelete(e, portfolioToDelete.portfolio_id)}>Confirm</button>
+                        <button type="button" onClick={(e) => deleteEvent(e)}>Cancel</button>
                     </div>
                 </CustomModal>}
             </>
