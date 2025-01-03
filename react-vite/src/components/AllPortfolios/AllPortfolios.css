@@ -1,0 +1,93 @@
+.AllPortfoliosGrid {
+    list-style-type: none;
+    padding: 50px;
+    margin: 0;
+    display: flex;
+    flex-direction: column; 
+    align-items: left; 
+    width: 100%;
+}
+
+.portfoliosLi {
+    width: 33.33%; 
+    margin-bottom: 20px; 
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.portfoliosLi a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.portfoliosLi .portfoliosName,
+.portfoliosLi .portfoliosStocksNum {
+    margin: 5px 0;
+    flex: 1; /* This allows both elements to grow and shrink equally */
+}
+
+.portfoliosLi .portfoliosName {
+    text-align: left;
+}
+
+.portfoliosLi .portfoliosStocksNum {
+    text-align: right;
+    align-self: flex-start;
+}
+
+.portfoliosLi {
+    background-color: transparent;
+    border: 2px solid #4a4a4a; 
+    border-radius: 8px; 
+    transition: all 0.3s ease; 
+}
+
+.portfoliosLi:hover {
+    box-shadow: 0 0 6px #00ff00, 0 0 10px #00ff00, 0 0 14px #00ff00;
+    background-color: #f0f0f0;
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 255, 0, 0.7), 0 0 8px rgba(0, 255, 0, 0.5), 0 0 11px rgba(0, 255, 0, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.9), 0 0 15px rgba(0, 255, 0, 0.7), 0 0 20px rgba(0, 255, 0, 0.5);
+    }
+}
+
+.portfoliosTextBubble {
+    width: 40%; /* Adjust as needed */
+    float: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    margin-top: 300px; /* Adjust this value to move it higher */
+    position: relative; /* Add this to enable z-index if needed */
+    z-index: 1; /* Ensure it's above other elements if there's overlap */
+}
+
+.portfoliosTextBubble p {
+    margin: 5px 0; /* Reduced from 10px to 5px to compact the text vertically */
+    font-size: 24px; /* Adjust as needed */
+    font-weight: bold;
+}
+
+.portfoliosWord1, .portfoliosWord3 {
+    align-self: flex-start;
+}
+
+.portfoliosWord2, .portfoliosWord4 {
+    align-self: flex-end;
+    color: green;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .portfoliosLi {
+        width: 80%; 
+    }
+}
