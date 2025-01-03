@@ -10,14 +10,13 @@ def create_portfolio():
     """
     Create a new portfolio for the current user.
     """
+    
     data = request.get_json()
+    # print("BACK END TEST =" ,data["name"])
     try:
         portfolio = Portfolio(
             user_id=current_user.id,
-            stock_id=data["stock_id"],
-            quantity=data["quantity"],
-            price=data["price"],
-            portfolio_name=data["portfolio_name"]
+            portfolio_name=data["name"]
             # created_at=data['createdAt'],
             # updated_at=data['updatedAt']
         )
@@ -50,11 +49,11 @@ def get_all_portfolios():
     Get all portfolios for the current user.
     """
     portfolios = db.session.query(Portfolio, Stock).\
-    join(PortfolioStock, PortfolioStock.portfolio_id == Portfolio.id).\
-    join(Stock, Stock.id == PortfolioStock.stock_id).\
+    outerjoin(PortfolioStock, PortfolioStock.portfolio_id == Portfolio.id).\
+    outerjoin(Stock, Stock.id == PortfolioStock.stock_id).\
     filter(Portfolio.user_id == current_user.id).all()
     result = {}
-    print("BACKEND PORT TEST = ",current_user)
+   
     
     for portfolio, stock in portfolios:
         if portfolio.id not in result:
@@ -63,12 +62,14 @@ def get_all_portfolios():
                 "portfolio_name": portfolio.portfolio_name,
                 "stocks": []
             }
-        result[portfolio.id]["stocks"].append({
-            "id": stock.id,
-            "name": stock.company_name,
-            "ticker": stock.ticker,
-            "price": stock.price
-        })
+        if stock:  #! changed code to only add stocks if stocks exist
+            result[portfolio.id]["stocks"].append({
+                "id": stock.id,
+                "name": stock.company_name,
+                "ticker": stock.ticker,
+                "price": stock.price
+            })
+
     response = list(result.values())
     return jsonify(response), 200
 
@@ -82,11 +83,12 @@ def update_portfolio(portfolio_id):
     """
     data = request.get_json()
     portfolio = Portfolio.query.filter_by(id=portfolio_id, user_id=current_user.id).first()
+    print("PORT DATA", portfolio)
     if not portfolio:
         return jsonify({"error": "Portfolio not found"}), 404
     try:
-        portfolio.price = data.get('price', portfolio.price)
-        portfolio.updated_at = data.get('updatedAt', portfolio.updated_at)
+        portfolio.portfolio_name = data['name']
+        # portfolio.updated_at = data.get('updatedAt', portfolio.updated_at)
         db.session.commit()
         return jsonify(portfolio.to_dict()), 200
     except Exception as e:
@@ -104,12 +106,18 @@ def delete_portfolio(portfolio_id):
         return jsonify({"error": "Portfolio not found"}), 404
     
     #query all stocks in portfolio
-    # stocks = PortfolioStock.query.with_entities(PortfolioStock.stock_id).filter_by(portfolio_id=portfolio_id).all()
+    stocks = PortfolioStock.query.filter_by(portfolio_id=portfolio_id).all()
     # print("BACK END TEST= ",stocks)
-
+    # print("old BALANCE",current_user.account_balance)
+    sellAmount = 0
+    for stock in stocks:
+        sellAmount += stock.price * stock.quantity
+        #print(f"sellAMount: {sellAmount}, Stock ID: {stock.stock_id}, Portfolio ID: {stock.portfolio_id}")
     #add portfolio.price to users accountbalance
+    current_user.account_balance += sellAmount
+    # print("NEW BALANCE",current_user.account_balance)
 
-    # db.session.delete(portfolio)
+    db.session.delete(portfolio)
     db.session.commit()
     return jsonify({"message": "Portfolio deleted successfully"}), 200
 

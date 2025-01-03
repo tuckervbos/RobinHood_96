@@ -25,6 +25,22 @@ const getOnePortfolioAO = (portfolio) => {
     }
 };
 
+const CREATE_PORTFOLIO = "portfolios/createPortfolio";
+const createPortfolioAO = (portfolio) => {
+    return {
+        type: CREATE_PORTFOLIO,
+        payload: portfolio
+    }
+};
+
+// const EDIT_PORTFOLIO = "portfolios/editPortfolio";
+// const editPortfolioAO = (portfolio) => {
+//     return {
+//         type: EDIT_PORTFOLIO,
+//         payload: portfolio
+//     }
+// };
+
 /***********************************************************************************************************************************************/
 //*                            THUNKS
 /***********************************************************************************************************************************************/
@@ -48,10 +64,6 @@ export const getOnePortfolio = (portfolioId) => async (dispatch) => {
 
 //Delete portfolio
 export const deletePortfolio = (portfolioId) => async (dispatch) => {
-    //calculating new account balance
-
-
-    //deleting the portfolio
     const request = await fetch(`/api/portfolios/${portfolioId}`,{
         method: "DELETE",
         headers: {
@@ -63,6 +75,36 @@ export const deletePortfolio = (portfolioId) => async (dispatch) => {
     const newPortfolioListResponse = await newPortfolioList.json();
     dispatch(getAllPortfolios(newPortfolioListResponse));
     return response; 
+};
+
+//Create portfolio
+export const createPortfolio = (name) => async (dispatch) => {
+    const request = await fetch(`/api/portfolios/`,{
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name})
+    })
+    const response = await request.json();
+    dispatch(createPortfolioAO(response));
+    return response;
+};
+
+//edit portfolio
+export const editPortfolio = (info) => async (dispatch) => {
+    const {name, portfolioId} = info;
+    
+    const request = await fetch(`/api/portfolios/${portfolioId}`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({name})
+    })
+    const response = await request.json();
+    dispatch(getAllPortfolios())
+    return response;
 };
 
 /***********************************************************************************************************************************************/
@@ -77,6 +119,8 @@ const portfoliosReducer = (state = initialState, action) => {
             return {...state, allPortfolios: action.payload}
         case GET_ONE_PORTFOLIO:
             return {...state, singlePortfolio: action.payload}
+        case CREATE_PORTFOLIO:
+            return {...state, allPortfolios: [...state.allPortfolios, action.payload]}
         default: 
             return state;
     }
