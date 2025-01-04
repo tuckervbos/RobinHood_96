@@ -1,134 +1,65 @@
-<<<<<<< HEAD
-
 footer {
-    /* background-color: ; */
-    color: #B0BEC5;
-    font-family: 'Arial', sans-serif;
-  }
-  
+	/* background-color: ; */
+	color: #b0bec5;
+	font-family: "Arial", sans-serif;
+}
+
 .footer-container {
-    width: 100%;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-}
-  
- h4 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #B0BEC5;
-  }
-  
-.team {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-}
-  
-.member-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 16px;
-}
-  
-.member-info p {
-    margin-bottom: 8px;
-}
-  
-.team-link a {
-    margin: 5px;
-    color: #B0BEC5;
-    font-size: 22px;
-    transition: color 0.3s ease;
-}
-  
-.team-link a:hover {
-    color: black;
-}
-  
-  /* Inspiration Section */
-.inspiration {
-    margin-top: 20px;
-    width: 100%;
-    font-size: 16px;
-    color: #B0BEC5;
-    line-height: 1.6;
-    text-align: center;
-    margin-top: 10px;
-}
-  
-.inspiration p {
-    /* max-width: 600px; */
-    margin: 0 auto;
-}
-  
-
-  
-=======
-.footer {
-	background-color: #99ff00; /* Bright green-yellow background */
-	color: #000; /* Black text for contrast */
-	padding: 40px 20px;
-	font-size: 14px;
-}
-
-.footer a {
-	color: #000; /* Black text for links */
-	text-decoration: none;
-}
-
-.footer a:hover {
-	text-decoration: underline; /* Underline on hover */
-}
-
-/* Top Section Layout */
-.footer-top {
+	width: 100%;
+	margin: 0 auto;
 	display: flex;
 	justify-content: space-between;
+	align-items: flex-start;
 	flex-wrap: wrap;
+}
+
+h4 {
+	font-size: 20px;
+	font-weight: 700;
+	margin-bottom: 15px;
+	color: #b0bec5;
+}
+
+.team {
+	display: flex;
+	flex-direction: row;
 	gap: 20px;
 }
 
-.footer-links-column {
-	flex: 1;
-	min-width: 200px; /* Ensures the columns align nicely */
-}
-
-.footer-links-column h4 {
-	margin-bottom: 10px;
+.member-info {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	font-size: 16px;
-	font-weight: bold;
-	text-transform: uppercase;
 }
 
-.footer-links-column ul {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.footer-links-column li {
+.member-info p {
 	margin-bottom: 8px;
 }
 
-/* Bottom Section */
-.footer-bottom {
-	text-align: center;
-	margin-top: 40px;
+.team-link a {
+	margin: 5px;
+	color: #b0bec5;
+	font-size: 22px;
+	transition: color 0.3s ease;
 }
 
-.footer-bottom p {
-	margin: 5px 0;
+.team-link a:hover {
+	color: black;
 }
 
-.footer-branding {
-	font-size: 36px;
-	font-weight: bold;
-	text-align: center;
+/* Inspiration Section */
+.inspiration {
 	margin-top: 20px;
+	width: 100%;
+	font-size: 16px;
+	color: #b0bec5;
+	line-height: 1.6;
+	text-align: center;
+	margin-top: 10px;
 }
->>>>>>> 92be0e5ed394236ee9bc1ce47b8b490743fbb43d
+
+.inspiration p {
+	/* max-width: 600px; */
+	margin: 0 auto;
+}
