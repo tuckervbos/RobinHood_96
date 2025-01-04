@@ -1,0 +1,65 @@
+#userProfile {
+    margin-block: 50px;
+}
+
+#userProfile h1 {
+    text-align: center;
+}
+
+.profileSec {
+    display: flex;
+    justify-content: space-between;
+    margin-inline: 30px;
+}
+
+.profileSec1 img {
+    width: 150px;
+    border-radius: 10px;
+}
+
+.userSec {
+    display: grid;
+}
+
+.userBtn button {
+    display: grid;
+    margin-block: 10px;
+    padding: 8px;
+    width: 125px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.profileEditBtn {
+    background-color: green;
+}
+
+.profileEditBtn:hover {
+    width: 130px;
+}
+
+.profileDeleteBtn {
+    background-color: red;
+}
+
+.profileDeleteBtn:hover {
+    width: 130px;
+}
+
+.profileSec2 {
+    width: 50%;
+}
+
+@media screen and (max-width: 700px) {
+    .profileSec {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 1fr);
+        justify-content: center;
+    }
+
+    .profileSec1 {
+        display: flex;
+        gap: 50px;
+    }
+}
