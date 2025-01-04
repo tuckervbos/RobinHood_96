@@ -25,6 +25,7 @@
     color: rgb(8, 8, 8);
     font-size: clamp(50px, 6vw, 90px);
     text-align: center;
+    justify-content: center;
     margin: 20px;
     padding: 0px;
     animation: animate 5s linear infinite;

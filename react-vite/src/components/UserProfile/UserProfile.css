@@ -1,0 +1,191 @@
+.userProfile {
+  display: grid;
+  justify-items: center;
+  /* height: 100vh; */
+}
+
+.top {
+    /* display: flex; */
+    display: grid;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding: 10px 20px;
+    justify-items: center;
+    /* padding-block: 10px; */
+    border-block: 1px solid black;
+    width: 50%;
+    height: 150px;
+}
+
+.top h1 {
+    margin: 5px;
+    align-content: center;
+    text-align: center;
+}
+
+.top button {
+    width: 125px;
+    /* height: 25px; */
+    color: white;
+    background-color: black;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}
+
+.top button:hover {
+    width: 135px;
+    height: 30px;
+}
+
+
+.profileSec1 {
+  display: flex;
+  width: 100%;
+  margin: 40px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.userImage {
+  display: flex;
+  width: 30%;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.glowBack {
+    position: relative;
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.glowBack::after, .glowBack::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    padding: 3px;
+    border-radius: 50px;
+    animation: spin 3s linear infinite;
+    background-image: conic-gradient(from var(--angle),
+    red, gold,
+    green, red);
+    z-index: -1;
+}
+
+.glowBack::before {
+    filter: blur(1rem);
+    opacity: (0.5);
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}
+
+.userImage img {
+  width: 200px;
+  border-radius: 50px;
+  /* box-shadow: 0px 0px 20px 10px red; */
+}
+
+.userInfo {
+  display: grid;
+  gap: 20px;
+  width: 30%;
+  justify-items: center;
+}
+
+.userInfo h2,
+.userInfo p {
+  margin: 0;
+}
+
+.userInfo p {
+  font-weight: bold;
+}
+
+.userInfo button {
+  width: 125px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.profileEditBtn {
+  background-color: green;
+}
+
+.profileDeleteBtn {
+  background-color: red;
+}
+
+.userInfo button:hover {
+  width: 135px;
+  height: 30px;
+}
+
+.profileSec2 {
+  height: 70vh;
+}
+
+.portfolioWatchlist {
+  display: grid;
+  width: 100%;
+  text-align: center;
+}
+
+.portfolioWatchlistLink {
+  border-block-end: 1px solid black;
+  font-size: 25px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.portfolioWatchlistLink:hover {
+  color: red;
+}
+
+.portfolioWatchlistStock ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.portfolioWatchlistStock li {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+  .profileSec1 {
+    display: grid;
+  }
+  .userInfo {
+    margin-top: 40px;
+    width: 100%;
+  }
+  .userImage {
+    display: block;
+  }
+  .glowBack {
+    width: fit-content;
+}
+}
