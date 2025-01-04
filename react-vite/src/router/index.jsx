@@ -11,6 +11,7 @@ import Layout from "./Layout";
 import NotFoundPage from "../components/NotFoundPage/NotFoundPage";
 import LandingPage from "../components/LandingPage/LandingPage";
 import HomePage from "../components/HomePage/HomePage";
+import UserProfile from '../components/UserProfile';
 
 export const router = createBrowserRouter([
   	{
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
 			{
 			  path: "portfolios/:portfolio_id",
 			  element: <OnePortfolio />
+			},
+			{
+				path: "/profile",
+				element: <UserProfile />
 			},
 			{
 				path: "*",
