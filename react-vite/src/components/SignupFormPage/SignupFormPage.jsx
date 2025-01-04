@@ -61,7 +61,7 @@ function SignupFormPage() {
           <div className="glowSec">
             <h2 className="glowH2">Bigger</h2>
             <h2 className="glowH2">Investments</h2>
-            <h2 className="glowH2">Toward</h2>
+            <h2 className="glowH2">Towards</h2>
             <h2 className="glowH2">Your</h2>
             <h2 className="glowH2">Future</h2>
           </div>

@@ -1,16 +1,8 @@
-<<<<<<<< HEAD:migrations/versions/00a6dd838225_dbupdate.py
-"""dbupdate
+"""message
 
-Revision ID: 00a6dd838225
+Revision ID: 86e2f709e74b
 Revises: 
-Create Date: 2025-01-02 17:34:46.568153
-========
-"""migrate
-
-Revision ID: 82d05161dae9
-Revises: 
-Create Date: 2025-01-03 10:18:35.831047
->>>>>>>> d1ad047131463de6196077620937cd5882bd27cc:migrations/versions/82d05161dae9_migrate.py
+Create Date: 2024-12-30 15:40:11.254783
 
 """
 from alembic import op
@@ -18,11 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-<<<<<<<< HEAD:migrations/versions/00a6dd838225_dbupdate.py
-revision = '00a6dd838225'
-========
-revision = '82d05161dae9'
->>>>>>>> d1ad047131463de6196077620937cd5882bd27cc:migrations/versions/82d05161dae9_migrate.py
+revision = '86e2f709e74b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -56,6 +44,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('portfolio_name', sa.String(length=100), nullable=False),
+    sa.Column('quantity', sa.Integer(), nullable=False),
+    sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
@@ -69,8 +59,6 @@ def upgrade():
     op.create_table('portfolio_stocks',
     sa.Column('portfolio_id', sa.Integer(), nullable=False),
     sa.Column('stock_id', sa.Integer(), nullable=False),
-    sa.Column('quantity', sa.Integer(), nullable=False),
-    sa.Column('price', sa.Numeric(precision=10, scale=2), nullable=True),
     sa.ForeignKeyConstraint(['portfolio_id'], ['portfolios.id'], ),
     sa.ForeignKeyConstraint(['stock_id'], ['stocks.id'], ),
     sa.PrimaryKeyConstraint('portfolio_id', 'stock_id')
