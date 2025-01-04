@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { showAllStocksSearchThunk } from '../../redux/stock';
+import './SearchBar.css'
 
 
 const SearchBar = ()=>{
@@ -16,7 +17,7 @@ const SearchBar = ()=>{
     }
 
     return (
-        <div>
+        <div className='search-bar-container'>
             <form onSubmit={handleSearch}>
                 <input
                     type='text'

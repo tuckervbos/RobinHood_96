@@ -1,3 +1,6 @@
+
+import AllPortfolios from '../components/AllPortfolios/AllPortfolios';
+import OnePortfolio from '../components/OnePortfolio/OnePortfolio';
 import { createBrowserRouter } from "react-router-dom";
 import LoginFormPage from "../components/LoginFormPage";
 import SignupFormPage from "../components/SignupFormPage";
@@ -10,7 +13,7 @@ import LandingPage from "../components/LandingPage/LandingPage";
 import HomePage from "../components/HomePage/HomePage";
 
 export const router = createBrowserRouter([
-	{
+  	{
 		element: <Layout />,
 		children: [
 			{
@@ -43,9 +46,17 @@ export const router = createBrowserRouter([
 				element: <SearchResults />,
 			},
 			{
+			  path: "portfolios",
+			  element: <AllPortfolios />
+			},
+			{
+			  path: "portfolios/:portfolio_id",
+			  element: <OnePortfolio />
+			},
+			{
 				path: "*",
 				element: <NotFoundPage />,
-			},
+			}
 		],
 	},
 ]);

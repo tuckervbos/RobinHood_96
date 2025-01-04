@@ -42,7 +42,20 @@
 .investing {
 	padding: 40px;
 	text-align: center;
-	background-color: #f9f9f9;
+	background-color: white;
+}
+
+.investing-learn-more-button {
+	background-color: #00c805;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.investing-learn-more-button:hover {
+	background-color: #018a03;
 }
 
 .below-investing-image {
@@ -68,6 +81,15 @@
 	background-color: #000;
 	color: #fff;
 	text-align: center;
+}
+
+.below-crypto-image {
+	display: block;
+	width: 70%; /* Adjust the percentage to control the size */
+	height: auto; /* Maintain the aspect ratio */
+	margin: 20px auto; /* Adds spacing above and centers the image */
+	border-radius: 10px; /* Optional: Adds rounded corners */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
 }
 
 .mobile-promo {

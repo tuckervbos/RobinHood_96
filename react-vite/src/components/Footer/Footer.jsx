@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
 import "./Footer.css";
 
 const Footer = () => {
@@ -103,8 +105,78 @@ const Footer = () => {
 				<p>© 2024 RobinHood. All rights reserved.</p>
 				<p>
 					This is a cloned website built as a portfolio project for App Academy.
+					In addition to the two complete CRUD operations, we also attempted to
+					implement a search function and incorporated AI applications.
 				</p>
 				<h1 className="footer-branding">Robinhood</h1>
+			</div>
+
+			<div className="team">
+				<h4>Meet our team!</h4>
+				<div className="member-info">
+					<p>Xiaoxue Wang</p>
+					<div className="team-link">
+						<a href="https://github.com/Xiaoxue895">
+							<FaGithub />
+						</a>
+						<a href="https://github.com/Xiaoxue895">
+							{/* dont have linkin now */}
+							<FaLinkedin />
+						</a>
+					</div>
+				</div>
+
+				<div className="member-info">
+					<p>Grayson Slater</p>
+					<div className="team-link">
+						<a href="https://github.com/graysonslater">
+							<FaGithub />
+						</a>
+						<a href="https://github.com/graysonslater">
+							{/* dont have linkin now */}
+							<FaLinkedin />
+						</a>
+					</div>
+				</div>
+
+				<div className="member-info">
+					<p>Tucker</p>
+					<div className="team-link">
+						<a href="https://github.com/tuckervbos">
+							<FaGithub />
+						</a>
+						<a href="https://github.com/tuckervbos">
+							{/* dont have linkin now */}
+							<FaLinkedin />
+						</a>
+					</div>
+				</div>
+
+				<div className="member-info">
+					<p>Bee Thao</p>
+					<div className="team-link">
+						<a href="https://github.com/Thao88Bee">
+							<FaGithub />
+						</a>
+						<a href="https://github.com/Thao88Bee">
+							{/* dont have linkin now */}
+							<FaLinkedin />
+						</a>
+					</div>
+				</div>
+
+				<div className="member-info">
+					<p>Rylan</p>
+					<div className="team-link">
+						<a href="https://github.com/rfjaggard">
+							<FaGithub />
+						</a>
+						<a href="https://github.com/rfjaggard">
+							{/* dont have linkin now */}
+							<FaLinkedin />
+						</a>
+					</div>
+				</div>
 			</div>
 		</footer>
 	);

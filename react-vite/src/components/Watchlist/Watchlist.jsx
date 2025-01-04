@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { showWatchlistsThunk, createWatchlistThunk, removeWatchlistThunk,removeFromWatchlistThunk } from '../../redux/watchlist'; 
+import { showWatchlistsThunk, createWatchlistThunk, removeWatchlistThunk,removeFromWatchlistThunk } from '../../redux/watchlist';
+import { useModal } from "../../context/Modal"
+import DeleteModal from '../DeleteModel/DeleteModel'
+import './Watchlist.css'
 
 const WatchlistComponent = () => {
   const dispatch = useDispatch();
@@ -8,6 +11,7 @@ const WatchlistComponent = () => {
   // console.log(watchlists)
 
   const [newWatchlistName, setNewWatchlistName] = useState(''); 
+  const { setModalContent, closeModal } = useModal(); 
 
   //load all the watchlists
   useEffect(() => {
@@ -27,19 +31,30 @@ const WatchlistComponent = () => {
     }
   };
 
-  // delete watchlist
-  const handleDeleteWatchlist = (watchlistId) => {
-    dispatch(removeWatchlistThunk(watchlistId));
+  const confirmDelete = (deleteType, deleteTarget) => {
+    if (deleteType === "watchlist") {
+      dispatch(removeWatchlistThunk(deleteTarget));
+    } else if (deleteType === "stock") {
+      const { stockId, watchlistId } = deleteTarget;
+      dispatch(removeFromWatchlistThunk(stockId, watchlistId));
+    }
+    closeModal();
   };
 
-  // delete stock from watchlist
-  const handleRemoveStock = (stockId, watchlistId) => {
-    dispatch(removeFromWatchlistThunk(stockId,watchlistId));
+  const handleDelete = (deleteType, deleteTarget) => {
+    setModalContent(
+      <DeleteModal
+        onDelete={() => confirmDelete(deleteType, deleteTarget)}
+        onClose={closeModal}
+        message={`Are you sure you want to delete this ${deleteType}?`}
+        type={deleteType}
+      />
+    );
   };
 
 
   return (
-    <div>
+    <div  className='watchlist-container'>
       <h2>Watchlists</h2>
 
       {/* create watchlist */}
@@ -54,7 +69,7 @@ const WatchlistComponent = () => {
       </form>
 
       {/* show all watchlist */}
-      <div>
+      < div className='all-watchlists'>
         {watchlists && watchlists.length > 0 ? (
           watchlists.map((watchlist) => (
             <div key={watchlist.watchlist_id} >
@@ -67,14 +82,18 @@ const WatchlistComponent = () => {
                         {stock.name} ({stock.ticker}) - ${stock.price}
                       </span>
                       {/* we can change this button to a "x" */}
-                      <button onClick={() => handleRemoveStock(stock.id, watchlist.watchlist_id)}>Remove</button>
+                      <button onClick={() => handleDelete("stock", { stockId: stock.id, watchlistId: watchlist.watchlist_id })}>
+                      Remove
+                      </button>
                     </li>
                   ))}
                 </ul>
               ) : (
                 <p>No stocks in this watchlist.</p>
               )}
-              <button onClick={() => handleDeleteWatchlist(watchlist.watchlist_id)}>Delete Watchlist</button>
+              <button onClick={() => handleDelete("watchlist", watchlist.watchlist_id)}>
+                Delete Watchlist
+              </button>
             </div>
           ))
         ) : (

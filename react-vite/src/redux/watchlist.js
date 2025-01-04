@@ -141,12 +141,13 @@ const watchlistReducer = (state = initialState, action) => {
     case SHOW_WATCHLISTS:
       return { ...state, watchlists: action.payload };
 
+    // dubug for watchlist
     case CREATE_WATCHLIST: {
-      const { id, watchlist_name, stock_id } = action.payload;
+      const { id, watchlist_name, stock_id} = action.payload;
       const newWatchlist = {
         id,
         watchlist_name,
-        stocks: stock_id ? [stock_id] : [], 
+        stocks: stock_id ? [stock_id] : [],
       };
       return { ...state, watchlists: [...state.watchlists, newWatchlist] };
     }

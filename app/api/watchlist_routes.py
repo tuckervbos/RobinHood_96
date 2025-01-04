@@ -52,24 +52,25 @@ def get_all_watchlists():
     # watchlists = Watchlist.query.filter_by(user_id=current_user.id).all()
     # return jsonify([watchlist.to_dict() for watchlist in watchlists]), 200
     watchlists = db.session.query(Watchlist, Stock).\
-    join(WatchlistStock, WatchlistStock.watchlist_id == Watchlist.id).\
-    join(Stock, Stock.id == WatchlistStock.stock_id).\
+    outerjoin(WatchlistStock, WatchlistStock.watchlist_id == Watchlist.id).\
+    outerjoin(Stock, Stock.id == WatchlistStock.stock_id).\
     filter(Watchlist.user_id == current_user.id).all()
     result = {}
     
     for watchlist, stock in watchlists:
         if watchlist.id not in result:
-            result[watchlist.id] = {
-                "watchlist_id": watchlist.id,
-                "watchlist_name": watchlist.watchlist_name,
-                "stocks": []
-            }
-        result[watchlist.id]["stocks"].append({
-            "id": stock.id,
-            "name": stock.company_name,
-            "ticker": stock.ticker,
-            "price": stock.price
+            watchlist_data = result.setdefault(watchlist.id, {
+            "watchlist_id": watchlist.id,
+            "watchlist_name": watchlist.watchlist_name,
+            "stocks": [] 
         })
+        if stock:
+            watchlist_data["stocks"].append({
+                "id": stock.id,
+                "name": stock.company_name,
+                "ticker": stock.ticker,
+                "price": stock.price
+            })
     response = list(result.values())
     return jsonify(response), 200
 

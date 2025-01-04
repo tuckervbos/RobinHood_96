@@ -2,6 +2,8 @@ import React from "react";
 import {useSelector} from 'react-redux'
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";//for test
+import AIAssistant from "../AiAssistant/AiAssistant";//for test
+// import Footer from '../Footer/Footer'; 
 
 // change this to a page 
 const SearchResults = ()=>{
@@ -17,12 +19,14 @@ const SearchResults = ()=>{
                     <li key = {stock.id}>
                         <div>
                             <h3>{stock.company_name} ({stock.ticker}) Price: ${stock.price}</h3>
-                            {/* <img src = {stock.graph_image} alt ="stock graph"/> */}
+                            <img src = {stock.graph_image} alt ="stock graph"/>
                             <NavLink to={`/stocks/${stock.id}`}>View Details</NavLink>
                         </div>
                     </li>
                 ))}
             </ul>
+            <AIAssistant />
+            {/* <Footer /> */}
         </div>
     )
 

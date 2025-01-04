@@ -59,7 +59,7 @@ const LandingPage = () => {
 			/>
 
 			<section className="investing">
-				<h2>Investing</h2>
+				<h1>Investing</h1>
 				<p>Build your portfolio starting with just $1</p>
 				<p>
 					Invest in stocks, ETFs, and their options, at your pace and
@@ -81,7 +81,7 @@ const LandingPage = () => {
 
 			<section className="crypto-section">
 				<div className="crypto-div">
-					<h2>Robinhood Crypto</h2>
+					<h1>Robinhood Crypto</h1>
 					<p>Get started with Robinhood Crypto. Trade crypto 24/7.</p>
 					<button
 						className="crypto-learn-more-button"
@@ -93,9 +93,9 @@ const LandingPage = () => {
 			</section>
 
 			<img
-				src="/assets/landing-page-investing-section.jpg"
-				alt="Investing Section Graphic"
-				className="below-investing-image"
+				src="/assets/landing-page-crypto.jpg"
+				alt="Crypto Section Graphic"
+				className="below-crypto-image"
 			/>
 
 			<section className="protection-guarantee-section">
