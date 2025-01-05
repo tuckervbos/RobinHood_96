@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { showAllStocksSearchThunk } from "../../redux/stock";
 import "./SearchBar.css";
 import { useNavigate } from "react-router-dom";
 
 const SearchBar = () => {
-  const [query, setQuery] = useState("");
-  const dispatch = useDispatch();
+	const [query, setQuery] = useState("");
+	const dispatch = useDispatch();
 
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (!query) {
-      return alert("Input field cannot be empty!");
-    }
+	const handleSearch = (e) => {
+		e.preventDefault();
+		if (!query) {
+			return alert("Input field cannot be empty!");
+		}
 
-    if (query.trim()) {
-      dispatch(showAllStocksSearchThunk(query));
-      setQuery("");
-    }
+		if (query.trim()) {
+			dispatch(showAllStocksSearchThunk(query));
+			setQuery("");
+		}
 
-    navigate("/searchres");
-  };
+		navigate("/searchres");
+	};
 
-  return (
-    <div className="search-bar-container">
-      <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="search stocks here"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-        <button type="submit">search</button>
+	return (
+		<div className="search-bar-container">
+			<form onSubmit={handleSearch}>
+				<input
+					type="text"
+					placeholder="search stocks here"
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
+				/>
+				<button type="submit">search</button>
 
-        {/* when we get the result ,we need redirect to search result page */}
-      </form>
-    </div>
-  );
+				{/* when we get the result ,we need redirect to search result page */}
+			</form>
+		</div>
+	);
 };
 export default SearchBar;

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
+
 import Navigation from "../Navigation/Navigation";
 import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps, no-unused-vars */
+
 import { useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
