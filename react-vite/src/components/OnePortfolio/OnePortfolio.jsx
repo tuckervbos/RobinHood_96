@@ -42,6 +42,10 @@ function OnePortfolio() {
 	useEffect(() => {
 		dispatch(getOnePortfolio(portfolio_id));
 	}, [dispatch]);
+	//getting latest state on page load
+	useEffect(() => {
+		dispatch(getOnePortfolio(portfolio_id));
+	}, [dispatch, portfolio_id]);
 
 	//testing state
 	// useEffect(() => {

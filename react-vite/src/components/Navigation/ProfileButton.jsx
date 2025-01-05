@@ -45,9 +45,11 @@ function ProfileButton() {
 
   return (
     <>
+    <div className="navBarUserBtn">
       <button className="navBarBtn" onClick={toggleMenu}>
         <FaUserCircle />
       </button>
+    </div>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
