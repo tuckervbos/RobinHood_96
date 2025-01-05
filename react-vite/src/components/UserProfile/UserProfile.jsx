@@ -194,7 +194,6 @@ const UserProfile = () => {
           </label> 
           {/* <div class="addFundsButtons"> */}
           <button className="addFundsDepositBtn" type="button" onClick={(e) => handleDeposit(e, money)}>Deposit</button>
-          <button className="addFundsWithdrawBtn" type="button" >Withdraw</button>
           {/* </div> */}
           </div>
           <br />
