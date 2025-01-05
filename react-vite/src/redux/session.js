@@ -112,7 +112,7 @@ export const thunkLogout = () => async (dispatch) => {
 
 //get one user, needed for use with a dispatch 
 export const getUserById = (userId) => async (dispatch) => {
-    const request = await fetch(`/api/portfolios/${userId}`,{
+    const request = await fetch(`/api/users/${userId}`,{
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
@@ -144,7 +144,6 @@ export const editUser = (info) => async (dispatch) => {
 
 //UserName check
 export const userNameCheck = (username) => async (dispatch) => {
-  console.log("STORE username= ", username)
   const request = await fetch(`/api/users/userNameCheck/${username}`,{
       method: "GET",
       headers: {
@@ -185,10 +184,10 @@ export const thunkDeleteUser = (userId) => async (dispatch) => {
 
 //deposite funds
 export const depositFunds = (info) => async (dispatch) => {
-  const request = await fetch(`/api/users/${info.userId}/add_money`, {
+  const request = await fetch(`/api/users/add_money/${info.userId}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({money:info.money})
+    body: JSON.stringify({"money":info.money})
   });
   const response = await request.json();
   dispatch(getUserById(info.userId));

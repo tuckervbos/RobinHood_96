@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { thunkDeleteUser, thunkLogout,editUser, getUserById, userNameCheck, emailCheck } from "../../redux/session";
+import { thunkDeleteUser, thunkLogout,editUser, getUserById, userNameCheck, emailCheck, depositFunds } from "../../redux/session";
 
 import { getAllPortfolios } from "../../redux/portfolios";
 
@@ -24,15 +24,13 @@ const UserProfile = () => {
 
   const user = useSelector((state) => state.session.user);
   const portfolios = useSelector((state) => state.portfolios.allPortfolios);
-  const watchlists = useSelector((state) => state.watchlist.watchlists);
-  console.log("FRONT STATE USER=" ,user," PORTFOLIOS= ", portfolios, "WATCHLISTS= ", watchlists)
-  
+  const watchlists = useSelector((state) => state.watchlist.watchlists);  
 
 
   useEffect(() => {
     dispatch(showWatchlistsThunk());
     dispatch(getAllPortfolios());
-    dispatch(getUserById(user.id))
+    // dispatch(getUserById(user.id))
   }, [dispatch]);
 
   const logout = (e) => {
@@ -55,7 +53,7 @@ const UserProfile = () => {
 /***********************************************************************************************************************************************/
 //*                            Edit button Modal
 /***********************************************************************************************************************************************/
-  
+
 const [showEdit, setShowEdit] = useState(false);
 const [errors, setEditErrors] = useState({});
 // const [userToEdit, setUserToEdit] = useState(); //!!!!
@@ -64,7 +62,6 @@ const [username,setUsername] = useState(user.username);
 const [firstname, setFirstname] = useState(user.firstname);
 const [lastname, setLastname] = useState(user.lastname);
 const [email, setEmail] = useState(user.email);   
-console.log("FRONT EDIT STATE username= ", username, " FIRSTNAME= ", firstname, " lastname= ", lastname, " email= ", email, " ERRORS= ", errors)
 
 useEffect(() => {
   if (user) {
@@ -78,7 +75,7 @@ useEffect(() => {
 const handleEdit = async (e, username, firstname, lastname, email) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log("fRONT TEST2= ", username, email)
+    
     setEditErrors({});
     let validationErrors = {};
     if (username.length < 1){
@@ -91,7 +88,7 @@ const handleEdit = async (e, username, firstname, lastname, email) => {
       validationErrors.lastname = "last name must be at least 1 character";
     }
     const userNameTaken = await dispatch(userNameCheck(username));
-    console.log("USER TAKEN =", userNameTaken.exists)
+    
     if (userNameTaken.exists && userNameTaken.exists.username != user.username){
       validationErrors.username = `${username} is already taken!`;
     }
@@ -104,7 +101,7 @@ const handleEdit = async (e, username, firstname, lastname, email) => {
         setEditErrors(validationErrors);
         return;
     }
-    console.log("FRONT dispatch TEST= ", username, firstname, lastname, email )
+    
     dispatch(editUser({username, firstname, lastname, email,userId: user.id})); //!!!!
     dispatch(getUserById(user.id))
     setShowEdit(false);
@@ -131,8 +128,11 @@ const [money, setMoney] = useState();
 const handleDeposit = (e, money)=> {
   e.preventDefault();
   e.stopPropagation();
-  dispatch(depositFunds({money,userId:user.id}))
-  dispatch(getUserById(user.id))
+  if (money){
+    dispatch(depositFunds({money,userId:user.id}))
+    dispatch(getUserById(user.id))
+    setMoney("")
+  }
   };
 
 
