@@ -7,6 +7,3 @@ pycache/
 .Pipfile
 .Pipfile.lock
 .dev.db
-instance/ 
-migrations/
-
