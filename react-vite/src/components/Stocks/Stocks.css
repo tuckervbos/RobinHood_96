@@ -7,19 +7,19 @@
     padding: 20px;
 }
 
-.stocks-page h1 {
+.stocks-page > h1 {
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.stocks-page ul {
+.stocks-page > ul {
     list-style: none;
     padding: 0;
     width: 100%;
     max-width: 800px;
 }
 
-.stocks-page ul li {
+.stocks-page > ul > li {
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -27,19 +27,19 @@
     padding: 12px;
 }
 
-.stocks-page ul li h3 {
+.stocks-page > ul > li > h3 {
     font-size: 18px;
     margin-bottom: 8px;
     color: #333;
 }
 
-.stocks-page ul li p {
+.stocks-page > ul > li > p {
     font-size: 14px;
     color: #666;
     margin-bottom: 8px;
 }
 
-.stocks-page ul li a {
+.stocks-page > ul > li > a {
     display: inline-block;
     padding: 6px 10px;
     font-size: 14px;
@@ -50,6 +50,6 @@
     transition: background-color 0.2s;
 }
 
-.stocks-page ul li a:hover {
+.stocks-page > ul > li > a:hover {
     background-color: rgb(0, 100, 0);
 }
