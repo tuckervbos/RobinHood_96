@@ -1,5 +1,6 @@
 // show watch lists; create watchlist; delete watchlist;
 // add to watchlist; remove from watchlist
+
 import { csrfFetch } from "./csrf";
 
 const SHOW_WATCHLISTS = "watchlists/SHOW_WATCHLISTS";
