@@ -24,7 +24,7 @@ function AllPortfolios(){
     const dispatch = useDispatch();
 
     //Getting state from store
-    const {portfolios, user} = useSelector((state) => {
+    const {portfolios} = useSelector((state) => {
         return {
             portfolios: state.portfolios.allPortfolios,
             user: state.session.user
@@ -69,7 +69,7 @@ function AllPortfolios(){
     const [name, setName] = useState();
     const [errors, setErrors] = useState({});
 
-    const handleCreate = (e, portfolioId)=> {
+    const handleCreate = (e)=> {
         e.preventDefault();
         e.stopPropagation();
 
@@ -94,7 +94,7 @@ function AllPortfolios(){
     };
     
     //toggle for modal
-    const createEvent = (e,portfolio) => { //opens and closes modal
+    const createEvent = (e) => { //opens and closes modal
         e.preventDefault();
         e.stopPropagation();
         setName("");

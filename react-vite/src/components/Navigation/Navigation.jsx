@@ -1,38 +1,60 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
-import "./Navigation.css";
 import { useSelector } from "react-redux";
+import logo from "/favicon.ico";
+import "./Navigation.css";
 
 function Navigation() {
-    const user = useSelector((store) => store.session.user);
-    const navigate = useNavigate();
+  const user = useSelector((store) => store.session.user);
+  const navigate = useNavigate();
 
-    const login = (e) => {
-      e.preventDefault();
-      navigate("/login")
-    }
+  const login = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
 
-    const signup = (e) => {
-      e.preventDefault();
-      navigate("/signup")
-    }
+  const signup = (e) => {
+    e.preventDefault();
+    navigate("/signup");
+  };
 
   return (
-
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-
-      <li>
-        { user ? (<>
-        <ProfileButton />
-        </>) : (<>
-        <button onClick={login}>Login</button>
-        <button onClick={signup}>SignUp</button>
-        </>) }
-      </li>
-    </ul>
+    <div className="navBar">
+      <div className="navSec">
+        <NavLink className="navBarLink" to="/">
+          Group <img src={logo} alt="" />
+          <img src="" alt="" />
+          Investors
+        </NavLink>
+        {user ? (
+          <>
+            <div className="navBarComponent">
+              <NavLink className="navBarLink" to="/portfolios">
+                Portfolio
+              </NavLink>
+              <NavLink className="navBarLink" to="/watchlists">
+                Watchlist
+              </NavLink>
+              <NavLink className="navBarLink" to="/stocks">
+                Stocks
+              </NavLink>
+            </div>
+            <ProfileButton />
+          </>
+        ) : (
+          <>
+            <div className="navBarLoginSignupBtn">
+              <button className="navBarLoginBtn" onClick={login}>
+                Login
+              </button>
+              <button className="navBarSignupBtn" onClick={signup}>
+                SignUp
+              </button>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 

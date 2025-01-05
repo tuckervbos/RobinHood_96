@@ -1,10 +1,9 @@
-import Navigation from "../Navigation/Navigation";
 import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
 import StockTickerAnimation from "../StockTickerAnimation/StockTickerAnimation";
 import LandingSignupGlow from "../LandingSignupGlow/LandingSignupGlow";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { showAllStocksThunk } from "../../redux/stock";
 import "./LandingPage.css";
@@ -12,8 +11,8 @@ import "./LandingPage.css";
 const LandingPage = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const stocks = useSelector((state) => state.stock.stocks);
-	const sessionUser = useSelector((state) => state.session.user);
+	// const stocks = useSelector((state) => state.stock.stocks);
+	// const sessionUser = useSelector((state) => state.session.user);
 
 	useEffect(() => {
 		dispatch(showAllStocksThunk());
@@ -23,21 +22,20 @@ const LandingPage = () => {
 	// 	navigate("/");
 	// };
 
-	const handleStockClick = (stockId) => {
-		navigate(`/stocks/${stockId}`);
-	};
+	// const handleStockClick = (stockId) => {
+	// 	navigate(`/stocks/${stockId}`);
+	// };
 
 	return (
 		<div className="landing-page">
 			<section className="search-bar-section">
-				<h2>Find Your Next Stock</h2>
 				<SearchBar />
 			</section>
 
 			<section className="stock-ticker-animation-section">
 				<StockTickerAnimation />
 			</section>
-
+			<br />
 			<section className="hero">
 				<h1 className="hero-title">A New Legend for a New Era</h1>
 				<p className="hero-subtitle">

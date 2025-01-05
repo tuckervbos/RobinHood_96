@@ -1,3 +1,82 @@
 .profile-dropdown {
   position: absolute;
 }
+
+.navBar {
+  height: 75px;
+  align-content: center;
+  padding-inline: 10px;
+  margin: 20px;
+  border-bottom: 1px solid rgb(0, 0, 0);
+}
+
+.navSec  {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navBarLink {
+  width: 30%;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(0, 128, 0);
+  cursor: pointer;
+}
+
+.navBarLink:hover {
+  color: rgb(255, 0, 0);
+}
+
+.navBarComponent {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  width: 30%;
+}
+
+.navBarLoginBtn,
+.navBarSignupBtn {
+  border: none;
+  background-color: rgb(0, 128, 0);
+  color: rgb(255, 255, 255);
+  width: 125px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.navBarLoginBtn:hover,
+.navBarSignupBtn:hover {
+  background-color: rgb(255, 215, 0);
+  color: rgb(255, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}
+
+
+.navBarLoginBtn {
+  margin-right: 20px;
+}
+
+@media screen and (max-width: 700px) {
+  .navBar {
+    margin: 10px;
+  }
+  .navBarLoginSignupBtn {
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    gap: 10px;
+  }
+  .navBarLoginBtn {
+    margin-right: 0;
+  }
+  .navBarComponent {
+    display: grid;
+    margin-left: 20px;
+    gap: 0;
+  }
+  .navBarBtn {
+    margin-left: 30px;
+  }
+}

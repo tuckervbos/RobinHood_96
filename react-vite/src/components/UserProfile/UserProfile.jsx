@@ -76,21 +76,21 @@ const UserProfile = () => {
       <div>
         <div className="profileSec2">
           <div className="portfolioWatchlist">
-            {portfolios && portfolios.length > 0 ? (
+            {portfolios && portfolios?.length > 0 ? (
               portfolios.map((portfolio) => (
                 <div
                   className="portfolioWatchlistStock"
-                  key={portfolio.portfolio_id}
+                  key={portfolio?.portfolio_id}
                 >
                   <Link
                     className="portfolioWatchlistLink"
-                    to={`/portfolios/${portfolio.portfolio_id}`}
+                    to={`/portfolios/${portfolio?.portfolio_id}`}
                   >
                     {portfolio.portfolio_name}
                   </Link>
-                  {portfolio.stocks.length > 0 ? (
+                  {portfolio?.stocks?.length > 0 ? (
                     <ul>
-                      {portfolio.stocks.map((stock) => (
+                      {portfolio?.stocks.map((stock) => (
                         <li key={stock.id}>
                           <p>
                             {stock.name} ({stock.ticker})
@@ -100,12 +100,12 @@ const UserProfile = () => {
                       ))}
                     </ul>
                   ) : (
-                    <p>No stocks in this watchlist.</p>
+                    <p>No stocks in this portfolio.</p>
                   )}
                 </div>
               ))
             ) : (
-              <p>No watchlists available. Create your first watchlist!</p>
+              <p>No portfolio available. Create your first portfolio <Link to={"/portfolios"}>here</Link>!</p>
             )}
           </div>
           <div className="portfolioWatchlist">
@@ -135,7 +135,7 @@ const UserProfile = () => {
                 </div>
               ))
             ) : (
-              <p>No watchlists available. Create your first watchlist!</p>
+              <p>No watchlists available. Create your first watchlist <Link to={`/watchlists`}>here</Link>!</p>
             )}
           </div>
         </div>
