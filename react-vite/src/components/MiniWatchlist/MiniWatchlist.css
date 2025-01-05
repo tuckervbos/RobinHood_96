@@ -1,0 +1,50 @@
+.mini-watchlist {
+	max-width: 250px; /* Set a maximum width */
+	margin: 0 auto; /* Center it horizontally if needed */
+	background-color: #f9f9f9;
+	border: 1px solid #e0e0e0;
+	padding: 12px; /* Reduce padding for a slimmer look */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	display: block;
+}
+
+.mini-watchlist h3 {
+	font-size: 1.2rem; /* Slightly smaller font */
+	margin-bottom: 12px;
+}
+
+.watchlist-section {
+	margin-bottom: 16px;
+}
+
+.watchlist-title {
+	text-decoration: none;
+	color: #333;
+}
+
+.watchlist-title h4 {
+	font-size: 1rem; /* Smaller title font */
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+.watchlist-items {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.watchlist-item {
+	margin-bottom: 8px;
+}
+
+.stock-link {
+	display: flex;
+	justify-content: space-between;
+	padding: 6px; /* Reduce padding for compact design */
+	background-color: #fff;
+	border: 1px solid #e0e0e0;
+	border-radius: 4px;
+	font-size: 0.9rem; /* Smaller font size */
+}
