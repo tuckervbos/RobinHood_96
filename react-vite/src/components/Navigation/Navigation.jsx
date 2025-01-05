@@ -21,19 +21,36 @@ function Navigation() {
   return (
     <div className="navBar">
       <div className="navSec">
-        <NavLink className="navBarLink" to="/">Group <img src={logo} alt="" />
-        <img src="" alt="" />
-         Investors</NavLink>
+        <NavLink className="navBarLink" to="/">
+          Group <img src={logo} alt="" />
+          <img src="" alt="" />
+          Investors
+        </NavLink>
         {user ? (
           <>
+            <div className="navBarComponent">
+              <NavLink className="navBarLink" to="/portfolios">
+                Portfolio
+              </NavLink>
+              <NavLink className="navBarLink" to="/watchlists">
+                Watchlist
+              </NavLink>
+              <NavLink className="navBarLink" to="/stocks">
+                Stocks
+              </NavLink>
+            </div>
             <ProfileButton />
           </>
         ) : (
           <>
-          <div className="navBarLoginSignupBtn">
-          <button className="navBarLoginBtn" onClick={login}>Login</button>
-          <button className="navBarSignupBtn" onClick={signup}>SignUp</button>
-          </div>
+            <div className="navBarLoginSignupBtn">
+              <button className="navBarLoginBtn" onClick={login}>
+                Login
+              </button>
+              <button className="navBarSignupBtn" onClick={signup}>
+                SignUp
+              </button>
+            </div>
           </>
         )}
       </div>

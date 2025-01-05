@@ -35,7 +35,7 @@ function OnePortfolio(){
     //getting latest state on page load
     useEffect(()=> {
         dispatch(getOnePortfolio(portfolio_id))
-    },[dispatch]); 
+    },[dispatch, portfolio_id]); 
 
     //testing state
     // useEffect(() => {
@@ -56,7 +56,7 @@ function OnePortfolio(){
     const [sellErrors, setSellErrors] = useState({});
 
     //flask db init, flask db migrate -m "text", flask db upgrade, flask seed  all
-    const handleSell = (e,stockId, portfolioId, quantity, price)=> {
+    const handleSell = (e,stockId, portfolioId, quantity)=> {
         e.preventDefault();
         e.stopPropagation();
 
@@ -133,7 +133,7 @@ function OnePortfolio(){
     // const [deleteErrors, setdeleteErrors] = useState({});
 
     //flask db init, flask db migrate -m "text", flask db upgrade, flask seed all
-    const handleDelete = (e,stockId, portfolioId, quantity, price)=> {
+    const handleDelete = (e,stockId, portfolioId)=> {
         e.preventDefault();
         e.stopPropagation();
         dispatch(deleteStock({stockId,portfolioId}))
