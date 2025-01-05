@@ -180,26 +180,25 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
-      <div className="addFundsSec">
-        {/* ADD FUNDS BUTTON */}
-        <h2 className="addFunds">Add Funds To Account</h2>
-        <p className="addFunds">
-          Account balance: {user.account_balance}
-        </p>
-        <label className="addFunds">
-          <input
-            type="integer"
-            placeholder="$"
-            value={money}
-            onChange={(e) => setMoney(e.target.value)}
-          />
-        </label>
-        <button className="addFundsDepositBtn" type="button" onClick={(e) => handleDeposit(e, money)}>
-          Deposit
-        </button>
-        <button className="addFundsWithdrawBtn" type="button">Withdraw</button>
-      </div>
-      <br />
+      <>
+      {/* ADD FUNDS BUTTON */}
+      <div className="addFundsContainer">
+        <h2 className="addFunds">Add Funds</h2>
+          <p className="userAccountBalance">Account balance: {user.account_balance}</p>
+          <label className="addFunds">                 
+              <input
+                  type="integer"
+                  placeholder="$"
+                  value={money}
+                  onChange={(e) => setMoney(e.target.value)}
+              />   
+          </label> 
+          <div class="addFundsButtons">
+          <button type="button" onClick={(e) => handleDeposit(e, money)}>Deposit</button>
+          <button type="button" >Withdraw</button>
+          </div>
+          </div>
+      </>
       <div>
         <StockTickerAnimation />
       </div>

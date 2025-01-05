@@ -5,9 +5,7 @@
 }
 
 .top {
-    /* display: flex; */
     display: grid;
-    /* justify-content: space-between; */
     align-items: center;
     padding: 10px 20px;
     justify-items: center;
@@ -25,7 +23,6 @@
 
 .top button {
     width: 125px;
-    /* height: 25px; */
     color: white;
     background-color: black;
     padding: 5px;
@@ -227,4 +224,144 @@
   .glowBack {
     width: fit-content;
 }
+}
+
+.addFunds {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+.userAccountBalance {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.addFunds input {
+  display: block;
+  margin: 10px auto;
+  padding: 5px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.addFunds button {
+  display: inline-block;
+  width: 125px;
+  padding: 5px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(0, 128, 0);
+  cursor: pointer;
+}
+
+.addFunds button:hover {
+  width: 135px;
+  height: 30px;
+}
+
+.CustomModal {
+  width: 300px;
+  padding: 20px;
+}
+
+.editUserTitle {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.editButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.editButtons label {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.editButtons input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.editButtons button {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(0, 128, 0);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.editButtons button:hover {
+  background-color: rgb(0, 100, 0);
+}
+
+.profileErrors {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.addFundsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+  padding-bottom: 50px;
+}
+
+h2.addFunds {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+p.userAccountBalance {
+  text-align: center;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+label.addFunds {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+label.addFunds input {
+  padding: 5px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.addFundsButtons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.addFundsButtons button {
+  width: 125px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(0, 128, 0);
+  cursor: pointer;
 }

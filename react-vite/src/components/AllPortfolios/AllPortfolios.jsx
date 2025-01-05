@@ -163,6 +163,8 @@ function AllPortfolios() {
 
 	return (
 		<>
+		<div className="page-center-wrapper">
+			<div className="centered-container1">
 			<ul className="AllPortfoliosGrid">
 				<button type="button" onClick={createEvent}>
 					Create New Portfolio
@@ -174,10 +176,10 @@ function AllPortfolios() {
 					>
 						<li key={portfolio.portfolio_id} className="portfoliosLi">
 							<p className="portfoliosName">{portfolio.portfolio_name}</p>
-							<button type="button" onClick={(e) => deleteEvent(e, portfolio)}>
+							<button className="DeleteBut" type="button" onClick={(e) => deleteEvent(e, portfolio)}>
 								Delete
 							</button>
-							<button type="button" onClick={(e) => editEvent(e, portfolio)}>
+							<button className="EditNameBut" type="button" onClick={(e) => editEvent(e, portfolio)}>
 								Edit Name
 							</button>
 							{/* <p className="portfoliosStocksNum">Number of stocks: {portfolios.length}</p> */}
@@ -257,7 +259,7 @@ function AllPortfolios() {
 								type="button"
 								onClick={(e) => handleEdit(e, portfolioToEdit.portfolio_id)}
 							>
-								Confirm Change
+								Confirm
 							</button>
 							<button type="button" onClick={editEvent}>
 								cancel
@@ -266,13 +268,8 @@ function AllPortfolios() {
 					</CustomModal>
 				)}
 			</>
-
-			<div className="portfoliosTextBubble">
-				<p className="portfoliosWord1">Your</p>
-				<p className="portfoliosWord2">Stocks</p>
-				<p className="portfoliosWord3">Your</p>
-				<p className="portfoliosWord4">Way</p>
 			</div>
+		</div>
 		</>
 	);
 }
