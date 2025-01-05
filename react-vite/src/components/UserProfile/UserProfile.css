@@ -140,6 +140,45 @@
   height: 30px;
 }
 
+.addFundsSec {
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+}
+
+.addFundsSec input {
+  width: 200px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.addFunds {
+  margin: 0;
+}
+
+.addFundsDepositBtn,
+.addFundsWithdrawBtn {
+  width: 125px;
+  height: 25px;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.addFundsDepositBtn:hover {
+  background-color: green;
+  color: rgb(255, 255, 255);
+  border: 1px solid black;
+}
+
+.addFundsWithdrawBtn:hover {
+  background-color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
+  border: 1px solid black;
+}
+
 .profileSec2 {
   height: 70vh;
 }

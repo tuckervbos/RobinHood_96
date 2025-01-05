@@ -4,7 +4,14 @@ import { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
-import { thunkDeleteUser, thunkLogout,editUser, getUserById, userNameCheck, emailCheck, depositFunds } from "../../redux/session";
+import {
+  thunkDeleteUser,
+  editUser,
+  getUserById,
+  userNameCheck,
+  emailCheck,
+  depositFunds,
+} from "../../redux/session";
 
 import { getAllPortfolios } from "../../redux/portfolios";
 
@@ -15,6 +22,7 @@ import StockTickerAnimation from "../StockTickerAnimation/StockTickerAnimation";
 import CustomModal from "../AllPortfolios/CustomModal";
 
 import "./UserProfile.css";
+import SearchBar from "../SearchBar/SearchBar";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -24,20 +32,13 @@ const UserProfile = () => {
 
   const user = useSelector((state) => state.session.user);
   const portfolios = useSelector((state) => state.portfolios.allPortfolios);
-  const watchlists = useSelector((state) => state.watchlist.watchlists);  
-
+  const watchlists = useSelector((state) => state.watchlist.watchlists);
 
   useEffect(() => {
     dispatch(showWatchlistsThunk());
     dispatch(getAllPortfolios());
     // dispatch(getUserById(user.id))
   }, [dispatch]);
-
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(thunkLogout());
-    navigate("/");
-  };
 
   const deleteUser = async (e) => {
     e.preventDefault();
@@ -50,99 +51,106 @@ const UserProfile = () => {
     setShowDelete(!showDelete);
   };
 
-/***********************************************************************************************************************************************/
-//*                            Edit button Modal
-/***********************************************************************************************************************************************/
+  /***********************************************************************************************************************************************/
+  //*                            Edit button Modal
+  /***********************************************************************************************************************************************/
 
-const [showEdit, setShowEdit] = useState(false);
-const [errors, setEditErrors] = useState({});
-// const [userToEdit, setUserToEdit] = useState(); //!!!!
-// const [editName,setEditName] = useState(); //!!!!
-const [username,setUsername] = useState(user.username);
-const [firstname, setFirstname] = useState(user.firstname);
-const [lastname, setLastname] = useState(user.lastname);
-const [email, setEmail] = useState(user.email);   
+  const [showEdit, setShowEdit] = useState(false);
+  const [errors, setEditErrors] = useState({});
+  // const [userToEdit, setUserToEdit] = useState(); //!!!!
+  // const [editName,setEditName] = useState(); //!!!!
+  const [username, setUsername] = useState(user.username);
+  const [firstname, setFirstname] = useState(user.firstname);
+  const [lastname, setLastname] = useState(user.lastname);
+  const [email, setEmail] = useState(user.email);
 
-useEffect(() => {
-  if (user) {
+  useEffect(() => {
+    if (user) {
+      setUsername(user.username);
+      setFirstname(user.firstname);
+      setLastname(user.lastname);
+      setEmail(user.email);
+    }
+  }, [dispatch, user]);
+
+  const handleEdit = async (e, username, firstname, lastname, email) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setEditErrors({});
+    let validationErrors = {};
+    if (username.length < 1) {
+      validationErrors.username = "UserName must be at least 1 character";
+    }
+    if (firstname.length < 1) {
+      validationErrors.firstname = "first name must be at least 1 character";
+    }
+    if (lastname.length < 1) {
+      validationErrors.lastname = "last name must be at least 1 character";
+    }
+    const userNameTaken = await dispatch(userNameCheck(username));
+
+    if (
+      userNameTaken.exists &&
+      userNameTaken.exists.username != user.username
+    ) {
+      validationErrors.username = `${username} is already taken!`;
+    }
+    const emailTaken = await dispatch(emailCheck(email));
+
+    if (emailTaken.exists && emailTaken.exists.email != user.email) {
+      validationErrors.email = `${email} is already taken!`;
+    }
+    if (Object.keys(validationErrors).length > 0) {
+      //!ERROR HANDLING MUST BE ADDED IN HTML
+      setEditErrors(validationErrors);
+      return;
+    }
+
+    dispatch(
+      editUser({ username, firstname, lastname, email, userId: user.id })
+    ); //!!!!
+    dispatch(getUserById(user.id));
+    setShowEdit(false);
+  };
+
+  //toggle for modal
+  const editEvent = (e) => {
+    //!DOES THE EDIT EVENT NEED THE USER OBJ??? (I THINK NO)
+    e.preventDefault();
+    e.stopPropagation();
     setUsername(user.username);
     setFirstname(user.firstname);
     setLastname(user.lastname);
     setEmail(user.email);
-  }
-}, [dispatch, user]);
-
-const handleEdit = async (e, username, firstname, lastname, email) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    setEditErrors({});
-    let validationErrors = {};
-    if (username.length < 1){
-        validationErrors.username = "UserName must be at least 1 character";
-    }
-    if (firstname.length < 1){
-      validationErrors.firstname = "first name must be at least 1 character";
-    }
-    if (lastname.length < 1){
-      validationErrors.lastname = "last name must be at least 1 character";
-    }
-    const userNameTaken = await dispatch(userNameCheck(username));
-    
-    if (userNameTaken.exists && userNameTaken.exists.username != user.username){
-      validationErrors.username = `${username} is already taken!`;
-    }
-    const emailTaken = await dispatch(emailCheck(email));
-    
-    if (emailTaken.exists && emailTaken.exists.email != user.email){
-      validationErrors.email = `${email} is already taken!`;
-    }
-    if (Object.keys(validationErrors).length > 0) { //!ERROR HANDLING MUST BE ADDED IN HTML
-        setEditErrors(validationErrors);
-        return;
-    }
-    
-    dispatch(editUser({username, firstname, lastname, email,userId: user.id})); //!!!!
-    dispatch(getUserById(user.id))
-    setShowEdit(false);
-};
-
-//toggle for modal
-const editEvent = (e) => { //!DOES THE EDIT EVENT NEED THE USER OBJ??? (I THINK NO)
-  e.preventDefault();
-  e.stopPropagation();
-  setUsername(user.username);
-  setFirstname(user.firstname);
-  setLastname(user.lastname);
-  setEmail(user.email);   
-  setShowEdit(!showEdit);
-};
-
-
-/***********************************************************************************************************************************************/
-//*                            Deposite funds button
-/***********************************************************************************************************************************************/
-  
-const [money, setMoney] = useState();
-
-const handleDeposit = (e, money)=> {
-  e.preventDefault();
-  e.stopPropagation();
-  if (money){
-    dispatch(depositFunds({money,userId:user.id}))
-    dispatch(getUserById(user.id))
-    setMoney("")
-  }
+    setShowEdit(!showEdit);
   };
 
+  /***********************************************************************************************************************************************/
+  //*                            Deposite funds button
+  /***********************************************************************************************************************************************/
 
-/***********************************************************************************************************************************************/
+  const [money, setMoney] = useState();
+
+  const handleDeposit = (e, money) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (money) {
+      dispatch(depositFunds({ money, userId: user.id }));
+      dispatch(getUserById(user.id));
+      setMoney("");
+    }
+  };
+
+  /***********************************************************************************************************************************************/
   return (
     <>
+      <div>
+        <SearchBar />
+      </div>
       <div className="userProfile">
         <div className="top">
           <h1>{user.username} Profile</h1>
-          <button onClick={logout}>Log Out</button>
         </div>
         <div className="profileSec1">
           <div className="userImage">
@@ -159,28 +167,39 @@ const handleDeposit = (e, money)=> {
               {user?.firstname}, {user?.lastname}
             </h2>
             <p>${user?.account_balance}</p>
-            <button type="button" className="profileEditBtn" onClick={(e) => editEvent(e)}>Edit User</button>
+            <button
+              type="button"
+              className="profileEditBtn"
+              onClick={(e) => editEvent(e)}
+            >
+              Edit User
+            </button>
             <button className="profileDeleteBtn" onClick={showModal}>
               Delete Profile
             </button>
           </div>
         </div>
       </div>
-      <>
-      {/* ADD FUNDS BUTTON */}
-        <h2 className="addFunds">Add Funds</h2>
-          <p className="userAccountBalance">Account balance: {user.account_balance}</p>
-          <label className="addFunds">                 
-              <input
-                  type="integer"
-                  placeholder="$"
-                  value={money}
-                  onChange={(e) => setMoney(e.target.value)}
-              />   
-          </label> 
-          <button type="button" onClick={(e) => handleDeposit(e, money)}>Deposit</button>
-          <button type="button" >Withdraw</button>
-      </>
+      <div className="addFundsSec">
+        {/* ADD FUNDS BUTTON */}
+        <h2 className="addFunds">Add Funds To Account</h2>
+        <p className="addFunds">
+          Account balance: {user.account_balance}
+        </p>
+        <label className="addFunds">
+          <input
+            type="integer"
+            placeholder="$"
+            value={money}
+            onChange={(e) => setMoney(e.target.value)}
+          />
+        </label>
+        <button className="addFundsDepositBtn" type="button" onClick={(e) => handleDeposit(e, money)}>
+          Deposit
+        </button>
+        <button className="addFundsWithdrawBtn" type="button">Withdraw</button>
+      </div>
+      <br />
       <div>
         <StockTickerAnimation />
       </div>
@@ -217,7 +236,10 @@ const handleDeposit = (e, money)=> {
                 </div>
               ))
             ) : (
-              <p>No portfolio available. Create your first portfolio <Link to={"/portfolios"}>here</Link>!</p>
+              <p>
+                No portfolio available. Create your first portfolio{" "}
+                <Link to={"/portfolios"}>here</Link>!
+              </p>
             )}
           </div>
           <div className="portfolioWatchlist">
@@ -247,7 +269,10 @@ const handleDeposit = (e, money)=> {
                 </div>
               ))
             ) : (
-              <p>No watchlists available. Create your first watchlist <Link to={`/watchlists`}>here</Link>!</p>
+              <p>
+                No watchlists available. Create your first watchlist{" "}
+                <Link to={`/watchlists`}>here</Link>!
+              </p>
             )}
           </div>
         </div>
@@ -271,51 +296,70 @@ const handleDeposit = (e, money)=> {
       </>
 
       {/* Edit PORTFOLIO MODAL */}
-      <>{showEdit && 
+      <>
+        {showEdit && (
           <CustomModal onClose={(e) => editEvent(e)}>
-              <div className='editUserTitle'>Edit User info</div>
-              <div className='editButtons'>
+            <div className="editUserTitle">Edit User info</div>
+            <div className="editButtons">
               <label className="editUsername">
-                  UserName:                  
-                  <input
-                      type="text"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                  />
-                   {errors.username && <span className="profileErrors">{errors.username}</span>}
-              </label>   
-              <label className="editFirstname">  
-                  First name:               
-                  <input
-                      type="text"
-                      value={firstname}
-                      onChange={(e) => setFirstname(e.target.value)}
-                  /> 
-                  {errors.firstname && <span className="profileErrors">{errors.firstname}</span>}
-              </label> 
+                UserName:
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                {errors.username && (
+                  <span className="profileErrors">{errors.username}</span>
+                )}
+              </label>
+              <label className="editFirstname">
+                First name:
+                <input
+                  type="text"
+                  value={firstname}
+                  onChange={(e) => setFirstname(e.target.value)}
+                />
+                {errors.firstname && (
+                  <span className="profileErrors">{errors.firstname}</span>
+                )}
+              </label>
               <label className="editLastname">
-                  Last name:                 
-                  <input
-                      type="text"
-                      value={lastname}
-                      onChange={(e) => setLastname(e.target.value)}
-                  />
-                  {errors.lastname && <span className="profileErrors">{errors.lastname}</span>}  
-              </label> 
-              <label className="editEmail">  
-                  Email:               
-                  <input
-                      type="text"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                  /> 
-                  {errors.email && <span className="profileErrors">{errors.email}</span>}  
-              </label> 
-              <button type="button" onClick={(e) => handleEdit(e, username, firstname, lastname, email)}>Confirm Change</button>
-              <button type="button" onClick={editEvent}>cancel</button>
-              </div>
-          </CustomModal>}
-        </>
+                Last name:
+                <input
+                  type="text"
+                  value={lastname}
+                  onChange={(e) => setLastname(e.target.value)}
+                />
+                {errors.lastname && (
+                  <span className="profileErrors">{errors.lastname}</span>
+                )}
+              </label>
+              <label className="editEmail">
+                Email:
+                <input
+                  type="text"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                {errors.email && (
+                  <span className="profileErrors">{errors.email}</span>
+                )}
+              </label>
+              <button
+                type="button"
+                onClick={(e) =>
+                  handleEdit(e, username, firstname, lastname, email)
+                }
+              >
+                Confirm Change
+              </button>
+              <button type="button" onClick={editEvent}>
+                cancel
+              </button>
+            </div>
+          </CustomModal>
+        )}
+      </>
     </>
   );
 };

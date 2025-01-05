@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle } from "react-icons/fa";
-// import { thunkLogout } from "../../redux/session";
+import { thunkLogout } from "../../redux/session";
 import { useNavigate } from "react-router-dom";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
@@ -9,7 +9,7 @@ import SignupFormModal from "../SignupFormModal";
 import "./ProfileButton.css";
 
 function ProfileButton() {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
@@ -37,15 +37,16 @@ function ProfileButton() {
 
   const closeMenu = () => setShowMenu(false);
 
-  // const logout = (e) => {
-  //   e.preventDefault();
-  //   dispatch(thunkLogout());
-  //   closeMenu();
-  // };
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(thunkLogout());
+    closeMenu();
+  };
 
   return (
     <>
     <div className="navBarUserBtn">
+    <button className="navBarLogoutBtn" onClick={logout}>Log Out</button>
       <button className="navBarBtn" onClick={toggleMenu}>
         <FaUserCircle />
       </button>

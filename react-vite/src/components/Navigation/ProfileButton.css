@@ -1,7 +1,9 @@
 .navBarUserBtn {
   width: 25%;
   display: flex;
+  gap: 2vw;
   justify-content: end;
+  align-items: center;
 }
 
 .navBarBtn {
@@ -21,4 +23,33 @@
   background-color: rgb(255, 215, 0);
   color: rgb(255, 0, 0);
   border: 1px solid rgb(0, 0, 0);
+}
+
+.navBarLogoutBtn {
+  width: 125px;
+  height: 25px;
+  color: white;
+  background-color: black;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.navBarLogoutBtn:hover {
+  background-color: rgb(163, 163, 163);
+  color: black;
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 700px) {
+  .navBarUserBtn {
+    width: 25%;
+    display: grid;
+    gap: 2vw;
+    justify-content: end;
+    align-items: center;
+  }
+  .navBarLogoutBtn {
+    grid-row-start: 2;
+  }
 }
