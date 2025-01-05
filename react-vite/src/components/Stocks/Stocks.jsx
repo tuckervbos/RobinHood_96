@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { showAllStocksThunk } from "../../redux/stock";
 import { Link } from "react-router-dom";
+import AIAssistant from "../AiAssistant/AiAssistant";
+import StockTickerAnimation from "../StockTickerAnimation/StockTickerAnimation";
+import Footer from "../Footer/Footer";
+import SearchBar from "../SearchBar/SearchBar";
 import "./Stocks.css";
 
 function Stocks() {
@@ -16,6 +20,8 @@ function Stocks() {
 
 	return (
 		<div className="stocks-page">
+			<StockTickerAnimation />
+			<SearchBar />
 			<h1>Discover Stocks</h1>
 			<ul>
 				{stocks.map((stock) => (
@@ -28,6 +34,8 @@ function Stocks() {
 					</li>
 				))}
 			</ul>
+			<AIAssistant />
+			<Footer />
 		</div>
 	);
 }

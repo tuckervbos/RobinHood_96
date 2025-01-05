@@ -14,10 +14,7 @@ const MiniWatchlist = () => {
 			{watchlists.map((watchlist) => (
 				<div key={watchlist.id} className="watchlist-section">
 					{/* Link to the full watchlist */}
-					<Link
-						to={`/watchlists/${watchlist.watchlist_id}`}
-						className="watchlist-title"
-					>
+					<Link to={`/watchlists`} className="watchlist-title">
 						<h4>{watchlist.watchlist_name}</h4>
 					</Link>
 					{watchlist.stocks.length > 0 ? (
