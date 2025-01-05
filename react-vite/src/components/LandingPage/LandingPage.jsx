@@ -30,14 +30,13 @@ const LandingPage = () => {
 	return (
 		<div className="landing-page">
 			<section className="search-bar-section">
-				<h2>Find Your Next Stock</h2>
 				<SearchBar />
 			</section>
 
 			<section className="stock-ticker-animation-section">
 				<StockTickerAnimation />
 			</section>
-
+			<br />
 			<section className="hero">
 				<h1 className="hero-title">A New Legend for a New Era</h1>
 				<p className="hero-subtitle">

@@ -27,7 +27,7 @@
 .search-bar-container button {
     padding: 10px 20px; 
     font-size: 16px; 
-    color: white; 
+    color: rgb(255, 255, 255); 
     background-color: #d4af37; 
     border: none; 
     border-radius: 5px; 
@@ -37,4 +37,15 @@
   
 .search-bar-container button:hover {
     background-color: #d4af37; 
+}
+
+@media screen and (max-width: 700px) {
+    .search-bar-container form {
+        display: grid;
+        justify-items: center;
+        width: 100%;
+    }
+    /* .search-bar-container button {
+        width: 100px;
+      } */
 }
