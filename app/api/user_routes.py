@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.models import User, db
+from decimal import Decimal
 
 user_routes = Blueprint('users', __name__)
 
@@ -74,19 +75,19 @@ def delete_user(user_id):
     return jsonify({'message': 'User deleted successfully'})
 
 
-@user_routes.route('/<int:user_id>/add_money', methods=['POST'])
+@user_routes.route('/add_money/<int:user_id>', methods=['POST'])
 @login_required 
 def add_money(user_id): 
     """
     add money to a user
     """
     user = User.query.filter_by(id=user_id).first()
-    
     if not user: 
         return jsonify({'message': 'User not found'}), 404 
     data = request.get_json() 
-    amount = data['amount']
+    amount = Decimal(data['money'])
     user.account_balance += amount 
+    db.session.commit()
     return jsonify({'message': 'Money added successfully', 'account_balance': user.account_balance})
 
 
@@ -126,7 +127,6 @@ def email_check(input_email):
     """
     Find a user by email, return sfalse if no user is found
     """
-    print("BACKEND TEST = ", input_email)
     user = User.query.filter_by(email=input_email).first()
     if not user: 
         return jsonify({"exists": False}),200
