@@ -64,22 +64,29 @@ def buy_stock(stock_id):
 @login_required
 def add_stock(stock_id):
     data = request.get_json()
+    watchlist_name = data.get("watchlist_name")
     stock = Stock.query.get(stock_id)
-    watchlist = Watchlist.query.filter_by(watchlist_name=data["watchlist_name"]).first()
-    print("TEST PRINT",watchlist)
     if not stock:
         return jsonify({"message": "Stock not found"}), 404
+
+    watchlist = Watchlist.query.filter_by(watchlist_name=watchlist_name, user_id=current_user.id).first()
     if not watchlist:
         return jsonify({"message": "Watchlist not found",}), 404
 
-    watchlist_entry = Watchlist(
-        user_id=current_user.id,
-        stock_id=stock.id,
-        watchlist_name=data["watchlist_name"]
-    )
-    db.session.add(watchlist_entry)
+    if stock in watchlist.stocks:
+        return jsonify({"message": "Stock already in watchlist"}), 400
+
+
+    # watchlist_entry = Watchlist(
+    #     user_id=current_user.id,
+    #     stock_id=stock.id,
+    #     watchlist_name=data["watchlist_name"]
+    # )
+    # db.session.add(watchlist_entry)
+    watchlist.stocks.append(stock)
     db.session.commit()
 
     return jsonify({
         "message": "Stock added to watchlist successfully",
+        "watchlist": watchlist.to_dict()
     }), 200
