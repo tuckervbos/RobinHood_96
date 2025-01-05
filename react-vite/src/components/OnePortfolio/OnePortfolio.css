@@ -1,0 +1,121 @@
+.page-center-wrapper2 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100vh;
+}
+
+.centered-container2 {
+    width: 33%;
+    max-height: 100vh;
+    padding: 16px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.PortfolioTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color:  rgb(0, 128, 0);
+    text-align: center;
+}
+
+.AllStocksInPortfolioGrid {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.AllStocksInPortfolioGrid > a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.StockLi {
+    padding: 12px;
+    margin-bottom: 16px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.StockName {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.StockPrice, .StockQuantity {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 4px;
+}
+
+.StockLi button {
+    padding: 6px 10px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #B0BEC5;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.StockLi button:hover {
+    background-color:  rgb(0, 128, 0);
+}
+
+.CustomModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.SellMessage, .buyMessage, .deleteMessage {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.SellButtons, .buyButtons, .deleteButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.SellButtons button, .buyButtons button, .deleteButtons button {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: rgb(0, 128, 0);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    flex: 1;
+    margin: 0 5px;
+}
+
+.SellButtons button:first-child, .buyButtons button:first-child, .deleteButtons button:first-child {
+    margin-left: 0;
+}
+
+.SellButtons button:last-child, .buyButtons button:last-child, .deleteButtons button:last-child {
+    margin-right: 0;
+}
+
+.SellError, .buyError {
+    color: red;
+    font-size: 12px;
+    display: block;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}

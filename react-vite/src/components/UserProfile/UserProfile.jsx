@@ -168,6 +168,7 @@ const handleDeposit = (e, money)=> {
       </div>
       <>
       {/* ADD FUNDS BUTTON */}
+      <div className="addFundsContainer">
         <h2 className="addFunds">Add Funds</h2>
           <p className="userAccountBalance">Account balance: {user.account_balance}</p>
           <label className="addFunds">                 
@@ -178,8 +179,11 @@ const handleDeposit = (e, money)=> {
                   onChange={(e) => setMoney(e.target.value)}
               />   
           </label> 
+          <div class="addFundsButtons">
           <button type="button" onClick={(e) => handleDeposit(e, money)}>Deposit</button>
           <button type="button" >Withdraw</button>
+          </div>
+          </div>
       </>
       <div>
         <StockTickerAnimation />

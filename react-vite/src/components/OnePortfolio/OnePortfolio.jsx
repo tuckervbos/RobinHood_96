@@ -167,6 +167,8 @@ function OnePortfolio() {
 
 	return (
 		<>
+		<div className="page-center-wrapper2">
+		<div className="centered-container2">
 			{portfolio && portfolio.length > 0 ? (
 				<>
 					<h2 className="PortfolioTitle">{portfolio[0].portfolio_name}</h2>
@@ -289,6 +291,8 @@ function OnePortfolio() {
 			) : (
 				<div>Loading...</div>
 			)}
+		</div>
+		</div>
 		</>
 	);
 }
