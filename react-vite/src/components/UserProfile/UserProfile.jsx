@@ -106,6 +106,7 @@ const handleEdit = async (e, username, firstname, lastname, email) => {
     }
     console.log("FRONT dispatch TEST= ", username, firstname, lastname, email )
     dispatch(editUser({username, firstname, lastname, email,userId: user.id})); //!!!!
+    dispatch(getUserById(user.id))
     setShowEdit(false);
 };
 
@@ -127,7 +128,7 @@ const editEvent = (e) => { //!DOES THE EDIT EVENT NEED THE USER OBJ??? (I THINK 
   
 const [money, setMoney] = useState();
 
-const handleDeposite = (e, money)=> {
+const handleDeposit = (e, money)=> {
   e.preventDefault();
   e.stopPropagation();
   dispatch(depositFunds({money,userId:user.id}))
