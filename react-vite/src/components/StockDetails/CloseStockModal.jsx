@@ -7,7 +7,7 @@ function CloseStockModal({ stockId }) {
 
 	const handleClose = () => {
 		dispatch(closeStock(stockId));
-		navigate(`/Stocks`);
+		navigate(`/stocks`);
 	};
 
 	return (
@@ -15,7 +15,7 @@ function CloseStockModal({ stockId }) {
 			<h2>Close Stock</h2>
 			<p>Are you sure you want to close this stock?</p>
 			<button onClick={handleClose}>Yes</button>
-			<button onClick={() => navigate(`/Stocks/${stockId}`)}>No</button>
+			<button onClick={() => navigate(`/stocks/${stockId}`)}>No</button>
 		</div>
 	);
 }

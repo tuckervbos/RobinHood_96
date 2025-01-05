@@ -1,82 +1,47 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import OpenModalButton from "./OpenModalButton";
-import CloseStockModal from "./CloseStockModal";
+import { useParams, useNavigate } from "react-router-dom";
+import { showOneStockThunk } from "../../redux/stock";
+import WatchlistSelectionModal from "../WatchlistSelectionModal/WatchlistSelectionModal";
+import "./StockDetails.css";
 
 function StockDetails() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { stockId } = useParams();
-	const StockDetails = useSelector((state) => state.stockDetails);
+	const { stock_id } = useParams();
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	console.log("Stock ID from params:", stock_id);
+	const stock = useSelector((state) => state.stock.currentStock);
 	const sessionUser = useSelector((state) => state.session.user);
 
 	useEffect(() => {
-		dispatch(StockDetails(stockId));
-	}, [dispatch, stockId]);
+		dispatch(showOneStockThunk(stock_id));
+	}, [dispatch, stock_id]);
+
+	const openModal = () => setIsModalOpen(true);
+	const closeModal = () => setIsModalOpen(false);
+
+	if (!stock) return <p>Stock not found.</p>;
 
 	return (
-		<>
-			{StockDetails && (
+		<div className="stock-details">
+			<h1>{stock.company_name}</h1>
+			<h3>Price: ${stock.price}</h3>
+			<div>
+				<img src={stock.graph_image} alt={`${stock.company_name} graph`} />
+			</div>
+			<p>{stock.description}</p>
+			{sessionUser && (
 				<div>
-					<header>
-						<div>logo</div>
-						<input type="text" placeholder="search-bar" />
-						<nav>
-							<a href="/portfolios">portfolios</a>
-							<a href="/watchlist">watchlist</a>
-							<a href="/profile">profile</a>
-						</nav>
-					</header>
-					<main>
-						<section>
-							<h1>{StockDetails.name}</h1>
-							<h3>{`Price: ${StockDetails.price}`}</h3>
-						</section>
-						<section>
-							<div>
-								<img
-									src={
-										StockDetails.StockImages?.find((image) => image.preview)
-											?.url
-									}
-									alt="Stock Preview"
-								/>
-							</div>
-							<div>
-								<button onClick={() => alert("Buy")}>Buy</button>
-								<button onClick={() => alert("Sell")}>Sell</button>
-								<button onClick={() => alert("Add to List")}>
-									Add to List
-								</button>
-							</div>
-						</section>
-						<section>
-							<h2>com-info</h2>
-							<p>{StockDetails.description}</p>
-							<h2>
-								Owned by {StockDetails.UserId.firstName}{" "}
-								{StockDetails.UserId.lastName}
-							</h2>
-						</section>
-						<section>
-							<h2>chat-gpt</h2>
-							{/* placeholder */}
-						</section>
-						<div>
-							<h3>{StockDetails.UserId.firstName}</h3>
-							{sessionUser && sessionUser.id === StockDetails.UserId && (
-								<OpenModalButton
-									buttonText="Close"
-									modalComponent={<CloseStockModal stockId={StockDetails.id} />}
-									onModalClose={() => navigate(`/Stocks`)}
-								/>
-							)}
-						</div>
-					</main>
+					<button onClick={openModal}>Add to Watchlist</button>
 				</div>
 			)}
-		</>
+			<button onClick={() => navigate("/stocks")}>Back to Stocks</button>
+
+			{isModalOpen && (
+				<WatchlistSelectionModal stockId={stock.id} closeModal={closeModal} />
+			)}
+		</div>
 	);
 }
 
