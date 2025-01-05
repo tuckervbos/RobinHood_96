@@ -52,15 +52,12 @@ export const showAllStocksSearchThunk = (input) => async (dispatch) => {
 };
 
 export const showOneStockThunk = (stockId) => async (dispatch) => {
-	console.log("Fetching stock with ID:", stockId);
 	const res = await fetch(`/api/stocks/${stockId}`);
 	if (res.ok) {
 		const data = await res.json();
-		console.log("Stock data fetched:", data);
 		dispatch(showOneStock(data));
 	} else {
 		const error = await res.json();
-		console.error("Error fetching stock:", error);
 		throw error;
 	}
 };

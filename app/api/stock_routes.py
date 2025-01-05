@@ -11,8 +11,7 @@ def all_stocks():
     return jsonify([stock.to_dict() for stock in stocks]), 200
 
 # Get a single stock by stock ID
-@stock_routes.route('/<int:stock_id>')
-@login_required
+@stock_routes.route('/<int:stock_id>', methods=["GET"])
 def stock(stock_id):
     stock = Stock.query.filter_by(id=stock_id).first()
     if stock:
