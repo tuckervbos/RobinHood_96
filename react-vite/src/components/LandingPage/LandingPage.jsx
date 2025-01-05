@@ -1,4 +1,3 @@
-// import Navigation from "../Navigation/Navigation";
 import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
 import StockTickerAnimation from "../StockTickerAnimation/StockTickerAnimation";
