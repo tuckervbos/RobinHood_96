@@ -78,6 +78,7 @@ export const createPortfolio = (name) => async (dispatch) => {
         body: JSON.stringify({name})
     })
     const response = await request.json();
+    
     dispatch(createPortfolioAO(response));
     return response;
 };
@@ -114,7 +115,6 @@ export const sellStock = (info) => async (dispatch) => {
 
 //Buy stock (from portfolio page)
 export const buyStock = (info) => async (dispatch) => {
-    console.log("STORE= ", info)
     const request = await fetch(`/api/portfolios/buy`, {
         method: "PATCH",
         headers: {

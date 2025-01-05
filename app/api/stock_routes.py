@@ -66,6 +66,8 @@ def add_stock(stock_id):
     data = request.get_json()
     watchlist_name = data.get("watchlist_name")
     stock = Stock.query.get(stock_id)
+    watchlist = Watchlist.query.filter_by(watchlist_name=data["watchlist_name"]).first()
+    
     if not stock:
         return jsonify({"message": "Stock not found"}), 404
 

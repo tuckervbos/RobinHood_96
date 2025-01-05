@@ -22,7 +22,12 @@ def create_portfolio():
         )
         db.session.add(portfolio)
         db.session.commit()
-        return jsonify(portfolio.to_dict()), 201
+        returnPortfolio= {
+            "portfolio_id": portfolio.id,
+            "portfolio_name":portfolio.portfolio_name,
+            "user_id": portfolio.user_id
+        }
+        return jsonify(returnPortfolio), 201
     except KeyError as e:
         return jsonify({"error": f"Missing field: {str(e)}"}), 400
     except Exception as e:
@@ -104,7 +109,7 @@ def update_portfolio(portfolio_id):
     """
     data = request.get_json()
     portfolio = Portfolio.query.filter_by(id=portfolio_id, user_id=current_user.id).first()
-    print("PORT DATA", portfolio)
+    
     if not portfolio:
         return jsonify({"error": "Portfolio not found"}), 404
     try:
@@ -214,7 +219,6 @@ def delete_stock_portfolio():
     if not stock:
         return jsonify({"error": "stock not found"}), 404
     sellPrice = stock.price * stock.quantity
-    print("BACKEND TEST1= ", sellPrice)
     current_user.account_balance += sellPrice
     db.session.delete(stock)
     db.session.commit()
