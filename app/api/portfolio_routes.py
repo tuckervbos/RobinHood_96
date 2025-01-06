@@ -196,16 +196,52 @@ def buy_portfolio():
     """
     Buy a stock in a particular portfolio
     """
+    # data = request.get_json()
+    # stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
+    # if not stock:
+    #     return jsonify({"error": "stock not found"}), 404
+    # if current_user.account_balance <= 0:
+    #     return jsonify({"error": "Insufficient funds"}), 400
+    # current_user.account_balance -= stock.price
+    # stock.quantity += 1
+    # db.session.commit()
+    # return jsonify(stock.to_dict()), 200
+       
     data = request.get_json()
-    stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
+    portfolio_id = data['info']['portfolioId']
+    stock_id = data['info']['stockId']
+
+    portfolio = Portfolio.query.filter_by(id=portfolio_id, user_id=current_user.id).first()
+    if not portfolio:
+        return jsonify({"error": "Portfolio not found"}), 404
+
+    stock = Stock.query.get(stock_id)
     if not stock:
-        return jsonify({"error": "stock not found"}), 404
-    if current_user.account_balance <= 0:
+        return jsonify({"error": "Stock not found"}), 404
+
+    portfolio_stock = PortfolioStock.query.filter_by(portfolio_id=portfolio_id, stock_id=stock_id).first()
+
+    if not portfolio_stock:
+        portfolio_stock = PortfolioStock(
+            portfolio_id=portfolio_id,
+            stock_id=stock_id,
+            quantity=1
+        )
+        db.session.add(portfolio_stock)
+    else:
+        portfolio_stock.quantity += 1
+
+    if current_user.account_balance < stock.price:
         return jsonify({"error": "Insufficient funds"}), 400
     current_user.account_balance -= stock.price
-    stock.quantity += 1
+
     db.session.commit()
-    return jsonify(stock.to_dict()), 200
+    return jsonify({
+        "portfolio_id": portfolio_id,
+        "stock_id": stock_id,
+        "quantity": portfolio_stock.quantity,
+        "updated_balance": current_user.account_balance
+    }), 200
 
 
 @portfolio_routes.route('/deleteStock', methods=['DELETE'])
