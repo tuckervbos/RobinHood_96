@@ -19,24 +19,24 @@ function StockDetails() {
 	const sessionUser = useSelector((state) => state.session.user);
 	const [selectedPortfolioId, setSelectedPortfolioId] = useState(null);
 	const userPortfolios = useSelector((state) => state.portfolios.allPortfolios);
-
+	
 	useEffect(() => {
 		dispatch(showOneStockThunk(stock_id));
 		dispatch(getAllPortfolios());
 	}, [dispatch, stock_id]);
-
+	console.log('ACC=  =', sessionUser.account_balance)
 	const openModal = () => setIsModalOpen(true);
 	const closeModal = () => setIsModalOpen(false);
 
 	const handleBuyStock = () => {
-		if (selectedPortfolioId) {
+		if (selectedPortfolioId && (sessionUser.account_balance - stock.price >= 0)) {
 			dispatch(
 				buyStock({ portfolioId: selectedPortfolioId, stockId: stock_id })
 			)
 				.then(() => alert("Stock added successfully!"))
 				.catch((err) => alert(err.message || "Something went wrong."));
 		} else {
-			alert("Please select a portfolio.");
+			alert("Invalid funds/Select a portfolio");
 		}
 	};
 
