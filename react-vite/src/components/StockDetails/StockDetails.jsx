@@ -24,7 +24,7 @@ function StockDetails() {
 		dispatch(showOneStockThunk(stock_id));
 		dispatch(getAllPortfolios());
 	}, [dispatch, stock_id]);
-	console.log('ACC=  =', sessionUser.account_balance)
+	console.log('ACC=  =', sessionUser?.account_balance)
 	const openModal = () => setIsModalOpen(true);
 	const closeModal = () => setIsModalOpen(false);
 
