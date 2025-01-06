@@ -43,9 +43,10 @@ function StockDetails() {
 	if (!stock) return <p>Stock not found.</p>;
 
 	return (
-		<div className="stock-details">
-			<StockTickerAnimation />
+	<>
 			<SearchBar />
+			<StockTickerAnimation />
+		<div className="stock-details">
 			<h1>{stock.company_name}</h1>
 			<h3>Price: ${stock.price}</h3>
 			<div>
@@ -79,6 +80,7 @@ function StockDetails() {
 			<AIAssistant />
 			<Footer />
 		</div>
+	</>
 	);
 }
 

@@ -1,9 +1,17 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { showWatchlistsThunk } from "../../redux/watchlist";
 import "./MiniWatchlist.css";
+import { useEffect } from "react";
 
 const MiniWatchlist = () => {
+	const dispatch = useDispatch();
+
 	const watchlists = useSelector((state) => state.watchlist.watchlists);
+
+	useEffect (() => {
+		dispatch(showWatchlistsThunk());
+	}, [dispatch])
 
 	if (!watchlists || watchlists.length === 0) {
 		return <p>No watchlists available. Create your first watchlist!</p>;
