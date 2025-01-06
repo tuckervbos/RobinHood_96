@@ -4,7 +4,7 @@
   /* height: 100vh; */
 }
 
-.top {
+.userProfileName {
     display: grid;
     align-items: center;
     padding: 10px 20px;
@@ -12,7 +12,7 @@
     /* padding-block: 10px; */
     border-block: 1px solid black;
     width: 50%;
-    height: 150px;
+    height: 80px;
 }
 
 .top h1 {
@@ -21,7 +21,7 @@
     text-align: center;
 }
 
-.top button {
+/* .top button {
     width: 125px;
     color: white;
     background-color: black;
@@ -33,8 +33,7 @@
 .top button:hover {
     width: 135px;
     height: 30px;
-}
-
+} */
 
 .profileSec1 {
   display: flex;
@@ -176,9 +175,9 @@
   border: 1px solid black;
 }
 
-.profileSec2 {
+/* .profileSec2 {
   height: 70vh;
-}
+} */
 
 .portfolioWatchlist {
   display: grid;

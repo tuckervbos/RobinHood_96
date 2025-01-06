@@ -23,6 +23,7 @@ import CustomModal from "../AllPortfolios/CustomModal";
 
 import "./UserProfile.css";
 import SearchBar from "../SearchBar/SearchBar";
+import Footer from "../Footer/Footer";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -149,7 +150,7 @@ const UserProfile = () => {
         <SearchBar />
       </div>
       <div className="userProfile">
-        <div className="top">
+        <div className="userProfileName">
           <h1>{user.username} Profile</h1>
         </div>
         <div className="profileSec1">
@@ -274,6 +275,7 @@ const UserProfile = () => {
           </div>
         </div>
       </div>
+      <Footer />
       <>
         {showDelete && (
           <CustomModal onClose={showModal}>

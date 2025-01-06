@@ -47,6 +47,10 @@
 }
 
 /* Portfolio items */
+.home-portfolio-ul {
+	padding: 0;
+}
+
 .portfolio-item {
 	list-style: none;
 	margin: 10px 0;

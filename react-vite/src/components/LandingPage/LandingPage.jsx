@@ -40,7 +40,7 @@ const LandingPage = () => {
 				<h1 className="hero-title">A New Legend for a New Era</h1>
 				<p className="hero-subtitle">
 					A trading platform in your browser for free. Now available to all
-					Robinhood customers.
+					Group 96 Investors customers.
 				</p>
 				<button
 					className="hero-explore-button"
@@ -79,8 +79,8 @@ const LandingPage = () => {
 
 			<section className="crypto-section">
 				<div className="crypto-div">
-					<h1>Robinhood Crypto</h1>
-					<p>Get started with Robinhood Crypto. Trade crypto 24/7.</p>
+					<h1>Group 96 Investors Crypto</h1>
+					<p>Get started with Group 96 Investors Crypto. Trade crypto 24/7.</p>
 					<button
 						className="crypto-learn-more-button"
 						onClick={() => alert("New feature coming soon!")}
@@ -97,7 +97,7 @@ const LandingPage = () => {
 			/>
 
 			<section className="protection-guarantee-section">
-				<h2>Robinhood Protection Guarantee</h2>
+				<h2>Group 96 Investors Protection Guarantee</h2>
 				<button
 					className="protection-guarantee-button"
 					onClick={() => alert("New feature coming soon!")}
@@ -117,7 +117,7 @@ const LandingPage = () => {
 					className="better-investor-button"
 					onClick={() => navigate("/signup")}
 				>
-					Sign up to access Robinhood Learn
+					Sign up to access Group 96 Investors Learn
 				</button>
 			</section>
 

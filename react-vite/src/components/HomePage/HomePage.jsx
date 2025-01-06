@@ -8,6 +8,7 @@ import "./HomePage.css";
 import SearchBar from "../SearchBar/SearchBar";
 import AIAssistant from "../AiAssistant/AiAssistant";
 import StockTickerAnimation from "../StockTickerAnimation/StockTickerAnimation";
+import Footer from "../Footer/Footer";
 
 const HomePage = () => {
 	const dispatch = useDispatch();
@@ -22,9 +23,10 @@ const HomePage = () => {
 	return (
 		<div className="homepage-container">
 			<div className="main-content">
+			<SearchBar />
 				<StockTickerAnimation />
 				<div className="welcome-text">
-					<h1>Welcome to Robinhood</h1>
+					<h1>Welcome to Group 96 Investors</h1>
 					<p>Start managing your investments, watchlists, and portfolios.</p>
 				</div>
 				<div className="main-graphic">
@@ -38,7 +40,6 @@ const HomePage = () => {
 
 				<div className="stock-links">
 					<h2>Discover Investments</h2>
-					<SearchBar />
 					<div className="stocks-grid">
 						{stocks &&
 							stocks.slice(0, 20).map((stock) => (
@@ -63,7 +64,7 @@ const HomePage = () => {
 				<section>
 					<h2>Your Portfolios</h2>
 					{portfolios && portfolios.length > 0 ? (
-						<ul>
+						<ul className="home-portfolio-ul">
 							{portfolios.map((portfolio) => (
 								<li key={portfolio.id} className="portfolio-item">
 									<Link to={`/portfolios/${portfolio.portfolio_id}`}>
@@ -82,6 +83,7 @@ const HomePage = () => {
 					)}
 				</section>
 			</div>
+			<Footer />
 		</div>
 	);
 };

@@ -67,7 +67,7 @@
 }
 
 .footer-branding {
-	font-size: 100px;
+	font-size: 8vw;
 	font-weight: bold;
 }
 
@@ -96,9 +96,30 @@
 	margin-bottom: 8px;
 }
 
+.team {
+	display: grid;
+	justify-items: center;
+}
+
+.team-member {
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+}
+
 .team-link a {
 	margin: 5px;
 	color: #b0bec5;
 	font-size: 22px;
 	transition: color 0.3s ease;
+}
+
+@media screen and (max-width: 700px) {
+	.team-member {
+		display: grid;
+	}
+	.footer-columns {
+		display: grid;
+		text-align: center;
+	}
 }

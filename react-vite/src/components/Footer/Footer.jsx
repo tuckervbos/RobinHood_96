@@ -82,18 +82,18 @@ const Footer = () => {
 					<div className="footer-legal">
 						<h4>All investing involves risk</h4>
 						<p>
-							Brokerage services are offered through Robinhood Financial LLC
+							Brokerage services are offered through Group 96 Investors Financial LLC
 							(&quot;RHF&quot;), a registered broker dealer (member SIPC), and
-							clearing services through Robinhood Securities, LLC
+							clearing services through Group 96 Investors Securities, LLC
 							(&quot;RHS&quot;), a registered broker dealer (member SIPC).
 						</p>
 						<p>
-							Cryptocurrency services are offered through Robinhood Crypto, LLC
+							Cryptocurrency services are offered through Group 96 Investors Crypto, LLC
 							(&quot;RHC&quot;) (NMLS ID: 1702840). Cryptocurrency held through
-							Robinhood Crypto is not FDIC insured or SIPC protected.
+							Group 96 Investors Crypto is not FDIC insured or SIPC protected.
 						</p>
 						<p>
-							The Robinhood spending account is offered through Robinhood Money,
+							The Group 96 Investors spending account is offered through Group 96 Investors Money,
 							LLC (&quot;RHY&quot;) (NMLS ID: 1990968), a licensed money
 							transmitter.
 						</p>
@@ -102,17 +102,18 @@ const Footer = () => {
 			</div>
 
 			<div className="footer-bottom">
-				<p>© 2024 RobinHood. All rights reserved.</p>
+				<p>© 2024 Group 96 Investors. All rights reserved.</p>
 				<p>
 					This is a cloned website built as a portfolio project for App Academy.
 					In addition to the two complete CRUD operations, we also attempted to
 					implement a search function and incorporated AI applications.
 				</p>
-				<h1 className="footer-branding">Robinhood</h1>
+				<h1 className="footer-branding">Group 96 Investors</h1>
 			</div>
 
 			<div className="team">
 				<h4>Meet our team!</h4>
+				<div className="team-member">
 				<div className="member-info">
 					<p>Xiaoxue Wang</p>
 					<div className="team-link">
@@ -176,6 +177,7 @@ const Footer = () => {
 							<FaLinkedin />
 						</a>
 					</div>
+				</div>
 				</div>
 			</div>
 		</footer>
