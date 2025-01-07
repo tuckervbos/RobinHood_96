@@ -27,6 +27,14 @@ const createPortfolioAO = (portfolio) => {
     }
 };
 
+const REMOVE_PORTFOLIO = "portfolios/removePortfolio";
+const removePortfolioAO = (portfolioId) => {
+    return {
+        type: REMOVE_PORTFOLIO,
+        payload: portfolioId
+    }
+};
+
 /***********************************************************************************************************************************************/
 //*                            THUNKS
 /***********************************************************************************************************************************************/
@@ -55,17 +63,21 @@ export const getOnePortfolio = (portfolioId) => async (dispatch) => {
 
 //Delete portfolio
 export const deletePortfolio = (portfolioId) => async (dispatch) => {
-    const request = await fetch(`/api/portfolios/${portfolioId}`,{
+    const res = await fetch(`/api/portfolios/${portfolioId}`,{
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
         }
     })
-    const response = await request.json();
-    const newPortfolioList = await fetch(`/api/portfolios/`);
-    const newPortfolioListResponse = await newPortfolioList.json();
-    dispatch(getAllPortfolios(newPortfolioListResponse));
-    return response; 
+
+    if (res.ok) {
+		dispatch(removePortfolioAO(portfolioId));
+        dispatch(getAllPortfolios())
+	} else {
+		const error = await res.json();
+		throw error;
+	}
+
 };
 
 //Create portfolio
@@ -129,7 +141,7 @@ export const buyStock = (info) => async (dispatch) => {
 
 //Delete stock (from portfolio page)
 export const deleteStock = (info) => async (dispatch) => {
-    const request = await fetch(`/api/portfolios/deleteStock`, {
+    const request = await fetch(`/api/portfolios/deletestock`, {
         method: "DELETE",
         headers: {
             'Content-Type': 'application/json',
@@ -155,6 +167,11 @@ const portfoliosReducer = (state = initialState, action) => {
             return {...state, singlePortfolio: action.payload}
         case CREATE_PORTFOLIO:
             return {...state, allPortfolios: [...state.allPortfolios, action.payload]}
+        case REMOVE_PORTFOLIO: {   
+            const updatedPortfolios = state.allPortfolios.filter(
+                (portfolio) => portfolio.id !== action.payload);
+            return { ...state, allPortfolios: updatedPortfolios };
+            }
         default: 
             return state;
     }

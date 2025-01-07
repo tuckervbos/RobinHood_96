@@ -131,43 +131,49 @@ def delete_portfolio(portfolio_id):
     if not portfolio:
         return jsonify({"error": "Portfolio not found"}), 404
     
-    #query all stocks in portfolio
-    stocks = PortfolioStock.query.filter_by(portfolio_id=portfolio_id).all()
-    # print("BACK END TEST= ",stocks)
-    # print("old BALANCE",current_user.account_balance)
+    portfolio_stocks = PortfolioStock.query.filter_by(portfolio_id=portfolio_id).all()
+    if not portfolio_stocks:
+        db.session.delete(portfolio)
+        db.session.commit()
+        return jsonify({"message": "Portfolio deleted successfully"}), 200
+    
     sellAmount = 0
-    for stock in stocks:
-        sellAmount += stock.price * stock.quantity
-        #print(f"sellAMount: {sellAmount}, Stock ID: {stock.stock_id}, Portfolio ID: {stock.portfolio_id}")
-    #add portfolio.price to users accountbalance
+    for portfolio_stock in portfolio_stocks:
+        price = portfolio_stock.price if portfolio_stock.price is not None else 100 
+        quantity = portfolio_stock.quantity if portfolio_stock.quantity is not None else 2 
+        sellAmount += price * quantity
+
     current_user.account_balance += sellAmount
-    # print("NEW BALANCE",current_user.account_balance)
+
+    for portfolio_stock in portfolio_stocks:
+        db.session.delete(portfolio_stock)
 
     db.session.delete(portfolio)
     db.session.commit()
+
     return jsonify({"message": "Portfolio deleted successfully"}), 200
 
 
 # Delete stock from user's portfolio
 # Removes a stock from the current user's portfolio.
 # Refunds stock price to user's account balance.
-@portfolio_routes.route('/<int:stock_id>/delete', methods=['DELETE'])
-@login_required
-def delete_stock_from_portfolio(stock_id):
-    portfolio_entry = Portfolio.query.filter_by(user_id=current_user.id, stock_id=stock_id).first()
-    if not portfolio_entry:
-        return jsonify({"message": "Stock not found in portfolio"}), 404
+# @portfolio_routes.route('/<int:stock_id>/delete', methods=['DELETE'])
+# @login_required
+# def delete_stock_from_portfolio(stock_id):
+#     portfolio_entry = Portfolio.query.filter_by(user_id=current_user.id, stock_id=stock_id).first()
+#     if not portfolio_entry:
+#         return jsonify({"message": "Stock not found in portfolio"}), 404
 
-    user = current_user
-    # user.account_balance += portfolio_entry.shares * portfolio_entry.price
+#     user = current_user
+#     # user.account_balance += portfolio_entry.shares * portfolio_entry.price
 
-    db.session.delete(portfolio_entry)
-    db.session.commit()
+#     db.session.delete(portfolio_entry)
+#     db.session.commit()
 
-    return jsonify({
-        "message": "Stock removed from portfolio successfully",
-        "updated_balance": user.account_balance
-    }), 200
+#     return jsonify({
+#         "message": "Stock removed from portfolio successfully",
+#         "updated_balance": user.account_balance
+#     }), 200
 
 
 @portfolio_routes.route('/sell', methods=['PATCH'])
@@ -176,18 +182,54 @@ def sell_portfolio():
     """
     Sell a stock in a particular portfolio
     """
-    data = request.get_json()
-    stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
-    if not stock:
-        return jsonify({"error": "stock not found"}), 404
+    # data = request.get_json()
+    # stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
+    # if not stock:
+    #     return jsonify({"error": "stock not found"}), 404
 
-    if stock.quantity <= 0:
-        return jsonify({"error": "Insufficient quantity"}), 400
+    # if stock.quantity <= 0:
+    #     return jsonify({"error": "Insufficient quantity"}), 400
+    # current_user.account_balance += stock.price
+    # stock.quantity -= 1
+
+    # db.session.commit()
+    # return jsonify(stock.to_dict()), 200
+    data = request.get_json()
+
+    portfolio_id = data['info']['portfolioId']
+    stock_id = data['info']['stockId']
+
+    portfolio = Portfolio.query.filter_by(id=portfolio_id, user_id=current_user.id).first()
+    if not portfolio:
+        return jsonify({"error": "Portfolio not found"}), 404
+
+    stock = Stock.query.get(stock_id)
+    if not stock:
+        return jsonify({"error": "Stock not found"}), 404
+
+    portfolio_stock = PortfolioStock.query.filter_by(portfolio_id=portfolio_id, stock_id=stock_id).first()
+
+    # if not portfolio_stock:
+    #     portfolio_stock = PortfolioStock(
+    #         portfolio_id=portfolio_id,
+    #         stock_id=stock_id,
+    #         quantity=1
+    #     )
+    #     db.session.add(portfolio_stock)
+    # else:
+    portfolio_stock.quantity -= 1
+
     current_user.account_balance += stock.price
-    stock.quantity -= 1
 
     db.session.commit()
-    return jsonify(stock.to_dict()), 200
+    return jsonify({
+        "portfolio_id": portfolio_id,
+        "stock_id": stock_id,
+        "quantity": portfolio_stock.quantity,
+        "updated_balance": current_user.account_balance
+    }), 200
+   
+
 
 
 @portfolio_routes.route('/buy', methods=['PATCH'])
@@ -244,18 +286,28 @@ def buy_portfolio():
     }), 200
 
 
-@portfolio_routes.route('/deleteStock', methods=['DELETE'])
+@portfolio_routes.route('/deletestock', methods=['DELETE'])
 @login_required
 def delete_stock_portfolio():
     """
     Delete a stock from a particular portfolio, sells all shares
     """
     data = request.get_json()
-    stock = PortfolioStock.query.filter_by(portfolio_id=data['info']['portfolioId'], stock_id=data['info']['stockId']).first()
-    if not stock:
-        return jsonify({"error": "stock not found"}), 404
-    sellPrice = stock.price * stock.quantity
-    current_user.account_balance += sellPrice
-    db.session.delete(stock)
+    portfolio_id = data['info']['portfolioId']
+    stock_id = data['info']['stockId']
+
+
+    portfolio_stock = PortfolioStock.query.filter_by(portfolio_id=portfolio_id, stock_id=stock_id).first()
+    if not portfolio_stock:
+        return jsonify({"error": "Stock not found in portfolio"}), 404
+    price = portfolio_stock.price if portfolio_stock.price is not None else 100 
+    quantity = portfolio_stock.quantity if portfolio_stock.quantity is not None else 2 
+
+    total_price = price * quantity
+    current_user.account_balance += total_price
+
+    db.session.delete(portfolio_stock)
     db.session.commit()
-    return jsonify(stock.to_dict()), 200
+    return jsonify({
+        "updated_balance": current_user.account_balance
+    }), 200
