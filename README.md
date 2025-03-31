@@ -71,7 +71,7 @@ After setting up your Render Postgres database:
    ```env
    DATABASE_URL=postgresql://...render.com/...
    ```
-2. Run migrations and seeds from your
+2. Run migrations and seeds from your local machine:
 
 ## 📄 License - MIT
 
