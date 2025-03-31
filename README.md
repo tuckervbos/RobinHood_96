@@ -63,6 +63,16 @@ SECRET_KEY=supersecret
 DATABASE_URL=sqlite:///dev.db
 SCHEMA=flask_schema
 
+### 🔧 Database Setup (Production)
+
+After setting up your Render Postgres database:
+
+1. Copy your **external** database URL into your `.env`:
+   ```env
+   DATABASE_URL=postgresql://...render.com/...
+   ```
+2. Run migrations and seeds from your
+
 ## 📄 License - MIT
 
 ## Contributors
