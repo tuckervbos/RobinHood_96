@@ -17,7 +17,7 @@ Built with:
   Users can ask stock-related questions and get tailored advice from an LLM via `/recommendations`.
 
 - 🌐 **RESTful Flask API**  
-  Clean, JSON-based endpoints built using Flask Blueprints and deployed with Gunicorn.
+  Clean, JSON-based endpoints built using Python decorators and Flask Blueprints.
 
 - 🧠 **DeepSeek-OpenAI SDK Integration**  
   Used the community OpenAI-compatible SDK with `base_url="https://api.deepseek.com"` and `OpenAI(api_key=...)`.
@@ -64,3 +64,11 @@ DATABASE_URL=sqlite:///dev.db
 SCHEMA=flask_schema
 
 ## 📄 License - MIT
+
+## Contributors
+
+- Tucker VandenBos
+- Xiaoxue Wang
+- Grayson Slater
+- Bee Thao
+- Rylan Jaggard
