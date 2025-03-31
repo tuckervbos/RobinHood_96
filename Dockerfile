@@ -22,4 +22,4 @@ RUN pip install openai
 
 COPY . .
 
-CMD ["sh", "-c", "flask db upgrade && flask seed all && gunicorn app:app"]
+CMD ["sh", "-c", "flask db upgrade && gunicorn app:app"]
