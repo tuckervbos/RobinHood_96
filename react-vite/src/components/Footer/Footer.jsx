@@ -82,20 +82,22 @@ const Footer = () => {
 					<div className="footer-legal">
 						<h4>All investing involves risk</h4>
 						<p>
-							Brokerage services are offered through Group 96 Investors Financial LLC
-							(&quot;RHF&quot;), a registered broker dealer (member SIPC), and
-							clearing services through Group 96 Investors Securities, LLC
-							(&quot;RHS&quot;), a registered broker dealer (member SIPC).
+							Brokerage services are offered through Group 96 Investors
+							Financial LLC (&quot;RHF&quot;), a registered broker dealer
+							(member SIPC), and clearing services through Group 96 Investors
+							Securities, LLC (&quot;RHS&quot;), a registered broker dealer
+							(member SIPC).
 						</p>
 						<p>
-							Cryptocurrency services are offered through Group 96 Investors Crypto, LLC
-							(&quot;RHC&quot;) (NMLS ID: 1702840). Cryptocurrency held through
-							Group 96 Investors Crypto is not FDIC insured or SIPC protected.
+							Cryptocurrency services are offered through Group 96 Investors
+							Crypto, LLC (&quot;RHC&quot;) (NMLS ID: 1702840). Cryptocurrency
+							held through Group 96 Investors Crypto is not FDIC insured or SIPC
+							protected.
 						</p>
 						<p>
-							The Group 96 Investors spending account is offered through Group 96 Investors Money,
-							LLC (&quot;RHY&quot;) (NMLS ID: 1990968), a licensed money
-							transmitter.
+							The Group 96 Investors spending account is offered through Group
+							96 Investors Money, LLC (&quot;RHY&quot;) (NMLS ID: 1990968), a
+							licensed money transmitter.
 						</p>
 					</div>
 				</div>
@@ -114,70 +116,69 @@ const Footer = () => {
 			<div className="team">
 				<h4>Meet our team!</h4>
 				<div className="team-member">
-				<div className="member-info">
-					<p>Xiaoxue Wang</p>
-					<div className="team-link">
-						<a href="https://github.com/Xiaoxue895">
-							<FaGithub />
-						</a>
-						<a href="https://github.com/Xiaoxue895">
-							{/* dont have linkin now */}
-							<FaLinkedin />
-						</a>
+					<div className="member-info">
+						<p>Xiaoxue Wang</p>
+						<div className="team-link">
+							<a href="https://github.com/Xiaoxue895">
+								<FaGithub />
+							</a>
+							<a href="https://github.com/Xiaoxue895">
+								{/* dont have linkin now */}
+								<FaLinkedin />
+							</a>
+						</div>
 					</div>
-				</div>
 
-				<div className="member-info">
-					<p>Grayson Slater</p>
-					<div className="team-link">
-						<a href="https://github.com/graysonslater">
-							<FaGithub />
-						</a>
-						<a href="https://github.com/graysonslater">
-							{/* dont have linkin now */}
-							<FaLinkedin />
-						</a>
+					<div className="member-info">
+						<p>Grayson Slater</p>
+						<div className="team-link">
+							<a href="https://github.com/graysonslater">
+								<FaGithub />
+							</a>
+							<a href="https://github.com/graysonslater">
+								{/* dont have linkin now */}
+								<FaLinkedin />
+							</a>
+						</div>
 					</div>
-				</div>
 
-				<div className="member-info">
-					<p>Tucker</p>
-					<div className="team-link">
-						<a href="https://github.com/tuckervbos">
-							<FaGithub />
-						</a>
-						<a href="https://github.com/tuckervbos">
-							{/* dont have linkin now */}
-							<FaLinkedin />
-						</a>
+					<div className="member-info">
+						<p>Tucker</p>
+						<div className="team-link">
+							<a href="https://github.com/tuckervbos">
+								<FaGithub />
+							</a>
+							<a href="https://linkedin.com/in/tuckervbos">
+								<FaLinkedin />
+							</a>
+						</div>
 					</div>
-				</div>
 
-				<div className="member-info">
-					<p>Bee Thao</p>
-					<div className="team-link">
-						<a href="https://github.com/Thao88Bee">
-							<FaGithub />
-						</a>
-						<a href="https://github.com/Thao88Bee">
-							{/* dont have linkin now */}
-							<FaLinkedin />
-						</a>
+					<div className="member-info">
+						<p>Bee Thao</p>
+						<div className="team-link">
+							<a href="https://github.com/Thao88Bee">
+								<FaGithub />
+							</a>
+							<a href="https://github.com/Thao88Bee">
+								{/* dont have linkin now */}
+								<FaLinkedin />
+							</a>
+						</div>
 					</div>
-				</div>
 
-				<div className="member-info">
-					<p>Rylan</p>
-					<div className="team-link">
-						<a href="https://github.com/rfjaggard">
-							<FaGithub />
-						</a>
-						<a href="https://github.com/rfjaggard">
-							{/* dont have linkin now */}
-							<FaLinkedin />
-						</a>
+					<div className="member-info">
+						<p>Rylan</p>
+						<div className="team-link">
+							<a href="https://github.com/rfjaggard">
+								<FaGithub />
+							</a>
+							<a href="https://github.com/rfjaggard">
+								{/* dont have linkin now */}
+								<FaLinkedin />
+							</a>
+						</div>
 					</div>
-				</div>
 				</div>
 			</div>
 		</footer>
