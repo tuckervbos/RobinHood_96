@@ -7,7 +7,7 @@ Built with:
 - 🧠 **LLM API**: DeepSeek (OpenAI-compatible SDK)
 - 🐍 **Backend**: Flask + Gunicorn + SQLAlchemy
 - ⚛️ **Frontend**: React
-- ☁️ **Deployment**: Render (Web Service + Static Site)
+- ☁️ **Deployment**: Render (Web Service)
 
 ---
 
