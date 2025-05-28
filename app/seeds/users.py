@@ -15,19 +15,19 @@ def seed_users():
         {'username': 'grayson', 'firstname': 'rich5', 'lastname': 'man', 'email': 'demo5@aa.io', 'password': 'password', 'account_balance': 50000.00},
     ]
 
-    users = []
+    # users = []
     for user_data in users_data:
-        user = User(
+        if not User.query.filter_by(email=user_data['email']).first():
+            user = User(
             username=user_data['username'],
             firstname=user_data['firstname'],
             lastname=user_data['lastname'],
             email=user_data['email'],
             password=user_data['password'], 
             account_balance=user_data['account_balance']
-        )
-        users.append(user)
-
-    db.session.add_all(users)
+            )
+            # users.append(user)
+            db.session.add_all(user)
     db.session.commit()
 
 
