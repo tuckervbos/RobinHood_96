@@ -15,8 +15,11 @@ def seed_users():
         {'username': 'grayson', 'firstname': 'rich5', 'lastname': 'man', 'email': 'demo5@aa.io', 'password': 'password', 'account_balance': 50000.00},
     ]
 
+    existing_emails = {user.email for user in User.query.all()}
     users = []
     for user_data in users_data:
+        if user_data["email"] in existing_emails:
+            continue
         user = User(
             username=user_data['username'],
             firstname=user_data['firstname'],
